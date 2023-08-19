@@ -9,14 +9,14 @@ export const Index: FC = () => {
             <div>
                 <h1>ガゾタンへようこそ</h1>
 
-                <img src="https://cdn.pixabay.com/photo/2018/02/23/22/04/book-bindings-3176776_1280.jpg" alt="" />
+                <img src="https://cdn.pixabay.com/photo/2018/02/23/22/04/book-bindings-3176776_1280.jpg" alt="" width={500} />
 
                 <button>
                     <Link to="login">ログイン</Link>
                 </button>
 
                 <button>
-                    <Link to="about">新規登録</Link>
+                    <Link to="register">新規登録</Link>
                 </button>
 
             </div>

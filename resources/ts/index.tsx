@@ -6,7 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // コンポーネントのインポート
 //import { NavBar } from './components/NavBar';
 import { Layout } from './components/Layout';
-import { Login } from './components/auth/login';
+import { Login } from './components/auth/Login';
+import { Register } from './components/auth/Register';
 import { Top } from './components/Top';
 import { Index } from './components/Index';
 
@@ -20,6 +21,7 @@ root.render(
             <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register/>} />
 
                 {/* 共通レイアウト適応 */}
                 <Route path="/" element={<Layout />}>
