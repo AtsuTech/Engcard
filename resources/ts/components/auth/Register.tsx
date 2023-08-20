@@ -70,7 +70,7 @@ export const Register: FC = () => {
         }
 
 
-        axios.post('http://127.0.0.1:8000/api/register', data).then(function (response: AxiosResponse<Response>) {
+        axios.post('/api/register', data).then(function (response: AxiosResponse<Response>) {
             // 送信成功時の処理
             setIsLoading(false);
             console.log(response.data);
@@ -87,8 +87,8 @@ export const Register: FC = () => {
         })
         .catch(function (error:undefined|any) {
             // 送信失敗時の処理
-            alert('NG');
-            console.log('通信に失敗しました');
+            setIsLoading(false);
+            alert('登録に失敗しました。メールアドレス、パスワードをご確認ください');
             setResponse({
                 message: '',
                 email: '',
