@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,11 @@ Route::middleware(['api'])->group(function ($router){
 
     //ログイン処理
     Route::post('/logout',[LoginController::class,'logout']);
+
+    //パスワードリセットのリクエストのメール送信
+    Route::post('/password/forgot',[PasswordResetController::class,'sendemail']);
+    
+    //パスワードリセット処理
+    Route::post('/password/reset',[PasswordResetController::class,'passwordreset'])->name('password.reset');
+
 });
