@@ -38,4 +38,7 @@ Route::middleware(['api'])->group(function ($router){
 
     //ログイン処理
     Route::post('/login',[LoginController::class,'login']);
+
+    //ログイン処理
+    Route::post('/logout',[LoginController::class,'logout']);
 });
