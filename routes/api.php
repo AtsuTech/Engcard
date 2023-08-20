@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RgisterEmailVerifyController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,6 @@ Route::middleware(['api'])->group(function ($router){
     //承認メールの再送信処理
     Route::get('email/resesnd',[RgisterEmailVerifyController::class,'resend'])->name('verification.resend');
 
+    //ログイン処理
+    Route::post('/login',[LoginController::class,'login']);
 });
