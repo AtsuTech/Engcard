@@ -70,8 +70,7 @@ export const PasswordReset: FC = (props) => {
         })
         .catch(function (error) {
             // 送信失敗時の処理
-            alert('NG');
-            console.log(error);
+            alert('パスワード変更に失敗しました');
 
             setResponse({
                 error_email : error.response.data.errors.email,

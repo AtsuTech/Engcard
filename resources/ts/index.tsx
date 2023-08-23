@@ -13,6 +13,7 @@ import { PasswordForgot } from './components/auth/PasswordForgot';
 import { PasswordReset } from './components/auth/PasswordReset';
 import { Top } from './components/Top';
 import { Index } from './components/Index';
+import { DashBoard } from './components/DashBoard';
 
 
 const container = document.getElementById('app');
@@ -30,6 +31,7 @@ root.render(
                 <Route path="/password/reset" element={<PasswordReset />} />
                 {/* 共通レイアウト適応 */}
                 <Route path="/" element={<Layout />}>
+                    <Route path="/dashboard" element={<DashBoard />} />
                     <Route path="/top" element={<Top />} />
                 </Route>
 
