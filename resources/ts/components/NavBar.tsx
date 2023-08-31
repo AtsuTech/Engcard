@@ -1,17 +1,17 @@
 import { FC } from "react"
 import { Link } from 'react-router-dom';
 import { Logout } from "./auth/Logout";
-
+import { Cookies, useCookies } from "react-cookie";
 export const NavBar: FC = () => {
-
-    const isAuthenticated : string | null = localStorage.getItem('auth_status');
+    
+    const [auth_token, setCookie, removeCookie] = useCookies(["token"]);
     const user_name = localStorage.getItem('user_name');
 
     return (
         <header>
             <h1>ガゾタン</h1>
                 
-            { isAuthenticated == '200' ?  
+            { auth_token.token != null ?
                 <div>
                     <Logout />
                     <div>{user_name}</div>

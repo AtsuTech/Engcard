@@ -60,15 +60,16 @@ export const Login: FC = () => {
 
             // props.setAuth(true);
 
-            //ユーザ名をローカルストレージに保存
+            //ユーザID,ユーザ名,トークン期限をローカルストレージに保存
+            localStorage.setItem('user_id',response.data.user_id);
             localStorage.setItem('user_name',response.data.user_name);
+            localStorage.setItem('expires_in',response.data.expires_in);
 
             //ステータスコードをローカルストレージに保存
-            // localStorage.setItem('status',response.status);
             localStorage.setItem('auth_status',response.status);
 
             //ログイン後の移動先
-            navigate("/");
+            window.location.href = '/dashboard';
 
             
         })

@@ -42,10 +42,11 @@ Route::middleware(['api'])->group(function ($router){
 
     //ログイン処理
     Route::post('/logout',[LoginController::class,'logout']);
+    Route::post('/refresh',[LoginController::class,'refresh']);
 
     //パスワードリセットのリクエストのメール送信
     Route::post('/password/forgot',[PasswordResetController::class,'sendemail']);
-    
+
     //パスワードリセット処理
     Route::post('/password/reset',[PasswordResetController::class,'passwordreset'])->name('password.reset');
 

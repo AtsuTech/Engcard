@@ -70,7 +70,11 @@ class LoginController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        //return $this->respondWithToken(auth()->refresh());
+        return response()->json([
+            'new_token' => auth()->refresh(),
+            'expires_in' =>  date("Y-m-d", mktime(date('H'),date('i'),date('s'),date('n'),date('j') + 20,date('Y'))),
+        ],200);
     }
 
     /**
@@ -84,7 +88,7 @@ class LoginController extends Controller
             'user_name' => $user_name,
             'user_id' => $user_id,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60 * 60 * 24 * 5 //5週間有効
+            'expires_in' =>  date("Y-m-d", mktime(date('H'),date('i'),date('s'),date('n'),date('j') + (auth('api')->factory()->getTTL()/1440),date('Y'))),
         ],200);
     }
 }
