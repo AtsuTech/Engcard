@@ -1,17 +1,14 @@
-// ログインユーザーのみアクセスできる制限をかける関数
+/**  
+* 認証済みユーザーのみアクセスできるページのルーティング処理
+* 
+*/
 import { FC } from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { Outlet } from 'react-router-dom';
-//import { TokenRefresh } from "../TokenRefresh";
 
 
-/**  
-* ログイン処理の際に、ローカルストレージに200ステータスを保存している。
-* cookieに承認トークンを保存しているので、このトークンで承認成功すれば、ログインユーザーのみページのアクセスを許可する。
-* トークンでの承認が失敗した場合、ローカルストレージのステータスを401に上書きしてページのアクセスを拒否する。
-*/
 
 export const AuthRoute:FC = () => {
 
@@ -65,9 +62,10 @@ export const AuthRoute:FC = () => {
         //失敗(トークン有効期限切れor無し)の場合以下はログインへ強制移動
         .catch((error) => { 
             
-            localStorage['auth_status'] = 401;
             setAuthenticated(false);
+            localStorage['auth_status'] = 401;
             window.location.href = '/login';
+            
         });
 
     },[]);
