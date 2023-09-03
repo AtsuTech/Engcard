@@ -54,16 +54,6 @@ export const DashBoard: FC = () => {
                 <li>{me.password}</li>
                 <li>{me.created_at}</li>
             </ul>
-
-            <Link to="/myflashcards">
-                <button className="block mt-5 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">My単語帳</button>
-            </Link>
-            <Link to="/flashcards/create">
-                <button className="block mt-5 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">単語帳を作る</button>
-            </Link>
-            <Link to="/about">
-                <button className="block mt-5 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">暗記する</button>
-            </Link>
         </div>
     );
 
