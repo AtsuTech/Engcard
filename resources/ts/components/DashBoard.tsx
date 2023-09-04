@@ -46,7 +46,7 @@ export const DashBoard: FC = () => {
     },[]);
 
     return(
-        <div className="block w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+        <div className="block rounded-3xl bg-white text-slate-600">
             <h1 className="text-3xl">DASHBOARD</h1>
             <ul>
                 <li>{me.name}</li>

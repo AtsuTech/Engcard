@@ -6,40 +6,35 @@ export const Index: FC = () => {
 
     return (
         <>
-            <div>
-                <h1>Wellcome to SAP_app</h1>
+            <div className="bg-[url('https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_1280.jpg')] 
+                p-20 text-white h-screen"
+                >
+                
+                <h1 className="text-5xl">ようこそGazotanへ</h1>
 
-                <p>
-                    This is spa base project using bellow Frameworks and Librarys.
+                <p className="mt-10">
+                    画像で覚えるweb英単語帳
                 </p>
 
-                <ul>
-                    <li>Laravel</li>
-                    <li>React</li>
-                    <li>TypeScript</li>
-                    <li>JWT</li>
-                </ul>
 
-                <p>
-                    This project is including bellow functions.
+                <p className="mt-10">
+                    アカウントをお持ちの方
                 </p>
 
-                <ul>
-                    <li>register</li>
-                    <li>verify registered email</li>
-                    <li>login</li>
-                    <li>logout</li>
-                    <li>password reset</li>
-                    <li>auth routeing</li>
-                </ul>
-
-
-                <button>
-                    <Link to="login">ログイン</Link>
+                <button 
+                    className="block mt-10 bg-white border border-yellow-500 
+                    w-full h-14 text-yellow-500 ml-auto mr-auto rounded-full 
+                    shadow-lg font-medium text-2xl"
+                    >
+                    <Link to="login" className="block w-full">ログイン</Link>
                 </button>
 
-                <button>
-                    <Link to="register">新規登録</Link>
+                <button 
+                    className="block mt-10 bg-yellow-500 border border-white 
+                    w-full h-14 text-white ml-auto mr-auto rounded-full 
+                    shadow-lg font-medium text-2xl"
+                    >
+                    <Link to="register" className="block w-full">はじめる</Link>
                 </button>
 
             </div>
