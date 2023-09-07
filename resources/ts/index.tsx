@@ -13,9 +13,11 @@ import { PasswordForgot } from './components/auth/PasswordForgot';
 import { PasswordReset } from './components/auth/PasswordReset';
 import { AuthRoute } from './components/auth/AuthRoute';
 import { GuestRoute } from './components/auth/GuestRoute';
-import { Top } from './components/Top';
+import { Home } from './components/Home';
 import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
+import { CreateFlashCard } from './components/CreateFlashCard';
+import { FlashCard } from './components/FlashCard';
 
 
 const container = document.getElementById('app');
@@ -26,7 +28,7 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Index />} />
-
+                <Route path="*" element={<div>404　ページが見つかりません。</div>} />
                 {/* ゲストユーザーのみアクセス可能 */}
                 <Route path='/' element={<GuestRoute />}>
                     <Route path="/login" element={<Login />} />
@@ -44,9 +46,15 @@ root.render(
                     {/* 認証ユーザーのみアクセス可能 */}
                     <Route path='/' element={<AuthRoute />}>
                         <Route path="/dashboard" element={<DashBoard />} />
+                        <Route path="/flashcard/create" element={<CreateFlashCard />} />
                     </Route>
 
-                    <Route path="/top" element={<Top />} />
+                    <Route path="/home" element={<Home />} />
+
+                    <Route path="/flashcard" element={<FlashCard />}>
+                        <Route path=":flashcard_id" element={<FlashCard />} />
+                    </Route>
+
                 </Route>
 
             </Routes>

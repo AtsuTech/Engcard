@@ -14,13 +14,13 @@ export const NavBar: FC = () => {
                 <span className="block text-4xl text-white">Gazotan</span>
                     <ul className="flex">
                         <li className="m-2">
-                            <Link to="/about" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
-                                about
+                            <Link to="/home" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
+                                ホーム
                             </Link>
                         </li>
                         <li className="m-2">
-                            <Link to="/top" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
-                                Top
+                            <Link to="/flashcard/create" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
+                                つくる
                             </Link>
                         </li>
                         <li className="m-2">
