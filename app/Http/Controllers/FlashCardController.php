@@ -34,14 +34,21 @@ class FlashCardController extends Controller
         return response()->json($my_flashcards);
     }
 
-    function delete($id){
+    //単語帳の削除
+    function delete(Request $request){
 
-        $flashcard = FlashCard::findOrFail($id)->delete();
+        $flashcard = FlashCard::findOrFail($request->id)->delete();
         return response()->json(['success' => '削除しました']);
 
     }
 
-
+    //単語帳の更新
+    function update(Request $request){
+        $flashcard = FlashCard::findOrFail($id);
+        $flashcard->title = $request->title;
+        $flashcard->access = $request->access;
+        $flashcard->fill($request->all())->save();
+    }
 
     //新しい単語帳を作成
     function create(Request $request){

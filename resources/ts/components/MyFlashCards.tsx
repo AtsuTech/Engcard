@@ -28,11 +28,11 @@ export const MyFlashCards:FC =() =>{
         const confirm = window.confirm("削除しますが本当によろしいですか？");
 
         if (confirm) {
-            axios.post('/api/flashcard/delete/' + id).then((response) => { 
+            axios.post('/api/flashcard/delete',{id: id}).then((response) => { 
                 alert("削除しました。");
                 setUpdate(true);
             }).catch((error) => { 
-                console.log(error);
+                alert("失敗しました。");
             });
         };
     }
@@ -49,14 +49,17 @@ export const MyFlashCards:FC =() =>{
 
                         
 
-                        <Link to={`/flashcard/${myflashcard.id_encrypt}`} key={myflashcard.id} className="block w-full h-30 mb-5 mt-5 p-2 border border-blue-600 rounded">
+                        <div  key={myflashcard.id} className="block w-full h-30 mb-5 mt-5 p-2 border border-blue-600 rounded">
                             
                             {myflashcard.access == 0?
                                 <div>公開</div>
                                 :
                                 <div className="text-red-600">非公開</div>
                             }
-                            <h5 className="text-2xl">{myflashcard.title}</h5>
+                            <Link to={`/flashcard/${myflashcard.id_encrypt}`}>
+                                <h5 className="text-2xl">{myflashcard.title}</h5>
+                            </Link>
+                            
                             <p>{myflashcard.updated_at}</p>
                             
                             <button className="mr-2 inline-block bg-blue-600 w-14 h-10 text-white rounded-lg shadow-lg font-medium text-1xl">
@@ -69,7 +72,8 @@ export const MyFlashCards:FC =() =>{
                                 削除
                             </button>
 
-                        </Link>
+                        </div>
+                        
            
                     ))
                 }

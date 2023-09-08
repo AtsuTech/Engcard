@@ -61,7 +61,7 @@ Route::middleware(['api'])->group(function ($router){
     Route::get('/flashcard/{id}',[FlashCardController::class,'detail_flashcard']);
 
     //単語帳の詳細
-    Route::post('/flashcard/delete/{id}',[FlashCardController::class,'delete']);
+    Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
 
     //単語帳を新規作成
     Route::post('/flashcard/create',[FlashCardController::class,'create']);
