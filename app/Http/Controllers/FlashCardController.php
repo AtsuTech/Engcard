@@ -28,6 +28,21 @@ class FlashCardController extends Controller
         return response()->json($public_flashcards);
     }
 
+    //認証ユーザーの単語帳を取得
+    function my_flashcards(){
+        $my_flashcards = FlashCard::where('user_id',Auth::id())->get();
+        return response()->json($my_flashcards);
+    }
+
+    function delete($id){
+
+        $flashcard = FlashCard::findOrFail($id)->delete();
+        return response()->json(['success' => '削除しました']);
+
+    }
+
+
+
     //新しい単語帳を作成
     function create(Request $request){
         $flashcard = new FlashCard;

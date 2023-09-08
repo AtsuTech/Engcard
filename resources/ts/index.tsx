@@ -16,6 +16,7 @@ import { GuestRoute } from './components/auth/GuestRoute';
 import { Home } from './components/Home';
 import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
+import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
 import { FlashCard } from './components/FlashCard';
 
@@ -47,6 +48,7 @@ root.render(
                     <Route path='/' element={<AuthRoute />}>
                         <Route path="/dashboard" element={<DashBoard />} />
                         <Route path="/flashcard/create" element={<CreateFlashCard />} />
+                        <Route path="/flashcard/my" element={<MyFlashCards />} />
                     </Route>
 
                     <Route path="/home" element={<Home />} />

@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Link } from 'react-router-dom';
 import { Logout } from "./auth/Logout";
 import { Cookies, useCookies } from "react-cookie";
@@ -26,6 +26,11 @@ export const NavBar: FC = () => {
                         <li className="m-2">
                             <Link to="/dashboard" className="block w-24 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
                                 マイページ
+                            </Link>
+                        </li>
+                        <li className="m-2">
+                            <Link to="/flashcard/my" className="block w-24 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
+                                単語帳
                             </Link>
                         </li>
                     </ul>

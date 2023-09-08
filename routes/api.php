@@ -54,8 +54,14 @@ Route::middleware(['api'])->group(function ($router){
     //公開単語帳を全て取得
     Route::get('/flashcard/public',[FlashCardController::class,'public_flashcard']);
 
+    //認証ユーザーの単語帳だけを全て取得
+    Route::get('/flashcard/my',[FlashCardController::class,'my_flashcards']);
+
     //単語帳の詳細
     Route::get('/flashcard/{id}',[FlashCardController::class,'detail_flashcard']);
+
+    //単語帳の詳細
+    Route::post('/flashcard/delete/{id}',[FlashCardController::class,'delete']);
 
     //単語帳を新規作成
     Route::post('/flashcard/create',[FlashCardController::class,'create']);
