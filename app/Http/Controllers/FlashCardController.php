@@ -34,22 +34,6 @@ class FlashCardController extends Controller
         return response()->json($my_flashcards);
     }
 
-    //単語帳の削除
-    function delete(Request $request){
-
-        $flashcard = FlashCard::findOrFail($request->id)->delete();
-        return response()->json(['success' => '削除しました']);
-
-    }
-
-    //単語帳の更新
-    function update(Request $request){
-        $flashcard = FlashCard::find($request->id);
-        $flashcard->title = $request->title;
-        $flashcard->access = $request->access;
-        $flashcard->save();
-    }
-
     //新しい単語帳を作成
     function create(Request $request){
         //$flashcard = new FlashCard;
@@ -64,4 +48,22 @@ class FlashCardController extends Controller
         $id = encrypt($id);
         return response()->json(['success' => '作成できました','id' =>  $id]);
     }
+
+    //単語帳の更新
+    function update(Request $request){
+        $flashcard = FlashCard::find($request->id);
+        $flashcard->title = $request->title;
+        $flashcard->access = $request->access;
+        $flashcard->save();
+    }
+
+    //単語帳の削除
+    function delete(Request $request){
+
+        $flashcard = FlashCard::findOrFail($request->id)->delete();
+        return response()->json(['success' => '削除しました']);
+
+    }
+
+
 }

@@ -102,7 +102,7 @@ export const Register: FC = () => {
     return (
         <>
             { process ? 
-                <div>
+                <div className="block w-2/3 ml-auto mr-auto p-5 text-slate-600">
                     <div>
                         { isLoading ? '送信中....' : '' }
                     </div>
@@ -112,18 +112,42 @@ export const Register: FC = () => {
 
                         <span>名前</span>
                         <span className="block text-red-500">{response.error_name}</span>
-                        <input type="text" name="name" value={user.name} onChange={handleInput} className="input_style"/>
+                        <input type="text" 
+                            name="name" 
+                            value={user.name} 
+                            onChange={handleInput} 
+                            placeholder="名前"
+                            className="w-full h-10 border border-gray-600 /rounded"
+                        />
 
-                        <span>メールアドレス</span>
+                        {/* <span>メールアドレス</span> */}
                         <span className="block text-red-500">{response.error_email}</span>
-                        <input type="email" name="email" value={user.email}  onChange={handleInput} className="input_style"/>
+                        <input type="email" 
+                            name="email" 
+                            value={user.email}  
+                            onChange={handleInput} 
+                            placeholder="メールアドレス"
+                            className="w-full h-10 border border-gray-600"
+                        />
 
-                        <span>パスワード</span>
+                        {/* <span>パスワード</span> */}
                         <span className="block text-red-500">{response.error_password}</span>
-                        <input type="password" name="password" value={user.password}  onChange={handleInput} className="input_style"/>
+                        <input type="password" 
+                            name="password" 
+                            value={user.password}  
+                            onChange={handleInput} 
+                            placeholder="パスワード"
+                            className="w-full h-10 border border-gray-600"
+                        />
 
-                        <span>パスワード(確認でもう一度入力)</span>
-                        <input type="password" name="password_confirmation" value={user.password_confirmation}  onChange={handleInput} className="input_style"/>
+                        {/* <span>パスワード(確認でもう一度入力)</span> */}
+                        <input type="password" 
+                            name="password_confirmation" 
+                            value={user.password_confirmation}  
+                            onChange={handleInput} 
+                            placeholder="パスワード(確認でもう一度入力)"
+                            className="w-full h-10 border border-gray-600"
+                        />
 
                         <button type="submit" className="block mt-10 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">
                             登録
