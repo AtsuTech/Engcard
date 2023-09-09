@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('flashcards', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->integer('access');
             $table->timestamps();
