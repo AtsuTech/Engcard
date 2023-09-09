@@ -18,7 +18,9 @@ import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
 import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
+import { UpdateFlashCard } from './components/UpdateFlashCard';
 import { FlashCard } from './components/FlashCard';
+
 
 
 const container = document.getElementById('app');
@@ -49,6 +51,9 @@ root.render(
                         <Route path="/dashboard" element={<DashBoard />} />
                         <Route path="/flashcard/create" element={<CreateFlashCard />} />
                         <Route path="/flashcard/my" element={<MyFlashCards />} />
+                        <Route path="/flashcard/update" element={<UpdateFlashCard />}>
+                            <Route path=":flashcard_id" element={<UpdateFlashCard />} />
+                        </Route>
                     </Route>
 
                     <Route path="/home" element={<Home />} />

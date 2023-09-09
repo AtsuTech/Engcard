@@ -63,7 +63,7 @@ export const MyFlashCards:FC =() =>{
                             <p>{myflashcard.updated_at}</p>
                             
                             <button className="mr-2 inline-block bg-blue-600 w-14 h-10 text-white rounded-lg shadow-lg font-medium text-1xl">
-                                <Link to={`/flashcard/my/edit/${myflashcard.id_encrypt}`} className="block w-full">
+                                <Link to={`/flashcard/update/${myflashcard.id_encrypt}`} className="block w-full">
                                     編集
                                 </Link>
                             </button>

@@ -44,10 +44,10 @@ class FlashCardController extends Controller
 
     //単語帳の更新
     function update(Request $request){
-        $flashcard = FlashCard::findOrFail($id);
+        $flashcard = FlashCard::find($request->id);
         $flashcard->title = $request->title;
         $flashcard->access = $request->access;
-        $flashcard->fill($request->all())->save();
+        $flashcard->save();
     }
 
     //新しい単語帳を作成
