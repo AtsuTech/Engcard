@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('word_mean');
             $table->longText('sentence');
             $table->longText('sentence_mean');
+            $table->boolean('memory');
             $table->timestamps();
         });
     }
