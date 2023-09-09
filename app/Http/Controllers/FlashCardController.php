@@ -52,8 +52,16 @@ class FlashCardController extends Controller
 
     //新しい単語帳を作成
     function create(Request $request){
-        $flashcard = new FlashCard;
-        $flashcard->fill($request->all())->save();
-        return response()->json(['success' => '作成できました']);
+        //$flashcard = new FlashCard;
+        //$flashcard->fill($request->all())->save();
+        $id = FlashCard::insertGetId([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'access' => $request->access,
+            "created_at" =>  \Carbon\Carbon::now(), 
+            "updated_at" => \Carbon\Carbon::now(),  
+        ]);
+        $id = encrypt($id);
+        return response()->json(['success' => '作成できました','id' =>  $id]);
     }
 }
