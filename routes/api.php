@@ -7,6 +7,7 @@ use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\FlashCardController;
+use App\Http\Controllers\CardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,9 @@ Route::middleware(['api'])->group(function ($router){
 
     //単語帳の削除
     Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
+
+    //カードの新規作成
+    Route::post('/card/create',[CardController::class,'create']);
 
 
 });

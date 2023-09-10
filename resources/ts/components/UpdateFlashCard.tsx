@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import { CreateCard } from "./CreateCard";
 
 
 export const UpdateFlashCard:FC = () =>{
@@ -49,15 +50,9 @@ export const UpdateFlashCard:FC = () =>{
             });
 
         }).catch((error) => { 
-            console.log(error);
             setNotFonund(true);
         });
     },[]);
-
-    interface update {
-        title:string
-        access:number
-    }
 
 
     //input入力された値で更新
@@ -107,7 +102,7 @@ export const UpdateFlashCard:FC = () =>{
 
                 :
                 
-                <form onSubmit={updateSubmit}>
+                <form onSubmit={updateSubmit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
                     <input type="text" className="w-full h-10 border border-gray-300 rounded pl-2" placeholder="タイトル" value={flashcard.title}
                         name="title"
                         onChange={handleInput} 
@@ -134,7 +129,7 @@ export const UpdateFlashCard:FC = () =>{
                 </form>
                 
             }
-
+            <CreateCard id={flashcard_id} />
         </>
     );
 }
