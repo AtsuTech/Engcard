@@ -29,7 +29,7 @@ class CardController extends Controller
         $Card->word_mean = $request->word_mean;
         $Card->sentence = $request->sentence;
         $Card->sentence_mean = $request->sentence_mean;
-        $Card->memory = 0;
+        $Card->memory = false;
 
         $Card->save();
     }
