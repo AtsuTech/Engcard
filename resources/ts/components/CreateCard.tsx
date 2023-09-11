@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 
-export const CreateCard:FC<{id: any}> = ({id}) => {
+export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
     const [card,setCard] = useState({
         img_path:'',
@@ -13,21 +13,19 @@ export const CreateCard:FC<{id: any}> = ({id}) => {
         sentence_mean:'',
     });
 
-    console.log(card.word);
+    //フォーム入力項目をcardにセット
     const handleInput =(e:any)=>{
         e.persist();
-
         setCard({...card, [e.target.name]: e.target.value });
-        
     }
 
+    //フォームからの画像ファイルの処理
     const [files, setFile] = useState<any>(null);
     const handleInputFile =(e:any)=>{
         setFile(e.target.files[0]);
-        console.log(files);
     }
 
-    //submitでデータ追加
+    //Submitボタンでデータ送信処置
     const CreateSubmit =(e:any)=>{
         e.preventDefault();
         
@@ -43,14 +41,19 @@ export const CreateCard:FC<{id: any}> = ({id}) => {
         
         //DBにデータ送る
         axios.post('/api/card/create', params).then(function (response: AxiosResponse<Response>) {
+
             // 送信成功時の処理
             alert('保存しました');
+
+            //カードのuseEffectを発火させるための関数
+            Update();
             
         })
         .catch(function (error:undefined|any) {
+
             // 送信失敗時の処理
             alert('失敗しました。');
-            console.log(error);
+            
         });
     }
 

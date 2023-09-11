@@ -17,6 +17,11 @@ class Flashcard extends Model
         return $this->BelongsTo('App\Models\User');
     }
 
+    public function cards()
+    {
+        return $this->hasMany('App\Models\Card');
+    }
+
 
     protected $casts = [
         'created_at' => 'datetime:Y年n月j日',

@@ -16,7 +16,7 @@ class FlashCardController extends Controller
         $id = decrypt($id);
         
         //デコードしたidで検索
-        $flashcard = FlashCard::with(['user'])->findOrFail($id);
+        $flashcard = FlashCard::with(['user'])->with(['cards'])->findOrFail($id);
         return response()->json($flashcard);
 
     }
@@ -30,7 +30,7 @@ class FlashCardController extends Controller
 
     //認証ユーザーの単語帳を取得
     function my_flashcards(){
-        $my_flashcards = FlashCard::where('user_id',Auth::id())->get();
+        $my_flashcards = FlashCard::where('user_id',Auth::id())->with(['cards'])->get();
         return response()->json($my_flashcards);
     }
 

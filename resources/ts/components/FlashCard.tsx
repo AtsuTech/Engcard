@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const FlashCard:FC = () =>{
 
-    document.title = "単語帳詳細"
+    
 
     //URLからパラメータを取得
     const { flashcard_id } = useParams();
@@ -19,6 +19,10 @@ export const FlashCard:FC = () =>{
         user_name:'',
     });
 
+    document.title = "単語帳:"+flashcard.title;
+
+    const [cards,setCards] = useState([]);
+
     useEffect(()=>{
 
         // パラメータ(暗号化されたid)付きでアクセスし、該当データをDBより取得
@@ -30,6 +34,8 @@ export const FlashCard:FC = () =>{
                 updated_at:response.data.updated_at,
                 user_name:response.data.user.name,
             });
+
+            setCards(response.data.cards);
 
         }).catch((error) => { 
             console.log(error);
@@ -47,15 +53,25 @@ export const FlashCard:FC = () =>{
                 :
                 
                 <div>
-                    <h1>単語帳詳細</h1>
-                    <div>{flashcard.title}</div>
+                    {/* <h1 className="text-3xl">単語帳詳細</h1> */}
+                    <div className="text-3xl">{flashcard.title}</div>
                     <div>
                         <small>投稿:{flashcard.user_name}</small>
                     </div>
                     
                     <small>{flashcard.created_at}</small>
 
+                    {cards.map( (card:any) => (
+
+                        <div key={card.id} className="flex border border-gray-300 mb-3 p-3 text-2xl rounded">
+                            <div className="w-full border-r border-gray-300 ">{card.word}</div>
+                            <div className="w-full">{card.word_mean}</div>
+                        </div>
+
+                    ))}
+
                 </div>
+
                 
             }
 

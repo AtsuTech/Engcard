@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import { CreateCard } from "./CreateCard";
+import { CardList } from "./CardList";
 
 
 export const UpdateFlashCard:FC = () =>{
@@ -129,7 +129,8 @@ export const UpdateFlashCard:FC = () =>{
                 </form>
                 
             }
-            <CreateCard id={flashcard_id} />
+            <CardList id={flashcard_id} />
+            
         </>
     );
 }
