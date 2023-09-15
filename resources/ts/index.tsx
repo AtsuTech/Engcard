@@ -20,6 +20,7 @@ import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
 import { UpdateFlashCard } from './components/UpdateFlashCard';
 import { FlashCard } from './components/FlashCard';
+import { Card } from './components/Card';
 
 
 
@@ -60,6 +61,10 @@ root.render(
 
                     <Route path="/flashcard" element={<FlashCard />}>
                         <Route path=":flashcard_id" element={<FlashCard />} />
+                    </Route>
+
+                    <Route path="/card" element={<Card />}>
+                        <Route path=":card_id" element={<Card />} />
                     </Route>
 
                 </Route>

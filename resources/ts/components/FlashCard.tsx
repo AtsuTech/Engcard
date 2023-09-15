@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export const FlashCard:FC = () =>{
 
@@ -62,12 +63,14 @@ export const FlashCard:FC = () =>{
                     <small>{flashcard.created_at}</small>
 
                     {cards.map( (card:any) => (
-
+                        <Link to={`/card/${card.id_encrypt}`}>
                         <div key={card.id} className="flex border border-gray-300 mb-3 p-3 text-2xl rounded">
+                            
                             <div className="w-full border-r border-gray-300 ">{card.word}</div>
                             <div className="w-full">{card.word_mean}</div>
+                            
                         </div>
-
+                        </Link>
                     ))}
 
                 </div>

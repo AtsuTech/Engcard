@@ -73,5 +73,8 @@ Route::middleware(['api'])->group(function ($router){
     //カードの新規作成
     Route::post('/card/create',[CardController::class,'create']);
 
+    //カード(公開)の詳細
+    Route::get('/card/{id}',[CardController::class,'public_detail_card']);
+
 
 });

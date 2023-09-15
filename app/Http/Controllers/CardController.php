@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
+use Illuminate\Contracts\Database\Query\Builder;
 
 class CardController extends Controller
 {
@@ -32,6 +33,24 @@ class CardController extends Controller
         $Card->memory = false;
 
         $Card->save();
+    }
+
+    //詳細画面
+    function public_detail_card($id){
+
+        //暗号化したidをデコード
+        $id = decrypt($id);
+        
+        //デコードしたidで検索
+        $card = Card::with(['flashcard'])->findOrFail($id);
+
+        $access = $card->flashcard->access;
+        if($access == 1){
+            return response()->json(['message' => '非公開のカードです']);
+        }elseif($access == 0){
+            return response()->json($card);
+        }
+
     }
 
 }
