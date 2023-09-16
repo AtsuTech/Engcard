@@ -25,7 +25,8 @@ class CardController extends Controller
         }
        
 
-        $Card->part_of_speech = $request->part_of_speech; 
+        //$Card->part_of_speech_id = (int)$request->part_of_speech_id; 
+        $Card->part_of_speech_id = $request->integer('part_of_speech_id');
         $Card->word = $request->word;
         $Card->word_mean = $request->word_mean;
         $Card->sentence = $request->sentence;

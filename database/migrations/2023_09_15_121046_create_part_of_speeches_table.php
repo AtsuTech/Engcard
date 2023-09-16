@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('part_of_speeches', function (Blueprint $table) {
             $table->id();
-            $table->integer('code');
-            $table->string('part_of_speeche');
+            $table->string('item');
             $table->timestamps();
         });
     }

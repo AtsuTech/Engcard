@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import { PartOfSpeechesSelect } from "./PartOfSpeechesSelect";
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
-    const [card,setCard] = useState({
+    const [card,setCard] = useState<any>({
         img_path:'',
-        part_of_speech:'',
+        part_of_speech_id:1,//初期値は1:未選択
         word:'', 
         word_mean:'',
         sentence:'',
@@ -16,7 +17,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
     //フォーム入力項目をcardにセット
     const handleInput =(e:any)=>{
         e.persist();
-        setCard({...card, [e.target.name]: e.target.value });
+        setCard({...card, [e.target.name]: e.target.value }); 
     }
 
     //フォームからの画像ファイルの処理
@@ -33,7 +34,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         const params = new FormData();
         params.append('flashcard_id',id);
         params.append('image',files);
-        params.append('part_of_speech',card.part_of_speech);
+        params.append('part_of_speech_id',card.part_of_speech_id);
         params.append('word',card.word);
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
@@ -53,6 +54,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
             // 送信失敗時の処理
             alert('失敗しました。');
+            console.log(error);
             
         });
     }
@@ -72,9 +74,8 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         required
                     />
 
-                    <select name="part_of_speech" onChange={handleInput}>
-                        <option value={0}>名詞</option>
-                        <option value={1}>動詞</option>
+                    <select name="part_of_speech_id" onChange={handleInput}>
+                        <PartOfSpeechesSelect />
                     </select>
 
                     <input type="text" 

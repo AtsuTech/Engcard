@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('flashcard_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('img_path')->nullable();
-            $table->integer('part_of_speech')->nullable();
+            $table->foreignId('part_of_speech_id')->constrained()->onDelete('cascade');
             $table->string('word');
             $table->string('word_mean');
             $table->longText('sentence')->nullable();
