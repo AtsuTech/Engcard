@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export const Card:FC = () => {
 
@@ -9,6 +10,7 @@ export const Card:FC = () => {
     const { card_id } = useParams();
 
     const [card,setCards] = useState({
+        card_id:'',
         word:'',
         word_mean:'',
         img_path:'',
@@ -31,6 +33,7 @@ export const Card:FC = () => {
             console.log(response);
             
             setCards({
+                card_id:response.data.id_encrypt,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
                 img_path : '/storage/images/' + response.data.img_path,
@@ -57,6 +60,9 @@ export const Card:FC = () => {
     return(
         <>
             <h5>{message}</h5>
+            <Link to={`/flashcard/card/update/${card.card_id}`}>
+                編集
+            </Link>
             <h5>{card.flashcard_title}</h5>
             <p>{card.word_mean}</p>
             <div style={{ backgroundImage: `url(${card.img_path})` }} 

@@ -80,5 +80,14 @@ Route::middleware(['api'])->group(function ($router){
     //カード(公開)の詳細
     Route::get('/card/{id}',[CardController::class,'public_detail_card']);
 
+    //カードの編集
+    Route::post('/card/update',[CardController::class,'update']);
+
+    //カードの編集(画像のみ)
+    Route::post('/card/update/image',[CardController::class,'update_only_image']);
+
+    //カード画像の削除
+    Route::post('/card/update/image/delete',[CardController::class,'delete_image']);
+
 
 });

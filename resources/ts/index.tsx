@@ -21,7 +21,7 @@ import { CreateFlashCard } from './components/CreateFlashCard';
 import { UpdateFlashCard } from './components/UpdateFlashCard';
 import { FlashCard } from './components/FlashCard';
 import { Card } from './components/Card';
-
+import { UpdateCard } from './components/UpdateCard';
 
 
 const container = document.getElementById('app');
@@ -54,6 +54,9 @@ root.render(
                         <Route path="/flashcard/my" element={<MyFlashCards />} />
                         <Route path="/flashcard/update" element={<UpdateFlashCard />}>
                             <Route path=":flashcard_id" element={<UpdateFlashCard />} />
+                        </Route>
+                        <Route path="/flashcard/card/update" element={<UpdateCard />}>
+                            <Route path=":card_id" element={<UpdateCard />} />
                         </Route>
                     </Route>
 
