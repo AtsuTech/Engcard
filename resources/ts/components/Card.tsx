@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { DeleteCard } from "./DeleteCard";
 
 export const Card:FC = () => {
 
@@ -18,6 +19,7 @@ export const Card:FC = () => {
         sentence_mean:'',
         memory:'',
         part_of_speech:'',
+        flashcard_id:'',
         flashcard_title:'',
         created_at:'',
     });
@@ -41,6 +43,7 @@ export const Card:FC = () => {
                 sentence_mean : response.data.sentence_mean,
                 memory : response.data.memory,
                 part_of_speech : response.data.part_of_speech,
+                flashcard_id : response.data.flashcard.id_encrypt,
                 flashcard_title:response.data.flashcard.title,
                 created_at: response.data.created_at,
             });
@@ -60,14 +63,16 @@ export const Card:FC = () => {
     return(
         <>
             <h5>{message}</h5>
-            <Link to={`/flashcard/card/update/${card.card_id}`}>
+            <Link to={`/card/update/${card.card_id}`}>
                 編集
             </Link>
+            <DeleteCard id={card_id} flashcard_id={card.flashcard_id} />
             <h5>{card.flashcard_title}</h5>
             <p>{card.word_mean}</p>
             <div style={{ backgroundImage: `url(${card.img_path})` }} 
                 className="bg-cover bg-center w-full h-64 text-5xl text-center">
-                {card.word}
+                    <h2 className="stroke-[#243c5a]">{card.word}</h2>
+                
             </div>
             <div>{card.sentence}</div>
             <div>{card.sentence_mean}</div>

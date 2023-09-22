@@ -55,7 +55,7 @@ root.render(
                         <Route path="/flashcard/update" element={<UpdateFlashCard />}>
                             <Route path=":flashcard_id" element={<UpdateFlashCard />} />
                         </Route>
-                        <Route path="/flashcard/card/update" element={<UpdateCard />}>
+                        <Route path="/card/update" element={<UpdateCard />}>
                             <Route path=":card_id" element={<UpdateCard />} />
                         </Route>
                     </Route>

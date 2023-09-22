@@ -26,7 +26,7 @@ export const PartOfSpeechesSelect:FC = () =>{
         
         <>
             {part_of_speeches.map( (part_of_speeche:any) => (
-                <option key={part_of_speeche.id} value={part_of_speeche.id}>{part_of_speeche.id}{part_of_speeche.item}</option>
+                <option key={part_of_speeche.id} value={part_of_speeche.id}>{part_of_speeche.item}</option>
             ))}  
         </>
         

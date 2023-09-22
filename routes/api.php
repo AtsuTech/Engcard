@@ -86,8 +86,11 @@ Route::middleware(['api'])->group(function ($router){
     //カードの編集(画像のみ)
     Route::post('/card/update/image',[CardController::class,'update_only_image']);
 
-    //カード画像の削除
+    //カード画像の削除(画像ファイルも消す)
     Route::post('/card/update/image/delete',[CardController::class,'delete_image']);
+
+    //カードの削除
+    Route::post('/card/delete',[CardController::class,'delete']);
 
 
 });

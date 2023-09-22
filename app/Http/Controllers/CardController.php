@@ -30,8 +30,20 @@ class CardController extends Controller
         $Card->part_of_speech_id = $request->integer('part_of_speech_id');
         $Card->word = $request->word;
         $Card->word_mean = $request->word_mean;
-        $Card->sentence = $request->sentence;
-        $Card->sentence_mean = $request->sentence_mean;
+
+        if($request->sentence == null||$request->sentence ==""){
+            $Card->sentence = "";
+        }else{
+            $Card->sentence = $request->sentence;
+        }
+
+        if($request->sentence_mean == null||$request->sentence_mean ==""){
+            $Card->sentence_mean = "";
+        }else{
+            $Card->sentence_mean = $request->sentence_mean;
+        }
+        
+
         $Card->memory = false;
 
         $Card->save();
@@ -90,6 +102,14 @@ class CardController extends Controller
         $Card->img_path = null;
         Storage::disk('public')->delete('images/' . $request->img_path);
         $Card->save();
+    }
+
+
+    //カード削除
+    public function delete(Request $request){
+        $Card = Card::find(decrypt($request->card_id));
+        Storage::disk('public')->delete('images/' . $Card->img_path);
+        $Card = Card::find(decrypt($request->card_id))->delete();
     }
 
 }
