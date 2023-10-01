@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\FlashCardController;
 use App\Http\Controllers\PartOfSpeechesController;
 use App\Http\Controllers\CardController;
@@ -52,6 +53,12 @@ Route::middleware(['api'])->group(function ($router){
 
     //パスワードリセット処理
     Route::post('/password/reset',[PasswordResetController::class,'passwordreset'])->name('password.reset');
+
+    //ユーザー情報の更新
+    Route::post('/user/update',[UserUpdateController::class,'update']);
+
+    //パスワードの更新
+    Route::post('/user/password/update',[UserUpdateController::class,'change_password']);
 
     //公開単語帳を全て取得
     Route::get('/flashcard/public',[FlashCardController::class,'public_flashcard']);

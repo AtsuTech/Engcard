@@ -46,7 +46,7 @@ export const DashBoard: FC = () => {
     },[]);
 
     return(
-        <div className="block rounded-3xl bg-white text-slate-600">
+        <div className="block rounded-3xl bg-white text-slate-600 p-5">
             <h1 className="text-3xl">DASHBOARD</h1>
             <ul>
                 <li>{me.name}</li>
@@ -54,6 +54,9 @@ export const DashBoard: FC = () => {
                 <li>{me.password}</li>
                 <li>{me.created_at}</li>
             </ul>
+
+            <Link to="/user/update">ユーザー情報編集</Link>
+            <Link to="/user/password/update">パスワード変更</Link>
         </div>
     );
 
