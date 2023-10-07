@@ -26,8 +26,7 @@ class CardController extends Controller
         }
        
 
-        //$Card->part_of_speech_id = (int)$request->part_of_speech_id; 
-        $Card->part_of_speech_id = $request->integer('part_of_speech_id');
+        $Card->category_id = $request->integer('category_id');
         $Card->word = $request->word;
         $Card->word_mean = $request->word_mean;
 
@@ -43,7 +42,6 @@ class CardController extends Controller
             $Card->sentence_mean = $request->sentence_mean;
         }
         
-
         $Card->memory = false;
 
         $Card->save();
@@ -71,11 +69,12 @@ class CardController extends Controller
     public function update(Request $request){
         $Card = Card::find(decrypt($request->card_id));
 
-        $Card->part_of_speech_id = $request->integer('part_of_speech_id');
+        $Card->category_id = $request->integer('category_id');
         $Card->word = $request->word;
         $Card->word_mean = $request->word_mean;
         $Card->sentence = $request->sentence;
         $Card->sentence_mean = $request->sentence_mean;
+        $Card->link = $request->link;
  
         $Card->save();
     }

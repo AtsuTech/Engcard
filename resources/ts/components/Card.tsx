@@ -18,7 +18,8 @@ export const Card:FC = () => {
         sentence:'',
         sentence_mean:'',
         memory:'',
-        part_of_speech:'',
+        category:'',
+        link:'',
         flashcard_id:'',
         flashcard_title:'',
         created_at:'',
@@ -42,7 +43,8 @@ export const Card:FC = () => {
                 sentence : response.data.sentence,
                 sentence_mean : response.data.sentence_mean,
                 memory : response.data.memory,
-                part_of_speech : response.data.part_of_speech,
+                category : response.data.category,
+                link : response.data.link,
                 flashcard_id : response.data.flashcard.id_encrypt,
                 flashcard_title:response.data.flashcard.title,
                 created_at: response.data.created_at,
@@ -77,7 +79,8 @@ export const Card:FC = () => {
             <div>{card.sentence}</div>
             <div>{card.sentence_mean}</div>
             <div>{card.memory}</div>
-            <div>{card.part_of_speech}</div>
+            <div>{card.category}</div>
+            <div><a href={card.link}>{card.link}</a></div>
             <div>{card.created_at}</div>
         </>
     );

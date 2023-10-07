@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import { PartOfSpeechesSelect } from "./PartOfSpeechesSelect";
+import { CategorySelect } from "./CategorySelect";
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
     const [card,setCard] = useState<any>({
         img_path:'',
-        part_of_speech_id:1,//初期値は1:未選択
+        category_id:1,//初期値は1:未選択
         word:'', 
         word_mean:'',
         sentence:'',
@@ -34,7 +34,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         const params = new FormData();
         params.append('flashcard_id',id);
         params.append('image',files);
-        params.append('part_of_speech_id',card.part_of_speech_id);
+        params.append('category_id',card.category_id);
         params.append('word',card.word);
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
@@ -74,8 +74,8 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         required
                     />
 
-                    <select name="part_of_speech_id" onChange={handleInput}>
-                        <PartOfSpeechesSelect />
+                    <select name="category_id" onChange={handleInput}>
+                        <CategorySelect />
                     </select>
 
                     <input type="text" 

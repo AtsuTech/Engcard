@@ -18,7 +18,7 @@ export const UpdateCard:FC = () => {
         sentence:'',
         sentence_mean:'',
         memory:'',
-        part_of_speech:'',
+        link:'',
         flashcard_title:'',
         flashcard_id:'',
     });
@@ -41,13 +41,13 @@ export const UpdateCard:FC = () => {
                 sentence : response.data.sentence,
                 sentence_mean : response.data.sentence_mean,
                 memory : response.data.memory,
-                part_of_speech : response.data.part_of_speech,
+                link : response.data.link,
                 flashcard_title:response.data.flashcard.title,
                 flashcard_id:response.data.flashcard.id_encrypt,
             });
 
             //品詞のselectチェックの初期値を設定
-            setSelected(response.data.part_of_speech_id);
+            setSelected(response.data.category_id);
 
         }).catch((error) => { 
             console.log(error);
@@ -62,7 +62,7 @@ export const UpdateCard:FC = () => {
     //DBより品詞のリストを取得
     useEffect(()=>{
 
-        axios.get('/api/part_of_speeches').then((response) => { 
+        axios.get('/api/categories').then((response) => { 
             setGetSelectItems(response.data);
         }).catch((error) => { 
             console.log(error);
@@ -87,11 +87,13 @@ export const UpdateCard:FC = () => {
         //axios通信で渡すクエリパラメータ
         const params = new FormData();
         params.append('card_id',card.card_id);
-        params.append('part_of_speech_id',selected);
+        params.append('category_id',selected);
         params.append('word',card.word);
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
         params.append('sentence_mean',card.sentence_mean);
+        params.append('link',card.link);
+
         
         //DBにデータ送る
         axios.post('/api/card/update', params).then(function (response: AxiosResponse<Response>) {
@@ -137,7 +139,7 @@ export const UpdateCard:FC = () => {
 
                 <div className="flex">
 
-                    <select name="part_of_speech_id" value={selected} onChange={(e:any) => setSelected(e.target.value)}>
+                    <select value={selected} onChange={(e:any) => setSelected(e.target.value)}>
                         {getSelectItems.map( (getSelectItem:any) => (
                             <option key={getSelectItem.item} value={getSelectItem.id}>{getSelectItem.item}</option>
                         ))}    
@@ -173,6 +175,14 @@ export const UpdateCard:FC = () => {
                     placeholder="例文(訳):りんごは赤くて美味しい果物です。"
                     >
                 </textarea>
+
+                <input type="text" 
+                    name="link" 
+                    className="w-full h-10 border border-gray-300 rounded pl-2" 
+                    placeholder="ex.)Gazotan.com" 
+                    value={card.link}
+                    onChange={handleInput} 
+                />
 
                 <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
                     更新

@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PartOfSpeech;
+//use App\Models\PartOfSpeech;
+use App\Models\Category;
 
 class Card extends Model
 {
@@ -21,11 +22,11 @@ class Card extends Model
         return  encrypt($this->id);
     }
 
-    public function getPartOfSpeechAttribute()
+    public function getCategoryAttribute()
     {
-        $part_of_speech_id = PartOfSpeech::find($this->part_of_speech_id,'item');
-        return  $part_of_speech_id['item'];
+        $category = Category::find($this->category_id,'item');
+        return  $category['item'];
     }
     //SPAでJSONでアクセサの値を返す時は$appendsメソッドで返す
-    protected $appends = ['id_encrypt','part_of_speech'];   
+    protected $appends = ['id_encrypt','category'];   
 }

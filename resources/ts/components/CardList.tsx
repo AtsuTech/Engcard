@@ -40,7 +40,7 @@ export const CardList:FC<{id: any}> = ({id}) => {
                 <div key={card.id} className="flex border border-gray-300 mb-3 p-3 rounded">
                     <div className="w-full border-r border-gray-300 text-2xl">{card.word}</div>
                     <div className="flex w-full">
-                        <div className="mr-0 bg-gray-400 w-18 h-8 ml-1 mr-1 p-1 text-white rounded-lg font-medium text-1xl">{card.part_of_speech}</div>
+                        <div className="mr-0 bg-gray-400 w-18 h-8 ml-1 mr-1 p-1 text-white rounded-lg font-medium text-1xl">{card.category}</div>
                         <div className="text-2xl">{card.word_mean}</div>
                     </div>
                     <UpdateCardLink id={card.id_encrypt} />

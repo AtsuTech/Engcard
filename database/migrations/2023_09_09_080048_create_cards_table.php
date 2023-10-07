@@ -16,11 +16,12 @@ return new class extends Migration
             $table->foreignId('flashcard_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('img_path')->nullable();
-            $table->foreignId('part_of_speech_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('word');
             $table->string('word_mean');
             $table->longText('sentence')->nullable();
             $table->longText('sentence_mean')->nullable();
+            $table->string('link')->nullable();
             $table->boolean('memory');
             $table->timestamps();
         });
