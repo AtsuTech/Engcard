@@ -7,12 +7,14 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
     const [card,setCard] = useState<any>({
         img_path:'',
-        category_id:1,//初期値は1:未選択
+        //category_id:1,//初期値は1:未選択
         word:'', 
         word_mean:'',
         sentence:'',
         sentence_mean:'',
     });
+
+    const [category_id,setCategory_id] = useState<any>(1);
 
     //フォーム入力項目をcardにセット
     const handleInput =(e:any)=>{
@@ -34,7 +36,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         const params = new FormData();
         params.append('flashcard_id',id);
         params.append('image',files);
-        params.append('category_id',card.category_id);
+        params.append('category_id',category_id);
         params.append('word',card.word);
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
@@ -57,12 +59,13 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
             console.log(error);
             
         });
+        
     }
-
+console.log(category_id);
     return(
         <>
             <h5>カードを追加</h5>
-            <form onSubmit={CreateSubmit}>
+            <div>
                 <div className="flex">
 
                     
@@ -74,9 +77,10 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         required
                     />
 
-                    <select name="category_id" onChange={handleInput}>
+                    {/* <select name="category_id" onChange={handleInput}>
                         <CategorySelect />
-                    </select>
+                    </select> */}
+                    <CategorySelect value={category_id} handleInput={setCategory_id} />
 
                     <input type="text" 
                         name="word_mean" 
@@ -111,10 +115,11 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     </textarea>
                 </div>
 
-                <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
+                <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl" onClick={CreateSubmit}>
                     追加
                 </button>
-            </form>
+            </div>
+            
         </>
     );
 }

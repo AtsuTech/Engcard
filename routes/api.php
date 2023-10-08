@@ -80,8 +80,10 @@ Route::middleware(['api'])->group(function ($router){
     Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
 
     //品詞データ取得
-    //Route::get('/part_of_speeches',[PartOfSpeechesController::class,'list']);
     Route::get('/categories',[CategorysController::class,'list']);
+
+    //品詞データ追加
+    Route::post('/categories/create',[CategorysController::class,'create']);
 
     //カードの新規作成
     Route::post('/card/create',[CardController::class,'create']);
