@@ -61,7 +61,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         });
         
     }
-console.log(category_id);
+
     return(
         <>
             <h5>カードを追加</h5>

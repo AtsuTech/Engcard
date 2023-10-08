@@ -79,11 +79,20 @@ Route::middleware(['api'])->group(function ($router){
     //単語帳の削除
     Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
 
-    //品詞データ取得
+    //カテゴリのデータ取得
     Route::get('/categories',[CategorysController::class,'list']);
 
-    //品詞データ追加
+    //編集可能な(ユーザーが作成した)カテゴリのデータ取得
+    Route::get('/categories/my',[CategorysController::class,'my_list']);
+
+    //カテゴリの追加
     Route::post('/categories/create',[CategorysController::class,'create']);
+
+    //カテゴリの編集
+    Route::post('/categories/my/update',[CategorysController::class,'update']);
+
+    //カテゴリの削除
+    Route::post('/categories/my/delete',[CategorysController::class,'delete']);
 
     //カードの新規作成
     Route::post('/card/create',[CardController::class,'create']);

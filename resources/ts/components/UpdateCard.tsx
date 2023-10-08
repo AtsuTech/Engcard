@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { UpdateCardImage } from "./UpdateCardImage";
+import { CategorySelect } from "./CategorySelect";
 
 
 export const UpdateCard:FC = () => {
@@ -53,21 +54,6 @@ export const UpdateCard:FC = () => {
             console.log(error);
         
         });
-    },[]);
-
-
-    //品詞の変数を取得
-    const [getSelectItems,setGetSelectItems] = useState<any>([]);
-    
-    //DBより品詞のリストを取得
-    useEffect(()=>{
-
-        axios.get('/api/categories').then((response) => { 
-            setGetSelectItems(response.data);
-        }).catch((error) => { 
-            console.log(error);
-        });
-    
     },[]);
 
 
@@ -126,7 +112,7 @@ export const UpdateCard:FC = () => {
 
             <UpdateCardImage id={card_id} />
 
-            <form onSubmit={UpdateSubmit}>
+            <form>
 
                 <input type="text" 
                     name="word" 
@@ -139,11 +125,7 @@ export const UpdateCard:FC = () => {
 
                 <div className="flex">
 
-                    <select value={selected} onChange={(e:any) => setSelected(e.target.value)}>
-                        {getSelectItems.map( (getSelectItem:any) => (
-                            <option key={getSelectItem.item} value={getSelectItem.id}>{getSelectItem.item}</option>
-                        ))}    
-                    </select>
+                    <CategorySelect value={selected} handleInput={setSelected} />
 
                     <input type="text" 
                         name="word_mean" 
@@ -184,7 +166,10 @@ export const UpdateCard:FC = () => {
                     onChange={handleInput} 
                 />
 
-                <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
+                <button 
+                    //type="submit" 
+                    className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl"
+                    onClick={UpdateSubmit}>
                     更新
                 </button>
             </form>

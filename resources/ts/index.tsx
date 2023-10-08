@@ -24,6 +24,7 @@ import { UpdateFlashCard } from './components/UpdateFlashCard';
 import { FlashCard } from './components/FlashCard';
 import { Card } from './components/Card';
 import { UpdateCard } from './components/UpdateCard';
+import { CategorySetting } from './components/CategorySetting';
 
 
 const container = document.getElementById('app');
@@ -62,6 +63,7 @@ root.render(
                         <Route path="/card/update" element={<UpdateCard />}>
                             <Route path=":card_id" element={<UpdateCard />} />
                         </Route>
+                        <Route path="/category/setting" element={<CategorySetting />} />
                     </Route>
 
                     <Route path="/home" element={<Home />} />

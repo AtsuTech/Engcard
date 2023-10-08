@@ -57,6 +57,7 @@ export const DashBoard: FC = () => {
 
             <Link to="/user/update">ユーザー情報編集</Link>
             <Link to="/user/password/update">パスワード変更</Link>
+            <Link to="/category/setting">カテゴリ設定</Link>
         </div>
     );
 

@@ -11,6 +11,6 @@ class Category extends Model
 
     public function cards()
     {
-        return $this->belongsTo('App\Models\Card');
+        return $this->hasMany('App\Models\Card');
     }
 }

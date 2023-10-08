@@ -45,8 +45,7 @@ export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
 
 
     return(
-        <>
-             <form onSubmit={Submit} className="flex p-1">
+        <div className="flex p-1">
                 <input type="text" className="w-full h-10 border border-gray-300 rounded pl-1" placeholder="カテゴリを追加" 
                     name="item"
                     value={category}
@@ -54,8 +53,7 @@ export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
                     required
                 />
                 
-                <button type="submit" className="w-20 font-medium text-1xl text-yellow-500">追加</button>
-            </form>
-        </>
+                <button type="submit" className="w-20 font-medium text-1xl text-yellow-500" onClick={Submit}>追加</button>
+        </div>
     );
 }
