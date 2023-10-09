@@ -110,7 +110,11 @@ export const Login: FC = () => {
                 <button type="submit" className="block mt-10 bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">ログイン</button>
             </form>
 
-            <Link to="/forgot-password" className="">
+            <Link to="/register" className="">
+                <span className="block w-full text-cyan-500 mt-10">新規登録</span>
+            </Link>
+
+            <Link to="/password/forgot" className="">
                 <span className="block w-full text-cyan-500 mt-10">パスワードを忘れた</span>
             </Link>
 

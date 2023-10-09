@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { DeleteCard } from "./DeleteCard";
+import { BageDark } from "./parts_component/BageDark";
 
 export const Card:FC = () => {
 
@@ -69,19 +70,48 @@ export const Card:FC = () => {
                 編集
             </Link>
             <DeleteCard id={card_id} flashcard_id={card.flashcard_id} />
-            <h5>{card.flashcard_title}</h5>
-            <p>{card.word_mean}</p>
-            <div style={{ backgroundImage: `url(${card.img_path})` }} 
-                className="bg-cover bg-center w-full h-64 text-5xl text-center">
-                    <h2 className="stroke-[#243c5a]">{card.word}</h2>
+            <h5>単語帳{card.flashcard_title}</h5>
+            <p></p>
+
+            <div className="w-96 h-fit ml-auto mr-auto border border-gray-300 rounded-lg">
+                <div style={{ backgroundImage: `url(${card.img_path})` }} className="bg-gray-500 bg-cover bg-center w-full h-64 rounded-lg">
+                </div>
+
+                <h2 className="w-full h-40 flex justify-center items-center bg-white text-6xl">
+                    {card.word}
+                </h2>
+
+                <div className="w-full h-fit bg-white">
+                    <div className="w-full hit bg-yellow-400">意味</div>
+                    <div className="flex text-3xl p-2">
+                        <div className="mt-0.5">
+                            <BageDark value={card.category}/>
+                        </div>
+                        <div className="ml-1 text-2xl">{card.word_mean}</div>
+                    </div>
+                </div>
+
+                <div className="w-full h-fit bg-white">
+                    <div className="w-full hit bg-yellow-400">例文</div>
+                    <div className="p-2">
+                        <div>{card.sentence}</div>
+                        <div>{card.sentence_mean}</div>
+                    </div>
+                </div>
+
+                {card.memory?
+                <>暗記</>
+                :
+                <>暗記中</>
+                }
+
+                <button className="w-full h-fit border border-yellow-300 bg-white rounded-lg">
+                    <a href={card.link} className="break-words /whitespace-pre-wrap /text-left">{card.link}</a>
+                </button>
                 
+                <div>{card.created_at}</div>
             </div>
-            <div>{card.sentence}</div>
-            <div>{card.sentence_mean}</div>
-            <div>{card.memory}</div>
-            <div>{card.category}</div>
-            <div><a href={card.link}>{card.link}</a></div>
-            <div>{card.created_at}</div>
+            
         </>
     );
 }

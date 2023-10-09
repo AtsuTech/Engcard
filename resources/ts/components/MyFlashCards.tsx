@@ -2,7 +2,9 @@ import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-//import { FlashCardStyle } from "./FlashCardStyle";
+import { BageDark } from "./parts_component/BageDark";
+import { BageLight } from "./parts_component/BageLight";
+import { OperateFlashCardMenu } from "./OperateFlashCardMenu";
 
 export const MyFlashCards:FC =() =>{
 
@@ -10,6 +12,13 @@ export const MyFlashCards:FC =() =>{
 
     const [myflashcards,setmyflashcards] = useState([]);
     const [update,setUpdate] = useState<boolean>(false);
+    function Update(){
+        if(update){
+            setUpdate(false);
+        }else if(!update){
+            setUpdate(true);
+        }
+    }
 
 
     useEffect(()=>{
@@ -23,55 +32,45 @@ export const MyFlashCards:FC =() =>{
         });
     },[update]);
 
-    const Delete = (id:number) =>{
-        
-        const confirm = window.confirm("削除しますが本当によろしいですか？");
-
-        if (confirm) {
-            axios.post('/api/flashcard/delete',{id: id}).then((response) => { 
-                alert("削除しました。");
-                setUpdate(true);
-            }).catch((error) => { 
-                alert("失敗しました。");
-            });
-        };
-    }
 
     return (
         <>
-            <div>
-                <h1 className="text-3xl">単語帳</h1>
+            <div className="flex w-full bg-yellow-400 h-fit mb-5 rounded-lg /border-l-8 pl-3 /border-yellow-500">
+                {/* <div className="w-20 h-30 bg-yellow-500">
+                    <span className="block w-5 h-5 bg-gray-400 rounded-full my-2.5 mr-3"></span>
+                </div> */}
+                <span className="block w-5 h-5 /border /border-gray-300 bg-white rounded-full mt-4 mr-3 shadow-lg"></span>
+                <h1 className="text-4xl py-2 text-gray-500">自分の単語帳</h1>
             </div>
 
-            <div className="block w-full ml-auto mr-auto mb-10 rounded-3xl bg-white">
+            <div className="block w-full ml-auto mr-auto mb-10 rounded-3xl bg-white p-5">
+                <h1 className="text-2xl text-center mb-2">全{myflashcards.length}冊</h1>
                 {
                     myflashcards.map( (myflashcard:any) => (
 
-                        
+                        <div  key={myflashcard.id} className="block w-full h-28 p-3 mb-2 border border-gray-300 rounded">
 
-                        <div  key={myflashcard.id} className="block w-full h-30 mb-5 mt-5 p-2 border border-blue-600 rounded">
-                            
-                            {myflashcard.access == 0?
-                                <div>公開</div>
-                                :
-                                <div className="text-red-600">非公開</div>
-                            }
-                            <Link to={`/flashcard/${myflashcard.id_encrypt}`}>
-                                <h5 className="text-2xl">{myflashcard.title}</h5>
+                            <div className="flex">
+                                <div className="w-full">
+                                    {myflashcard.access == 0?
+                                        <BageDark value={"公開"}/>
+                                        :
+                                        <BageLight value={"非公開"}/>
+                                    }
+                                </div>
+
+                                <OperateFlashCardMenu id_encrypt={myflashcard.id_encrypt} id={myflashcard.id} Update={Update} />
+                            </div>
+                                                        
+                            <Link to={`/flashcard/${myflashcard.id_encrypt}`} className="block w-full mt-2">
+                                <h5 className="text-3xl">{myflashcard.title}</h5>
                             </Link>
-                            
-                            <p>{myflashcard.updated_at}</p>
-                            
-                            <button className="mr-2 inline-block bg-blue-600 w-14 h-10 text-white rounded-lg shadow-lg font-medium text-1xl">
-                                <Link to={`/flashcard/update/${myflashcard.id_encrypt}`} className="block w-full">
-                                    編集
-                                </Link>
-                            </button>
 
-                            <button onClick={() => Delete(myflashcard.id)} className="bg-rose-600 w-14 h-10 text-white rounded-lg shadow-lg font-medium text-1xl">
-                                削除
-                            </button>
-
+                            <div className="text-right">
+                                <small className="mr-2">{myflashcard.updated_at}</small>
+                                <small>カード数:{myflashcard.cards.length}枚</small>
+                            </div>
+                            
                         </div>
                         
            
