@@ -96,40 +96,79 @@ export const UpdateFlashCard:FC = () =>{
                 <h1 className="text-3xl">単語帳の編集</h1>
             </div>
 
+            <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
             {notFonund ?
                 
                 <div>ページが見つかりません</div>
 
                 :
                 
-                <form onSubmit={updateSubmit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
-                    <input type="text" className="w-full h-10 border border-gray-300 rounded pl-2" placeholder="タイトル" value={flashcard.title}
+                <form onSubmit={updateSubmit} className="flex">
+
+                    
+                    <ul className="w-24 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+
+                        <li className="flex">
+                            <input type="radio" name="access" value={0}
+                                onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} 
+                                checked={flashcard.access == 0 } 
+                                required
+                                className="sr-only peer" 
+                                id="0"
+                            />
+                            <label htmlFor="0" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">公開</label>
+                            <div className="hidden p-1 peer-checked:block">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+                            
+                        </li>
+                        <li className="flex">
+                            <input type="radio" name="access" value={1}
+                                onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} 
+                                checked={flashcard.access == 1 } 
+                                required 
+                                className="sr-only peer"
+                                id="1"
+                            />
+                            <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">非公開</label>
+                            <div className="hidden p-1 peer-checked:block">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+                            
+                        </li>
+                    </ul>
+                    
+
+
+                    <input type="text" className="w-full h-14 border border-gray-300 rounded-lg pl-2 mx-1 text-3xl" placeholder="タイトル" value={flashcard.title}
                         name="title"
                         onChange={handleInput} 
                         required
                     />
 
-                    <div>
-                        <input type="radio" name="access" value={0}
-                            onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} checked={flashcard.access == 0 } required />
-                        <label htmlFor="access">公開 <br/>他のユーザーに公開します</label>
-                    </div>
-                    
-                    
-                    <div>
-                        <input type="radio" name="access" value={1}
-                            onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} checked={flashcard.access == 1 } required />
-                        <label htmlFor="access">非公開 <br/>あなただけが閲覧できます</label>
-                    </div>
 
-                    <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
+                    <button type="submit" className="block mr-0 bg-blue-400 w-36 h-14 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
                         更新
                     </button>
 
                 </form>
                 
             }
-            <CardList id={flashcard_id} />
+            </div>
+
+            <div>
+                <h1 className="text-3xl">単語カード追加</h1>
+            </div>
+
+            <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+                <CardList id={flashcard_id} />
+            </div>
+
+            
             
         </>
     );

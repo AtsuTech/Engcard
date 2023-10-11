@@ -63,26 +63,61 @@ export const CreateFlashCard:FC = () =>{
         <div>
             <h1 className="text-3xl">単語帳を作成</h1>
             <form onSubmit={Submit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
-                <div>単語帳の名前を入力してください</div>
+                <h1 className="text-3xl mb-3">単語帳を作成</h1>
+
+                <label className="block w-full mt-4">単語帳の名前を入力(後からでも名前を変更できます)</label>
                 <input type="text" className="w-full h-14 border border-gray-300 rounded pl-4 text-2xl" placeholder="タイトル" 
                     name="title"
                     onChange={handleInput} 
                     required
                 />
 
-                <div>
-                    <input type="radio" name="access" value={0}
-                        onChange={(e:any) => setAccess(e.target.value)} checked={access == 0} required />
-                    <label htmlFor="access">公開 <br/>他のユーザーに公開します</label>
+                <label className="block w-full mt-4">公開ステータス</label>
+                <div className="flex w-full h-fit">
+
+                    <div className="flex w-full h-14 border border-gray-300 rounded pl-4 mr-1">
+                        <input type="radio" name="access" value={0}
+                            onChange={(e:any) => setAccess(e.target.value)} 
+                            checked={access == 0} 
+                            required 
+                            className="sr-only peer"
+                            id="0"
+                        />
+                        
+                        <label htmlFor="0" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
+                            公開<br/>他のユーザーに公開します
+                        </label>
+                        <div className="hidden p-4 peer-checked:block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div className="flex w-full h-14 border border-gray-300 rounded pl-4 ml-1">
+                        <input type="radio" name="access" value={1}
+                            onChange={(e:any) => setAccess(e.target.value)} 
+                            checked={access == 1} 
+                            required
+                            className="sr-only peer"
+                            id="1"
+                        />
+
+                        <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
+                            非公開<br/>あなただけが閲覧できます
+                        </label>
+                        <div className="hidden p-4 peer-checked:block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </div>
+
+                    </div>
                 </div>
                 
-                <div>
-                    <input type="radio" name="access" value={1}
-                        onChange={(e:any) => setAccess(e.target.value)} checked={access == 1} required />
-                    <label htmlFor="access">非公開 <br/>あなただけが閲覧できます</label>
-                </div>
-                
-                <button type="submit" className="block mr-0 bg-emerald-400 w-32 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">この名前で作成</button>
+                <button type="submit" className="block mr-0 bg-yellow-400 w-full h-10 text-white mt-4 ml-auto mr-auto rounded-full font-medium text-1xl">
+                    単語帳を作成
+                </button>
             </form>
         </div>
     );
