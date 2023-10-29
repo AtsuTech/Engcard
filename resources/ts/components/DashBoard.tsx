@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
+import { ProfileImageUpload } from "./ProfileImageUpload";
+
 
 
 
@@ -58,6 +60,8 @@ export const DashBoard: FC = () => {
             <Link to="/user/update">ユーザー情報編集</Link>
             <Link to="/user/password/update">パスワード変更</Link>
             <Link to="/category/setting">カテゴリ設定</Link>
+
+            <ProfileImageUpload />
         </div>
     );
 

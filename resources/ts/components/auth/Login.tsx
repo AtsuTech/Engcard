@@ -5,6 +5,22 @@ import {Link,useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 
+const TextInput:FC<{label:any,htmlFor:any,type:any,name:any,value:any,placeholder:any,func:any}> = ({label,htmlFor,type,name,value,placeholder,func}) =>{
+    return(
+        <>
+            <label htmlFor={htmlFor}>{label}</label>
+                <input 
+                    id={htmlFor}
+                    type={type} 
+                    name={name}
+                    value={value}  
+                    onChange={func} 
+                    className="block w-full pl-3 h-10 border bg-gray-200 rounded-full"
+                    placeholder={placeholder}
+                />
+        </>
+    );
+}
 
 
 export const Login: FC = () => {
@@ -84,6 +100,8 @@ export const Login: FC = () => {
     }
 
 
+
+
     return (
         <div className="block w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
             <h1 className="w-full text-center text-2xl mt-10 mb-10">ログイン</h1>
@@ -94,11 +112,11 @@ export const Login: FC = () => {
                     <input type="email" name="email" 
                         value={loginInput.email}  
                         onChange={handleInput} 
-                        className="block w-full h-10 border border-gray-600 rounded"
+                        className="block w-full pl-3 h-10 border bg-gray-200 rounded-full"
                         placeholder="メールアドレス"
                     />
                 </div>
-                <div className="mt-10">
+                {/* <div className="mt-10">
                     <p>パスワード</p>
                     <input type="password" name="password" 
                         value={loginInput.password}  
@@ -106,7 +124,8 @@ export const Login: FC = () => {
                         className="w-full h-10 border border-gray-600 rounded"
                         placeholder="パスワード"
                     />
-                </div>
+                </div> */}
+                <TextInput  htmlFor="pass" label="パスワード"  type="password" value={loginInput.password} name="password" func={handleInput} placeholder="パスワード" />
                 <button type="submit" className="block mt-10 bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">ログイン</button>
             </form>
 
