@@ -55,10 +55,6 @@ export const ProfileImageUpload:FC = () => {
             ctx_outer.fillRect(0,0,300,300);
         }
 
-        // if(ctx_inner){
-        //     ctx_inner.fillStyle = "#fff";
-        //     ctx_inner.fillRect(0,0,300,300);
-        // }
     }
     filter();
 
@@ -102,6 +98,8 @@ export const ProfileImageUpload:FC = () => {
         var img = new Image();
         img.src = uploadImgSrc;
 
+
+        //画像の縦長or横長の判別
         if(img.width > img.height){
             aspect = img.height/img.width;
             w = canvas_inner.width;
@@ -112,6 +110,11 @@ export const ProfileImageUpload:FC = () => {
             aspect = img.width/img.height;
             w = canvas_inner.height*aspect;
             h = canvas_inner.height
+            x = (canvas_inner.width/2)-(w/2);
+            y = (canvas_inner.height/2)-(h/2);
+        }else if(img.width == img.height){
+            w = canvas_inner.width;
+            h = w;
             x = (canvas_inner.width/2)-(w/2);
             y = (canvas_inner.height/2)-(h/2);
         }
@@ -146,7 +149,7 @@ export const ProfileImageUpload:FC = () => {
             y = e.clientY - rect.top -(h/2);
         }
         
-  
+
         // Canvas上に画像を表示
         var img = new Image();
         img.src = uploadImgSrc;
@@ -178,6 +181,9 @@ export const ProfileImageUpload:FC = () => {
         }else if(w<h){
           w = scale.value*aspect;
           h = scale.value;
+        }else if(w==h){
+            w = scale.value;
+            h = w;
         }
        
         x = (canvas_inner.width/2)-(w/2);
@@ -229,7 +235,7 @@ export const ProfileImageUpload:FC = () => {
     return(
         <div className="w-80 p-2 border border-gray-300">
             <h1>プロフィール画像</h1>
-            <input type="file" name="file" id="file"></input>
+            <input type="file" name="file" id="file" className="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"></input>
 
             <div className="relative block mt-10">
                 <canvas id="canvas-outer" className=""></canvas>
