@@ -56,10 +56,10 @@ class CardController extends Controller
         //デコードしたidで検索
         $card = Card::with(['flashcard'])->findOrFail($id);
 
-        $access = $card->flashcard->access;
-        if($access == 1){
+        $access = $card->flashcard->access->type;
+        if($access == 0){
             return response()->json(['message' => '非公開のカードです']);
-        }elseif($access == 0){
+        }elseif($access == 1){
             return response()->json($card);
         }
 

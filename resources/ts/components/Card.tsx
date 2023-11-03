@@ -73,15 +73,15 @@ export const Card:FC = () => {
             <h5>単語帳{card.flashcard_title}</h5>
             <p></p>
 
-            <div className="w-96 h-fit ml-auto mr-auto border border-gray-300 rounded-lg">
+            <div className="w-96 h-fit ml-auto mr-auto border border-gray-300 rounded-lg bg-white">
                 <div style={{ backgroundImage: `url(${card.img_path})` }} className="bg-gray-500 bg-cover bg-center w-full h-64 rounded-lg">
                 </div>
 
-                <h2 className="w-full h-40 flex justify-center items-center bg-white text-6xl">
+                <h2 className="w-full h-fit p-3 flex justify-center items-center bg-white text-4xl">
                     {card.word}
                 </h2>
 
-                <div className="w-full h-fit bg-white">
+                <div className="w-full h-fit">
                     <div className="w-full hit bg-yellow-400">意味</div>
                     <div className="flex text-3xl p-2">
                         <div className="mt-0.5">
@@ -91,11 +91,19 @@ export const Card:FC = () => {
                     </div>
                 </div>
 
-                <div className="w-full h-fit bg-white">
+                <div className="w-full h-fit">
                     <div className="w-full hit bg-yellow-400">例文</div>
-                    <div className="p-2">
-                        <div>{card.sentence}</div>
-                        <div>{card.sentence_mean}</div>
+                    <div className="p-2 divide-y divide-dashed divide-yellow-400">
+                        
+                        <div className="">
+                            <div className="">[英文]</div>
+                            {card.sentence}
+                        </div>
+                        
+                        <div>
+                            <div className="">[和訳]</div>
+                            {card.sentence_mean}
+                        </div>
                     </div>
                 </div>
 
@@ -105,9 +113,11 @@ export const Card:FC = () => {
                 <>暗記中</>
                 }
 
-                <button className="w-full h-fit border border-yellow-300 bg-white rounded-lg">
-                    <a href={card.link} className="break-words /whitespace-pre-wrap /text-left">{card.link}</a>
-                </button>
+                <div className="w-full h-fit">
+                    <div className="w-full hit bg-yellow-400">外部リンク</div>
+                    <a href={card.link} className="break-words text-yellow-400 /text-left">{card.link}</a>
+                </div>
+                
                 
                 <div>{card.created_at}</div>
             </div>

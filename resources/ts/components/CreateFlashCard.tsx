@@ -103,7 +103,7 @@ export const CreateFlashCard:FC = () =>{
                 <div className="flex w-full h-fit">
 
                     {accessLists.map( (accessList:any) =>(
-                        <div key={accessList.id} className="flex w-full h-14 border border-gray-300 rounded pl-4 ml-1">
+                        <div key={accessList.id} className="relative flex w-full ">
                             <input type="radio" name="access" value={accessList.id}
                                 onChange={(e:any) => setAccess(e.target.value)} 
                                 checked={accessList.id == access} 
@@ -112,21 +112,22 @@ export const CreateFlashCard:FC = () =>{
                                 id={accessList.id}
                             />
 
-                            <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
-                            {accessList.type}{accessList.item}<br/>あなただけが閲覧できます
+                            <label htmlFor={accessList.id} className="block w-full h-14 pl-2 border border-gray-300 rounded mr-1 leading-7 focus:outline-none peer-checked:border-2 peer-checked:border-yellow-400">
+                                {accessList.item}<br/><small>{accessList.description}</small>
                             </label>
-                            <div className="hidden p-4 peer-checked:block">
+
+                            <div className="hidden p-4 absolute right-0 peer-checked:block">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                 </svg>
                             </div>
-
+  
                         </div>
 
                     )) }
                 </div>
 
-                <label htmlFor="">説明</label>
+                <label htmlFor="" className="block w-full mt-4">説明</label>
                 <textarea id="" cols={30} rows={10} name="description"
                     className="w-full h-32 border border-gray-300 rounded pl-4"
                     onChange={DescriptionInput}>
@@ -136,6 +137,7 @@ export const CreateFlashCard:FC = () =>{
                 <button type="submit" className="block mr-0 bg-yellow-400 w-full h-10 text-white mt-4 ml-auto mr-auto rounded-full font-medium text-1xl">
                     単語帳を作成
                 </button>
+
             </form>
         </div>
     );

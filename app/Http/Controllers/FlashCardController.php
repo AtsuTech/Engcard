@@ -27,7 +27,7 @@ class FlashCardController extends Controller
         // リレーション先のaccessesテーブルのtypeで公開ステータス(type=0)に絞り込み
         $public_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
             $query->where('type', 1);
-        })->with(['user'])->get();
+        })->with(['user'])->with(['cards'])->get();
 
         return response()->json($public_flashcards);
     }

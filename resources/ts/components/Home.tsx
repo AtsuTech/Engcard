@@ -7,13 +7,13 @@ document.title = 'ホーム';
 
 export const Home: FC = () => {
 
-    const [myflashcards,setmyflashcards] = useState([]);
+    const [flashcards,setFlashcards] = useState<any>([]);
 
     useEffect(()=>{
         // トークンでアクセスしてユーザー名を取得
         axios.get('/api/flashcard/public').then((response) => { 
             console.log(response);
-            setmyflashcards(response.data);
+            setFlashcards(response.data);
 
         }).catch((error) => { 
             
@@ -23,26 +23,28 @@ export const Home: FC = () => {
     return (
         <>
             <div>
-                <h1>ホーム</h1>
-                <div>トップページです。</div>
+                <h1>タイムライン</h1>
             </div>
 
             <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
-                {
-                    myflashcards.map( (myflashcard:any) => (
 
-                        <li key={myflashcard.id} className="block w-full h-30 mb-5 mt-5 pl-5 border border-blue-600 rounded">
-                            <h5>{myflashcard.title}</h5>
-                            <p>{myflashcard.updated_at}</p>
-                            <p>投稿:{myflashcard.user.name}</p>
+                {flashcards.length ==0 && <div className="h-96 text-2xl flex justify-center items-center">単語帳がありません</div>}
+
+                <ul>
+                    {flashcards.map( (flashcard:any) => (
+                        <li key={flashcard.id} className="block w-full p-3 mb-2 border border-gray-300 rounded">
                             
-                            <Link to={`/flashcard/${myflashcard.id_encrypt}`}>
-                                詳細
+                            <Link to={`/flashcard/${flashcard.id_encrypt}`} className="block w-full text-2xl">
+                                詳細{flashcard.title}
                             </Link>
+                            <small className="mr-2">{flashcard.updated_at}</small>
+                            <small className="mr-2">投稿:{flashcard.user.name}</small>
+                            <small>カード枚数:{flashcard.cards.length}</small>
                         </li>
-           
-                    ))
-                }
+                    ))}
+                </ul>
+
+
             </div>
         </>
 

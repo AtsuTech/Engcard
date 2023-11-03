@@ -29,4 +29,9 @@ class Card extends Model
     }
     //SPAでJSONでアクセサの値を返す時は$appendsメソッドで返す
     protected $appends = ['id_encrypt','category'];   
+
+    protected $casts = [
+        'created_at' => 'datetime:Y年n月j日',
+        'updated_at' => 'datetime:Y年n月j日',
+    ];
 }
