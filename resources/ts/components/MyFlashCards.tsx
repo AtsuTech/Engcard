@@ -50,11 +50,13 @@ export const MyFlashCards:FC =() =>{
 
                             <div className="flex">
                                 <div className="w-full">
-                                    {myflashcard.access == 0?
+                                    {myflashcard.access.type == 0 && <BageLight value={myflashcard.access.item}/>}
+                                    {myflashcard.access.type == 1 && <BageDark value={myflashcard.access.item}/>}
+                                    {/* {myflashcard.access == 0?
                                         <BageDark value={"公開"}/>
                                         :
                                         <BageLight value={"非公開"}/>
-                                    }
+                                    } */}
                                 </div>
 
                                 <OperateFlashCardMenu id_encrypt={myflashcard.id_encrypt} id={myflashcard.id} Update={Update} />

@@ -19,7 +19,7 @@ export const UpdateFlashCard:FC = () =>{
         id: string;
         user_id:string|number;
         title: string;
-        access: string|number;
+        access_id: string|number;
         created_at: string;
         updated_at: string;
     }
@@ -29,7 +29,7 @@ export const UpdateFlashCard:FC = () =>{
         id:'',
         user_id:'',
         title:'',
-        access:'',
+        access_id:'',
         created_at:'',
         updated_at:'',
     });
@@ -44,13 +44,34 @@ export const UpdateFlashCard:FC = () =>{
                 id:response.data.id,
                 user_id:response.data.user_id,
                 title:response.data.title,
-                access:response.data.access,
+                access_id:response.data.access_id,
                 created_at:response.data.created_at,
                 updated_at:response.data.updated_at,
             });
 
         }).catch((error) => { 
             setNotFonund(true);
+        });
+    },[]);
+
+
+
+    const [accessLists, setAccessLists] = useState<any>([]);
+
+    useEffect(()=>{
+        // axiosでログインAPIにemail,passwordをHTTP通信で送る
+        axios.get('/api/accesses').then(function (response) {
+
+            // --------送信成功時の処理-------- //
+            console.log(response.data);
+            setAccessLists(response.data);
+            
+        })
+        .catch(function (error) {
+        
+            // --------送信失敗時の処理-------- //
+            alert(error);
+
         });
     },[]);
 
@@ -75,7 +96,7 @@ export const UpdateFlashCard:FC = () =>{
             id: flashcard.id,
             user_id: flashcard.user_id,
             title: flashcard.title,
-            access: flashcard.access,
+            access_id: flashcard.access_id,
         }
 
         axios.post('/api/flashcard/update', params).then(function (response: AxiosResponse<Response>) {
@@ -106,17 +127,17 @@ export const UpdateFlashCard:FC = () =>{
                 <form onSubmit={updateSubmit} className="flex">
 
                     
-                    <ul className="w-24 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+                    {/* <ul className="w-24 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
 
                         <li className="flex">
-                            <input type="radio" name="access" value={0}
-                                onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} 
-                                checked={flashcard.access == 0 } 
+                            <input type="radio" name="access" value={1}
+                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
+                                checked={flashcard.access_id == 0 } 
                                 required
                                 className="sr-only peer" 
-                                id="0"
+                                id="1"
                             />
-                            <label htmlFor="0" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">公開</label>
+                            <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">公開</label>
                             <div className="hidden p-1 peer-checked:block">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -125,14 +146,14 @@ export const UpdateFlashCard:FC = () =>{
                             
                         </li>
                         <li className="flex">
-                            <input type="radio" name="access" value={1}
-                                onChange={(e:any) => setFlashcard({ ...flashcard, access: e.target.value })} 
-                                checked={flashcard.access == 1 } 
+                            <input type="radio" name="access" value={2}
+                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
+                                checked={flashcard.access_id == 1 } 
                                 required 
                                 className="sr-only peer"
-                                id="1"
+                                id="2"
                             />
-                            <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">非公開</label>
+                            <label htmlFor="2" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">非公開</label>
                             <div className="hidden p-1 peer-checked:block">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -140,8 +161,28 @@ export const UpdateFlashCard:FC = () =>{
                             </div>
                             
                         </li>
+                    </ul> */}
+
+                    <ul className="w-32 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+                    {accessLists.map( (accessList:any) =>(
+                        <li className="flex" key={accessList.id}>
+                            <input type="radio" name="access" value={accessList.id}
+                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
+                                checked={flashcard.access_id == accessList.id } 
+                                required 
+                                className="sr-only peer"
+                                id={accessList.id}
+                            />
+                            <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">{accessList.item}</label>
+                            <div className="hidden p-1 peer-checked:block">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+                            
+                        </li>
+                    )) }
                     </ul>
-                    
 
 
                     <input type="text" className="w-full h-14 border border-gray-300 rounded-lg pl-2 mx-1 text-3xl" placeholder="タイトル" value={flashcard.title}

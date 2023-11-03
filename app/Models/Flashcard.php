@@ -17,6 +17,10 @@ class Flashcard extends Model
         return $this->BelongsTo('App\Models\User');
     }
 
+    public function access(){
+        return $this->BelongsTo('App\Models\Access');
+    }
+
     public function cards()
     {
         return $this->hasMany('App\Models\Card');

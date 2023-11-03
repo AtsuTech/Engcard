@@ -8,7 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\FlashCardController;
-//use App\Http\Controllers\PartOfSpeechesController;
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CategorysController;
 use App\Http\Controllers\CardController;
 
@@ -78,6 +78,8 @@ Route::middleware(['api'])->group(function ($router){
 
     //単語帳の削除
     Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
+
+    Route::get('/accesses',[AccessController::class,'list']);
 
     //カテゴリのデータ取得
     Route::get('/categories',[CategorysController::class,'list']);

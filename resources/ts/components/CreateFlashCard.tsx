@@ -13,17 +13,43 @@ export const CreateFlashCard:FC = () =>{
     const navigate = useNavigate();
 
     const [title, setTitle] =useState<string>('');
-    const [access, setAccess] = useState<number>(1);
+    const [access, setAccess] = useState<any>(1);
+    const [accessLists, setAccessLists] = useState<any>([]);
+    const [description, setDescription] = useState<string>('');
+
+    useEffect(()=>{
+        // axiosでログインAPIにemail,passwordをHTTP通信で送る
+        axios.get('/api/accesses').then(function (response) {
+
+            // --------送信成功時の処理-------- //
+            console.log(response.data);
+            setAccessLists(response.data);
+            
+        })
+        .catch(function (error) {
+        
+            // --------送信失敗時の処理-------- //
+            alert(error);
+
+        });
+    },[]);
+
 
 
     //フォーム入力された値をsetForm関数で更新
-    const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const TitleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
 
         //イベントハンドラが実行された後にオブジェクトのプロパティにアクセスする必要がある場合は、e.persist() を呼ぶ必要がある
         e.persist();
-
         setTitle(e.target.value);
+    }
 
+    //フォーム入力された値をsetForm関数で更新
+    const DescriptionInput = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+
+        //イベントハンドラが実行された後にオブジェクトのプロパティにアクセスする必要がある場合は、e.persist() を呼ぶ必要がある
+        e.persist();
+        setDescription(e.target.value);
     }
     
 
@@ -36,7 +62,8 @@ export const CreateFlashCard:FC = () =>{
         // axiosで送るデータを定義。ここにフォームで入力された値(email,password)が入る。
         const params = {
             title : title,
-            access : access,
+            access_id : access,
+            description : description,
             user_id : localStorage.getItem('user_id'),
         }
 
@@ -68,52 +95,43 @@ export const CreateFlashCard:FC = () =>{
                 <label className="block w-full mt-4">単語帳の名前を入力(後からでも名前を変更できます)</label>
                 <input type="text" className="w-full h-14 border border-gray-300 rounded pl-4 text-2xl" placeholder="タイトル" 
                     name="title"
-                    onChange={handleInput} 
+                    onChange={TitleInput} 
                     required
                 />
 
                 <label className="block w-full mt-4">公開ステータス</label>
                 <div className="flex w-full h-fit">
 
-                    <div className="flex w-full h-14 border border-gray-300 rounded pl-4 mr-1">
-                        <input type="radio" name="access" value={0}
-                            onChange={(e:any) => setAccess(e.target.value)} 
-                            checked={access == 0} 
-                            required 
-                            className="sr-only peer"
-                            id="0"
-                        />
-                        
-                        <label htmlFor="0" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
-                            公開<br/>他のユーザーに公開します
-                        </label>
-                        <div className="hidden p-4 peer-checked:block">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <div className="flex w-full h-14 border border-gray-300 rounded pl-4 ml-1">
-                        <input type="radio" name="access" value={1}
-                            onChange={(e:any) => setAccess(e.target.value)} 
-                            checked={access == 1} 
-                            required
-                            className="sr-only peer"
-                            id="1"
-                        />
+                    {accessLists.map( (accessList:any) =>(
+                        <div key={accessList.id} className="flex w-full h-14 border border-gray-300 rounded pl-4 ml-1">
+                            <input type="radio" name="access" value={accessList.id}
+                                onChange={(e:any) => setAccess(e.target.value)} 
+                                checked={accessList.id == access} 
+                                required
+                                className="sr-only peer"
+                                id={accessList.id}
+                            />
 
-                        <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
-                            非公開<br/>あなただけが閲覧できます
-                        </label>
-                        <div className="hidden p-4 peer-checked:block">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
+                            <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">
+                            {accessList.type}{accessList.item}<br/>あなただけが閲覧できます
+                            </label>
+                            <div className="hidden p-4 peer-checked:block">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+
                         </div>
 
-                    </div>
+                    )) }
                 </div>
+
+                <label htmlFor="">説明</label>
+                <textarea id="" cols={30} rows={10} name="description"
+                    className="w-full h-32 border border-gray-300 rounded pl-4"
+                    onChange={DescriptionInput}>
+                </textarea>
+                    
                 
                 <button type="submit" className="block mr-0 bg-yellow-400 w-full h-10 text-white mt-4 ml-auto mr-auto rounded-full font-medium text-1xl">
                     単語帳を作成

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flashcards', function (Blueprint $table) {
+        Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('access_id')->constrained()->onDelete('cascade');
-            $table->string('title');
+            $table->integer('type');
+            $table->string('item');
             $table->string('description')->nullable();
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flashcards');
+        Schema::dropIfExists('accesses');
     }
 };

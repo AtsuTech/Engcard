@@ -24,13 +24,17 @@ class FlashCardController extends Controller
 
     //home画面で公開ステートの単語帳を取得
     function public_flashcard(Request $request){
-        $public_flashcards = FlashCard::where('access',0)->with(['user'])->get();
+        // リレーション先のaccessesテーブルのtypeで公開ステータス(type=0)に絞り込み
+        $public_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
+            $query->where('type', 1);
+        })->with(['user'])->get();
+
         return response()->json($public_flashcards);
     }
 
     //認証ユーザーの単語帳を取得
     function my_flashcards(){
-        $my_flashcards = FlashCard::where('user_id',Auth::id())->with(['cards'])->get();
+        $my_flashcards = FlashCard::where('user_id',Auth::id())->with(['cards'])->with(['access'])->get();
         return response()->json($my_flashcards);
     }
 
@@ -41,7 +45,8 @@ class FlashCardController extends Controller
         $id = FlashCard::insertGetId([
             'user_id' => $request->user_id,
             'title' => $request->title,
-            'access' => $request->access,
+            'access_id' => $request->access_id,
+            "description" => $request->description,
             "created_at" =>  \Carbon\Carbon::now(), 
             "updated_at" => \Carbon\Carbon::now(),  
         ]);
@@ -53,7 +58,7 @@ class FlashCardController extends Controller
     function update(Request $request){
         $flashcard = FlashCard::find($request->id);
         $flashcard->title = $request->title;
-        $flashcard->access = $request->access;
+        $flashcard->access_id = $request->access_id;
         $flashcard->save();
     }
 
