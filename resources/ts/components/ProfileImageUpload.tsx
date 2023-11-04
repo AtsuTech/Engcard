@@ -220,12 +220,12 @@ export const ProfileImageUpload:FC = () => {
         }
         const blob = new Blob([buffer.buffer], {type: "image/png"});
 
-        const id = 'eyJpdiI6IjZXd0xCZE9OeDZHQ2RZa1NNVnlTN0E9PSIsInZhbHVlIjoiZU5DTCt4bmxENFdrZy94ZFp5VTUxZz09IiwibWFjIjoiZmZkYjJiN2U5NGMyYzMxZjgzYzI5N2Y1NjZiMWNiMDc2YmU1MDNkOTA5ZDBiNWIxOWQzYjk1OWQwYTQ0ZDk5ZCIsInRhZyI6IiJ9'
+        //const id = 'eyJpdiI6IjZXd0xCZE9OeDZHQ2RZa1NNVnlTN0E9PSIsInZhbHVlIjoiZU5DTCt4bmxENFdrZy94ZFp5VTUxZz09IiwibWFjIjoiZmZkYjJiN2U5NGMyYzMxZjgzYzI5N2Y1NjZiMWNiMDc2YmU1MDNkOTA5ZDBiNWIxOWQzYjk1OWQwYTQ0ZDk5ZCIsInRhZyI6IiJ9'
         var formData = new FormData();
-        formData.append('card_id',id);
+        //formData.append('card_id',id);
         formData.append('image', blob, 'image.jpg');
         var request = new XMLHttpRequest();
-        request.open('POST', 'http://127.0.0.1:8000/api/card/update/image');
+        request.open('POST', '/api/user/profile/image/create');
         request.send(formData);
     }
 

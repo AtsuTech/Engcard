@@ -126,43 +126,6 @@ export const UpdateFlashCard:FC = () =>{
                 
                 <form onSubmit={updateSubmit} className="flex">
 
-                    
-                    {/* <ul className="w-24 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
-
-                        <li className="flex">
-                            <input type="radio" name="access" value={1}
-                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
-                                checked={flashcard.access_id == 0 } 
-                                required
-                                className="sr-only peer" 
-                                id="1"
-                            />
-                            <label htmlFor="1" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">公開</label>
-                            <div className="hidden p-1 peer-checked:block">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </div>
-                            
-                        </li>
-                        <li className="flex">
-                            <input type="radio" name="access" value={2}
-                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
-                                checked={flashcard.access_id == 1 } 
-                                required 
-                                className="sr-only peer"
-                                id="2"
-                            />
-                            <label htmlFor="2" className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">非公開</label>
-                            <div className="hidden p-1 peer-checked:block">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </div>
-                            
-                        </li>
-                    </ul> */}
-
                     <ul className="w-32 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
                     {accessLists.map( (accessList:any) =>(
                         <li className="flex" key={accessList.id}>

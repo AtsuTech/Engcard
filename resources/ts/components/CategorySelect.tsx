@@ -69,12 +69,12 @@ export const CategorySelect:FC<{value:any ,handleInput: any}> = ({value,handleIn
                                         type="radio" 
                                         value={category.id} 
                                         name="category_id" 
-                                        id={category.id} 
+                                        id={'#category' + category.id} 
                                         onChange={(e:any) => handleInput(e.target.value)} 
                                         onClick={View}
                                         checked={category.id == value} 
                                     />
-                                    <label className="block w-full leading-8 text-center focus:outline-none hover:bg-gray-200 peer-checked:bg-yellow-400" htmlFor={category.id}>{category.item}</label>
+                                    <label className="block w-full leading-8 text-center focus:outline-none hover:bg-gray-200 peer-checked:bg-yellow-400" htmlFor={'#category' + category.id}>{category.item}</label>
                                 </li>
                             ))} 
 

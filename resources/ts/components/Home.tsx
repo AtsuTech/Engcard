@@ -32,15 +32,26 @@ export const Home: FC = () => {
 
                 <ul>
                     {flashcards.map( (flashcard:any) => (
+                        
                         <li key={flashcard.id} className="block w-full p-3 mb-2 border border-gray-300 rounded">
                             
                             <Link to={`/flashcard/${flashcard.id_encrypt}`} className="block w-full text-2xl">
-                                詳細{flashcard.title}
+                                {flashcard.title}
                             </Link>
-                            <small className="mr-2">{flashcard.updated_at}</small>
-                            <small className="mr-2">投稿:{flashcard.user.name}</small>
-                            <small>カード枚数:{flashcard.cards.length}</small>
+                            <div className="flex">
+                                <small className="mr-2">{flashcard.updated_at}</small>
+                                <div className="mr-2 flex">
+                                    <div className="pt-0.5">
+                                        {flashcard.user.profile_image != null && <img src={'/storage/images/profile/' + flashcard.user.profile_image.img_path} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                                        {flashcard.user.profile_image == null && <img src={'/storage/images/profile/'} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                                    </div>
+                                    <small>{flashcard.user.name}</small>
+                                </div>
+                                <small>カード枚数:{flashcard.cards.length}</small>
+                            </div>
+  
                         </li>
+                        
                     ))}
                 </ul>
 

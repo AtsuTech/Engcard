@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject; //追記
+use App\Models\ProfileImage; //プロフィール画像のパスをカラムに追加のため使用
+use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -42,6 +44,8 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'created_at' => 'datetime:Y年n月j日 H:i',
+        'updated_at' => 'datetime:Y年n月j日 H:i',
     ];
 
     //追記
@@ -54,5 +58,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
        return [];
+    }
+
+    //リレーション
+    public function profileImage(){
+        return optional($this->hasOne('App\Models\profileImage'));
     }
 }

@@ -24,10 +24,10 @@ class FlashCardController extends Controller
 
     //home画面で公開ステートの単語帳を取得
     function public_flashcard(Request $request){
-        // リレーション先のaccessesテーブルのtypeで公開ステータス(type=0)に絞り込み
+        //リレーション先のaccessesテーブルのtypeで公開ステータス(type=1)に絞り込み
         $public_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
             $query->where('type', 1);
-        })->with(['user'])->with(['cards'])->get();
+        })->with(['user.profileImage'])->with(['cards'])->get();
 
         return response()->json($public_flashcards);
     }

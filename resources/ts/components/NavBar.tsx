@@ -2,6 +2,8 @@ import { FC, useState } from "react"
 import { Link } from 'react-router-dom';
 import { Logout } from "./auth/Logout";
 import { Cookies, useCookies } from "react-cookie";
+import { ProfileImage } from "./ProfileImage";
+
 export const NavBar: FC = () => {
 
     const [auth_token, setCookie, removeCookie] = useCookies(["token"]);
@@ -43,9 +45,10 @@ export const NavBar: FC = () => {
                     { auth_token.token != null ?
                         <>
                             <Logout />
-                            <Link to="/mypage">
-                                <button className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">{user_name}</button>
-                            </Link>
+                            <div className="pt-4 pr-4">
+                                <ProfileImage width={50} height={50}/>
+                            </div>
+                            
                         </>
                     :
                         <>

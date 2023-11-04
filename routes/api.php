@@ -11,6 +11,7 @@ use App\Http\Controllers\FlashCardController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CategorysController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\ProfileImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,12 @@ Route::middleware(['api'])->group(function ($router){
     //パスワードの更新
     Route::post('/user/password/update',[UserUpdateController::class,'change_password']);
 
+    //プロフィール画像のパス取得
+    Route::get('/user/profile/image/my',[ProfileImageController::class,'get_my_image']);
+
+    //プロフィール画像アップロード
+    Route::post('/user/profile/image/create',[ProfileImageController::class,'create']);
+
     //公開単語帳を全て取得
     Route::get('/flashcard/public',[FlashCardController::class,'public_flashcard']);
 
@@ -79,6 +86,7 @@ Route::middleware(['api'])->group(function ($router){
     //単語帳の削除
     Route::post('/flashcard/delete',[FlashCardController::class,'delete']);
 
+    //単語帳のアクセス権限のリストを取得
     Route::get('/accesses',[AccessController::class,'list']);
 
     //カテゴリのデータ取得
