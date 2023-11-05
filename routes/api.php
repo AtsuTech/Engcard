@@ -35,6 +35,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
 	Route::get('/admin',[AdminController::class,'index']);
+    Route::get('/admin/user/list',[AdminController::class,'user_list']);
 });
 
 Route::middleware(['api'])->group(function ($router){

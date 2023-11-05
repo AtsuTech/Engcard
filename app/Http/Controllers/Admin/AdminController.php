@@ -7,11 +7,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    //
+    //権限ユーザーのチェック
     public function index(){
         return response()->json(['admin' => true]);
+    }
+
+    public function user_list(){
+        $users = User::all();
+        return response()->json($users);
     }
 }
