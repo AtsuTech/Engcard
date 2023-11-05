@@ -61,6 +61,17 @@ export const Card:FC = () => {
         });
     },[]);
 
+    const Sound =()=>{
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = card.word;
+        msg.lang = 'en-US';
+        msg.rate = 1;
+
+        speechSynthesis.speak(msg);
+    }
+
+
+
 
 
     return(
@@ -72,6 +83,13 @@ export const Card:FC = () => {
             <DeleteCard id={card_id} flashcard_id={card.flashcard_id} />
             <h5>単語帳{card.flashcard_title}</h5>
             <p></p>
+
+            <button 
+                className="bg-gray-300 hover:bg-gray-400 text-cyan-700 py-1 px-3 mr-1 rounded-full"
+                onClick={Sound}
+                >
+                発音
+            </button>
 
             <div className="w-96 h-fit ml-auto mr-auto border border-gray-300 rounded-lg bg-white">
                 <div style={{ backgroundImage: `url(${card.img_path})` }} className="bg-gray-500 bg-cover bg-center w-full h-64 rounded-lg">
@@ -121,6 +139,13 @@ export const Card:FC = () => {
                 
                 <div>{card.created_at}</div>
             </div>
+
+            <button 
+                className="bg-gray-300 hover:bg-gray-400 text-cyan-700 py-1 px-3 mr-1 rounded-full"
+                onClick={Sound}
+                >
+                発音
+            </button>
             
         </>
     );

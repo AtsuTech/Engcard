@@ -27,26 +27,39 @@ export const UserList:FC =()=>{
         <>
             <h1 className="text-2xl">UserList</h1>
 
-            <table className="table-auto w-full">
+            <table className="table-auto w-full bg-white">
                 <thead>
                     <tr>
                         <th className="border border-slate-300">Id</th>
+                        <th className="border border-slate-300">Icon</th>
                         <th className="border border-slate-300">Name</th>
                         <th className="border border-slate-300">E-mail</th>
                         <th className="border border-slate-300">Operation</th>
                     </tr>
                 </thead>
+                <tbody>
                 {users.map( (user:any) => (
-                    <tr>
-                        <td className="border border-slate-300">{user.id}</td>
-                        <td className="border border-slate-300">{user.name}</td>
-                        <td className="border border-slate-300">{user.email}</td>
+                    <tr key={user.name}>
+                        <td className="border border-slate-300 text-center">{user.id}</td>
+                        <td className="border border-slate-300 text-center">
+                            {user.profile_image && <img src={'/storage/images/profile/' + user.profile_image.img_path} width={28} className="rounded-full inline-block" alt="" />}
+                            {user.profile_image ==null  && <span>NoImg</span>}
+                        </td>
                         <td className="border border-slate-300">
-                            <button>detail</button>
-                            <button>delete</button>
+                           {user.name}
+                        </td>
+                        <td className="border border-slate-300">{user.email}</td>
+                        <td className="border border-slate-300 p-1 text-center">
+                            <button className="bg-gray-300 hover:bg-gray-400 text-cyan-700 py-1 px-3 mr-1 rounded-full">
+                                detail
+                            </button>
+                            <button className="bg-rose-500 hover:bg-rose-600 text-white py-1 px-3 rounded-full">
+                                delete
+                            </button>
                         </td>
                     </tr>
                 ))} 
+                </tbody>
             </table>
 
         </>
