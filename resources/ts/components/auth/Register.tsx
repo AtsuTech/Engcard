@@ -88,6 +88,7 @@ export const Register: FC = () => {
         .catch(function (error:undefined|any) {
             // 送信失敗時の処理
             setIsLoading(false);
+            console.log(error);
             alert('登録に失敗しました。メールアドレス、パスワードをご確認ください');
             setResponse({
                 message: '',

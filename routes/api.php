@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
@@ -30,6 +31,10 @@ use App\Http\Controllers\ProfileImageController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+	Route::get('/admin',[AdminController::class,'index']);
 });
 
 Route::middleware(['api'])->group(function ($router){

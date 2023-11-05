@@ -5,6 +5,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // コンポーネントのインポート
 //import { NavBar } from './components/NavBar';
+import { AdminRouter } from './components/admin/AdminRouter';
+import { AdminDashBoard } from './components/admin/AdminDashBoard';
+import { AdminHome } from './components/admin/AdminHome';
 import { Layout } from './components/Layout';
 import { Login } from './components/auth/Login';
 import { Register } from './components/auth/Register';
@@ -46,6 +49,13 @@ root.render(
                 <Route path="/register/complete" element={<RegisterComplete />}/>
                 <Route path="/password/forgot" element={<PasswordForgot />} />
                 <Route path="/password/reset" element={<PasswordReset />} />
+
+                <Route path='/' element={<AdminRouter />}>
+                    <Route path="/" element={<AdminDashBoard />}>
+                        <Route path="/admin" element={<AdminHome />} />
+                    </Route>
+                </Route>
+                
 
                 {/* 共通レイアウト適応 */}
                 <Route path="/" element={<Layout />}>
