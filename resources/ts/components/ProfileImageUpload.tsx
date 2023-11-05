@@ -137,7 +137,7 @@ export const ProfileImageUpload:FC = () => {
 
 
     //画像の移動
-    let Move = (e:any) => { 
+    var Move = (e:any) => {                      
 
         //eにはイベントの情報が入る
         //位置の設定
@@ -220,9 +220,7 @@ export const ProfileImageUpload:FC = () => {
         }
         const blob = new Blob([buffer.buffer], {type: "image/png"});
 
-        //const id = 'eyJpdiI6IjZXd0xCZE9OeDZHQ2RZa1NNVnlTN0E9PSIsInZhbHVlIjoiZU5DTCt4bmxENFdrZy94ZFp5VTUxZz09IiwibWFjIjoiZmZkYjJiN2U5NGMyYzMxZjgzYzI5N2Y1NjZiMWNiMDc2YmU1MDNkOTA5ZDBiNWIxOWQzYjk1OWQwYTQ0ZDk5ZCIsInRhZyI6IiJ9'
         var formData = new FormData();
-        //formData.append('card_id',id);
         formData.append('image', blob, 'image.jpg');
         var request = new XMLHttpRequest();
         request.open('POST', '/api/user/profile/image/create');
