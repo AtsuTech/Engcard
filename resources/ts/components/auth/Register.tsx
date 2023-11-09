@@ -2,8 +2,14 @@ import { FC } from "react";
 import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { RegisterEmailVerify } from "./RegisterEmailVerify";
+import {Link,useNavigate} from 'react-router-dom';
+import { InputRoundedGray } from "../parts_component/InputRoudedGray";
+import { Button } from "../parts_component/Button";
+import { LinkLogo } from "../parts_component/LinkLogo";
 
 export const Register: FC = () => {
+
+    document.title = "新規登録";
 
 
     // 初期状態(true)の場合、登録情報の入力画面コンポーネントを表示する
@@ -103,58 +109,71 @@ export const Register: FC = () => {
     return (
         <>
             { process ? 
-                <div className="block w-2/3 ml-auto mr-auto p-5 text-slate-600">
+                <div className="block w-1/3 ml-auto mr-auto mt-2 mb-10 p-5 rounded-3xl bg-white text-slate-600">
                     <div>
                         { isLoading ? '送信中....' : '' }
                     </div>
 
-                    <h1>新規登録</h1>
+                    <LinkLogo link="/" width={180} />
+                    <h1 className="w-full text-center text-2xl mt-10 mb-5">新規登録</h1>
                     <form onSubmit={registerSubmit}>
 
-                        <span>名前</span>
-                        <span className="block text-red-500">{response.error_name}</span>
-                        <input type="text" 
-                            name="name" 
+
+                        <InputRoundedGray  
+                            label="名前"  
+                            type="text" 
                             value={user.name} 
-                            onChange={handleInput} 
-                            placeholder="名前"
-                            className="w-full h-10 border border-gray-600 /rounded"
+                            name="name" 
+                            func={handleInput} 
+                            placeholder="名前" 
+                            error={response.error_name}
                         />
 
-                        {/* <span>メールアドレス</span> */}
-                        <span className="block text-red-500">{response.error_email}</span>
-                        <input type="email" 
+
+                        <InputRoundedGray  
+                            label="メールアドレス"  
+                            type="email" 
+                            value={user.email} 
                             name="email" 
-                            value={user.email}  
-                            onChange={handleInput} 
-                            placeholder="メールアドレス"
-                            className="w-full h-10 border border-gray-600"
+                            func={handleInput} 
+                            placeholder="メールアドレス" 
+                            error={response.error_email}
                         />
 
-                        {/* <span>パスワード</span> */}
-                        <span className="block text-red-500">{response.error_password}</span>
-                        <input type="password" 
+
+                        <InputRoundedGray  
+                            label="パスワード"  
+                            type="password" 
+                            value={user.password} 
                             name="password" 
-                            value={user.password}  
-                            onChange={handleInput} 
-                            placeholder="パスワード"
-                            className="w-full h-10 border border-gray-600"
+                            func={handleInput} 
+                            placeholder="パスワード" 
+                            error={response.error_password}
                         />
 
-                        {/* <span>パスワード(確認でもう一度入力)</span> */}
-                        <input type="password" 
+
+
+                        <InputRoundedGray  
+                            label="パスワード(確認でもう一度入力)"  
+                            type="password" 
+                            value={user.password_confirmation} 
                             name="password_confirmation" 
-                            value={user.password_confirmation}  
-                            onChange={handleInput} 
-                            placeholder="パスワード(確認でもう一度入力)"
-                            className="w-full h-10 border border-gray-600"
+                            func={handleInput} 
+                            placeholder="パスワード(確認でもう一度入力)" 
+                            error={response.error_password}
                         />
 
-                        <button type="submit" className="block mt-10 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">
-                            登録
-                        </button>
+                        <Button text="登録" color="yellow"/>
 
-                    </form>       
+                    </form> 
+
+                    <Link to="/login" className="">
+                        <span className="block w-full text-cyan-500 mt-10">ログイン</span>
+                    </Link>
+
+                    <Link to="/password/forgot" className="">
+                        <span className="block w-full text-cyan-500 mt-10">パスワードを忘れた</span>
+                    </Link>      
                 </div>
             :
                 <RegisterEmailVerify email={response.email} /> 
