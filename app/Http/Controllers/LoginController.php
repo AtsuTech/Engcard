@@ -26,12 +26,23 @@ class LoginController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
+        $verify_check = null;
 
-        // メール承認のカラムのデータ取得
+        // メールアドレスで、合致するユーザーを検索
         $user = Authenticatable::where('email','=',request(['email']))->first();
-        $verify_check = $user->email_verified_at;
-        $user_name = $user->name;
-        $user_id = $user->id;
+
+        // メールアドレスが合致するユーザーが居なければエラー返す
+        if($user == null){
+            return response()->json(['error' => 'このメールアドレスで登録されたユーザーが見つかりませんでした'], 401);
+        }
+
+        // メールアドレスが合致するユーザーがいた場合、データを取得
+        if($user){
+            $verify_check = $user->email_verified_at;
+            $user_name = $user->name;
+            $user_id = $user->id;
+        }
+
 
         // メール承認のカラムがnullどうかチェック。nullならログインを却下する
         if(is_null($verify_check)){
@@ -40,7 +51,7 @@ class LoginController extends Controller
 
         //JWTAuth::attempt()にしないとトークンが得られなかった(auth()->attemptだとtrueと帰ってくる)
         if (! $token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'ログインできません。メールアドレス、パスワードをご確認ください。'], 401);
+            return response()->json(['error' => 'ログインできません。パスワードが間違っていないかご確認ください。'], 401);
         }
 
         return $this->respondWithToken($token,$verify_check,$user_name,$user_id);
