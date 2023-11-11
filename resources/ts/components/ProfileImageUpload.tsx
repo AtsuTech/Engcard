@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
+import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
 export const ProfileImageUpload:FC = () => {
 
@@ -19,25 +20,16 @@ export const ProfileImageUpload:FC = () => {
     var y:number;
     var w:number;
     var h:number;
+    const modal = document.getElementById("modal") as any;
 
 
     if (canvas_inner) {
-        
+
         ctx_inner = canvas_inner.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D;
         canvas_inner.width = 300;
         canvas_inner.height = 300;
         ctx_inner.fillStyle = "#fff";
         ctx_inner.fillRect(0,0,canvas_inner.width,canvas_inner.height);
-    
-        //マウスドラック開始検知
-        canvas_inner.addEventListener('mousedown', ()=> {
-            canvas_inner.addEventListener('mousemove',Move);
-        });
-
-        //マウスドラック終了検知
-        canvas_inner.addEventListener('mouseup',()=> {
-            canvas_inner.removeEventListener('mousemove',Move);
-        });
 
     }
 
@@ -47,7 +39,7 @@ export const ProfileImageUpload:FC = () => {
         canvas_outer.height = 300;
     }
 
-
+    //フィルタ(半透明黒)を描画
     let filter =()=> {
         if(ctx_outer){
             ctx_outer.globalAlpha = 0.8;
@@ -70,7 +62,7 @@ export const ProfileImageUpload:FC = () => {
           alert('画像を選択してください');
           return;
         }
-  
+
         // FileReaderオブジェクトを使ってファイル読み込み
         var reader = new FileReader();
         // ファイル読み込みに成功したときの処理
@@ -81,6 +73,7 @@ export const ProfileImageUpload:FC = () => {
         }
         // ファイル読み込みを実行
         reader.readAsDataURL(fileData);
+        modal.showModal();
     }
 
     // ファイルが指定された時にloadLocalImage()を実行
@@ -90,7 +83,7 @@ export const ProfileImageUpload:FC = () => {
 
     // Canvas上に画像を表示する
     function canvasInnerDraw() {
-
+        
         // canvas内の要素をクリアする
         ctx_inner.clearRect(0, 0, canvas_inner.width, canvas_inner.height);
   
@@ -98,7 +91,7 @@ export const ProfileImageUpload:FC = () => {
         var img = new Image();
         img.src = uploadImgSrc;
 
-
+        
         //画像の縦長or横長の判別
         if(img.width > img.height){
             aspect = img.height/img.width;
@@ -130,14 +123,25 @@ export const ProfileImageUpload:FC = () => {
   
     }
 
+    //切り取り外側部分を複製で表現
     function canvasOuterDraw(){
         var image: ImageData = ctx_inner.getImageData(0, 0, 300, 300);
         ctx_outer.putImageData(image, 0, 0);
     }
 
+    //マウスドラック開始検知
+    const MouseDown = (event:any) => {
+        canvas_inner.addEventListener("mousemove", Move); 
+    };
+
+    //マウスドラック終了検知
+    const MouseUp = (event:any) => {
+        canvas_inner.removeEventListener("mousemove", Move); 
+    };
+
 
     //画像の移動
-    var Move = (e:any) => {                      
+    var Move = (e:any) => {                             
 
         //eにはイベントの情報が入る
         //位置の設定
@@ -148,7 +152,6 @@ export const ProfileImageUpload:FC = () => {
         if(h != 300){
             y = e.clientY - rect.top -(h/2);
         }
-        
 
         // Canvas上に画像を表示
         var img = new Image();
@@ -225,23 +228,61 @@ export const ProfileImageUpload:FC = () => {
         var request = new XMLHttpRequest();
         request.open('POST', '/api/user/profile/image/create');
         request.send(formData);
+        modal.close();
+        alert("画像を更新しました");
     }
 
   
+    const Cancel =()=>{
+        var file = document.getElementById('file') as any;
+        file.value = '';
+        ctx_inner.fillRect(0,0,300,300);
+        ctx_outer.fillRect(0,0,300,300);
+        modal.close();
+    }
 
 
     return(
-        <div className="w-80 p-2 border border-gray-300">
-            <h1>プロフィール画像</h1>
-            <input type="file" name="file" id="file" className="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"></input>
+        <div>
+            
+            <label className="flex w-full cursor-pointer appearance-none items-center justify-center rounded-md bg-slate-800 text-white p-2 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                </svg>
+                <div>ファイルを開く</div>
+                <input type="file" name="file" id="file" className="sr-only block w-full"></input>
+            </label>
 
-            <div className="relative block mt-10">
-                <canvas id="canvas-outer" className=""></canvas>
-                <canvas id="canvas-inner" className="rounded-full absolute top-0"></canvas>
-            </div>
+            <dialog className="w-fit rounded-2xl" id="modal">
+                <header className="w-full h-20 flex items-center justify-center">
+                    <h1 className="text-slate-600 text-1xl">プロフィール画像を設定</h1>
+                </header>
+                
+                <div className="relative block">
+                    <canvas id="canvas-outer" className=""></canvas>
+                    <canvas id="canvas-inner" 
+                            className="rounded-full absolute top-0 cursor-move" 
+                            onMouseDown={MouseDown} 
+                            onMouseUp={MouseUp}>
+                    </canvas>
+                </div>
 
-            <input type="range" name="scale" min="300" max="1200" className="w-full" onInput={(e) => Zoom(e)}/> 
-            <button className="block bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl" onClick={Upload}>画像アップロード</button>
+                <div className="w-full h-20 flex items-center justify-center">
+                    <label className="w-full text-center text-sm" htmlFor="">元サイズ</label>
+                    <input type="range" name="scale" min="300" max="1200" className="w-full" onInput={(e) => Zoom(e)}/> 
+                    <label className="w-full text-center text-sm" htmlFor="">拡大</label>
+                </div>
+
+                <div className="flex">
+                    <div className="p-3 w-full">
+                        <ButtonWithOnClick color="gray" text="キャンセル" onclick={Cancel} />
+                    </div>
+                    <div className="p-3 w-full">
+                        <ButtonWithOnClick color="yellow" text="設定" onclick={Upload} />
+                    </div>
+                </div>
+            </dialog>
 
         </div>
     );
