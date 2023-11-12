@@ -3,6 +3,9 @@ import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {Link,useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
+import { Dialog } from "../parts_component/Dialog";
+
+
 
 
 const TextInput:FC<{label:any,htmlFor:any,type:any,name:any,value:any,placeholder:any,func:any}> = ({label,htmlFor,type,name,value,placeholder,func}) =>{
@@ -26,6 +29,16 @@ const TextInput:FC<{label:any,htmlFor:any,type:any,name:any,value:any,placeholde
 export const Login: FC = () => {
     //ページ遷移で使う
     const navigate = useNavigate();
+
+    const JumpLink =()=>{
+        navigate('/dashboard');
+        
+    }
+    
+    const user_name = localStorage.getItem('user_name');
+    const message = "ようこそ、" + user_name + "さん。"
+
+    const [open,setOpen] = useState<boolean>(false);
 
     interface Login {
         email: string;
@@ -69,7 +82,11 @@ export const Login: FC = () => {
         axios.post('http://127.0.0.1:8000/api/login', data).then(function (response:AxiosResponse|any){
 
             // --------送信成功時の処理-------- //
-            alert('ログイン成功');
+            //alert('ログイン成功');
+            setOpen(true);
+            
+            
+ 
 
             //トークンをクッキーに保存
             setCookie("token",response.data.access_token);
@@ -85,7 +102,7 @@ export const Login: FC = () => {
             localStorage.setItem('auth_status',response.status);
 
             //ログイン後の移動先
-            window.location.href = '/dashboard';
+            //window.location.href = '/dashboard';
 
             
         })
@@ -104,6 +121,7 @@ export const Login: FC = () => {
 
     return (
         <div className="block w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+            <Dialog open={open} title="ログイン成功" message={message} func={JumpLink} />
             <h1 className="w-full text-center text-2xl mt-10 mb-10">ログイン</h1>
 
             <form onSubmit={LoginSubmit}>

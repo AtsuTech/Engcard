@@ -251,7 +251,7 @@ export const ProfileImageUpload:FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                 </svg>
                 <div>ファイルを開く</div>
-                <input type="file" name="file" id="file" className="sr-only block w-full"></input>
+                <input type="file" name="file" id="file" accept="image/*" className="sr-only block w-full"></input>
             </label>
 
             <dialog className="w-fit rounded-2xl" id="modal">
