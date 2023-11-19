@@ -26,6 +26,11 @@ class Flashcard extends Model
         return $this->hasMany('App\Models\Card');
     }
 
+    public function flashcard_favorites()
+    {
+        return $this->hasMany('App\Models\FlashcardFavorite');
+    }
+
     protected $casts = [
         'created_at' => 'datetime:Y年n月j日',
         'updated_at' => 'datetime:Y年n月j日',

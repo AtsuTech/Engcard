@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\FlashCardController;
+use App\Http\Controllers\FlashcardFavoriteController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CategorysController;
 use App\Http\Controllers\CardController;
@@ -94,6 +95,18 @@ Route::middleware(['api'])->group(function ($router){
 
     //単語帳のアクセス権限のリストを取得
     Route::get('/accesses',[AccessController::class,'list']);
+
+    //単語帳のいいね数を取得
+    Route::get('/flashcard/favorite/get/count/{id}',[FlashcardFavoriteController::class,'get_favorite_count']);
+
+    //単語帳のいいね済みかどうかチェック
+    Route::get('/flashcard/favorite/my/check/{id}',[FlashcardFavoriteController::class,'check_my_favorite']);
+
+    //単語帳にいいねをつける
+    Route::post('/flashcard/favorite/add',[FlashcardFavoriteController::class,'add_favorite']);
+
+    //単語帳にいいねを外す
+    Route::post('/flashcard/favorite/delete',[FlashcardFavoriteController::class,'delete_favorite']);
 
     //カテゴリのデータ取得
     Route::get('/categories',[CategorysController::class,'list']);
