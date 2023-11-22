@@ -44,8 +44,8 @@ export const Home: FC = () => {
                             <small className="mr-2">{flashcard.updated_at}</small>
                             <div className="mr-2 flex">
                                 <div className="pt-0.5">
-                                    {flashcard.user.profile_image != null && <img src={'/storage/images/profile/' + flashcard.user.profile_image.img_path} width={17} height={17} alt="" className="block rounded-full mr-1" />}
-                                    {flashcard.user.profile_image == null && <img src={'/storage/images/profile/'} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                                    {flashcard.user.profile_icon_img != null && <img src={'/storage/images/profile/' + flashcard.user.profile_icon_img} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                                    {flashcard.user.profile_icon_img == null && <img src={'/storage/images/profile/'} width={17} height={17} alt="" className="block rounded-full mr-1" />}
                                 </div>
                                 <small>{flashcard.user.name}</small>
                             </div>

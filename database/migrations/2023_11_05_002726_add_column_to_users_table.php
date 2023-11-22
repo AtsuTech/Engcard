@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //usersテーブルに追加するカラム
             $table->foreignId('admin_id')->default(2)->constrained()->onDelete('cascade');
+            $table->string('profile_icon_img')->nullable();
             $table->longText('comment')->nullable();
         });
     }

@@ -226,7 +226,7 @@ export const ProfileImageUpload:FC = () => {
         var formData = new FormData();
         formData.append('image', blob, 'image.jpg');
         var request = new XMLHttpRequest();
-        request.open('POST', '/api/user/profile/image/create');
+        request.open('POST', '/api/user/profile/image/upload');
         request.send(formData);
         modal.close();
         alert("画像を更新しました");
