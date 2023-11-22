@@ -57,6 +57,7 @@ export const DashBoard: FC = () => {
                 <div className="flex">
                     <ProfileImage width={80} height={80} />
                     <h5 className="text-2xl flex justify-center items-center ml-3">{me.name}</h5>
+                    <ProfileImageUpload />
                 </div>
 
                 <ul>
@@ -80,14 +81,24 @@ export const DashBoard: FC = () => {
                     <li>{me.password}</li>
                 </ul>
             </div>
+                        
+            <ul className="w-full mt-5 /text-sm font-medium bg-white border border-gray-200 rounded-lg">
+                <li className="w-full px-4 py-4 border-b border-gray-200 rounded-t-lg">
+                    <Link to="/user/update">ユーザー情報編集</Link>
+                </li>
+                <li className="w-full px-4 py-4 border-b border-gray-200">
+                    <Link to="/user/password/update">パスワード変更</Link>
+                </li>
+                <li className="w-full px-4 py-4 border-b border-gray-200">
+                    <Link to="/category/setting">カテゴリ設定</Link>
+                </li>
+                <li className="w-full px-4 py-4 rounded-b-lg">
+                    退会(アカウント)
+                </li>
+            </ul>
+
+
             
-
-
-            <Link to="/user/update">ユーザー情報編集</Link>
-            <Link to="/user/password/update">パスワード変更</Link>
-            <Link to="/category/setting">カテゴリ設定</Link>
-
-            <ProfileImageUpload />
         </div>
     );
 
