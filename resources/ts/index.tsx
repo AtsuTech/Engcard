@@ -22,6 +22,7 @@ import { Home } from './components/Home';
 import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
 import { UserUpdate } from './components/auth/UserUpdate';
+import { UserUnscribe } from './components/auth/UserUnscribe';
 import { PasswordUpdate } from './components/auth/PasswordUpdate';
 import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
@@ -68,6 +69,7 @@ root.render(
                         <Route path="/dashboard" element={<DashBoard />} />
                         <Route path="/user/update" element={<UserUpdate />} />
                         <Route path="/user/password/update" element={<PasswordUpdate />} />
+                        <Route path="/user/unscribe" element={<UserUnscribe />} />
                         <Route path="/flashcard/create" element={<CreateFlashCard />} />
                         <Route path="/flashcard/my" element={<MyFlashCards />} />
                         <Route path="/flashcard/update" element={<UpdateFlashCard />}>

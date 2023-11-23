@@ -40,7 +40,7 @@ export const Card:FC = () => {
                 card_id:response.data.id_encrypt,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
-                img_path : '/storage/images/' + response.data.img_path,
+                img_path : '/storage/images/card/'+ response.data.user_id + '/' + response.data.flashcard_id + '/' + response.data.img_path,
                 sentence : response.data.sentence,
                 sentence_mean : response.data.sentence_mean,
                 memory : response.data.memory,

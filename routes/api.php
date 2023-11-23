@@ -8,13 +8,15 @@ use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserUpdateController;
+use App\Http\Controllers\UserProfileImgController;
+use App\Http\Controllers\UserUnscribeController;
 use App\Http\Controllers\FlashCardController;
 use App\Http\Controllers\FlashcardFavoriteController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CategorysController;
 use App\Http\Controllers\CardController;
 //use App\Http\Controllers\ProfileImageController;
-use App\Http\Controllers\UserProfileImgController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,9 @@ Route::middleware(['api'])->group(function ($router){
 
     //プロフィール画像アップロード
     Route::post('/user/profile/image/upload',[UserProfileImgController::class,'upload_img']);
+
+    //退会処理
+    Route::post('/user/unscribe',[UserUnscribeController::class,'unscribe']);
 
     //公開単語帳を全て取得
     Route::get('/flashcard/public',[FlashCardController::class,'public_flashcard']);

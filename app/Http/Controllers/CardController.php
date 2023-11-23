@@ -6,12 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Card;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Contracts\Database\Query\Builder;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;//ストレージ操作
 
 class CardController extends Controller
 {
+
+
+
+
     //新規追加
     public function create(Request $request){
+
+        //カード画像保存先パス
+        $directory = 'public/images/card/' . Auth::id() . '/' . decrypt($request->flashcard_id);
+
         $Card = new Card;
 
         $Card->flashcard_id = decrypt($request->flashcard_id);
@@ -19,7 +27,7 @@ class CardController extends Controller
 
         $image = $request->file('image');
         if($image != null){
-            $path = $image->store('public/images');
+            $path = $image->store($directory);
             $Card->img_path = basename($path);
         }elseif($image == null){
             $Card->img_path = null;
@@ -81,11 +89,23 @@ class CardController extends Controller
 
     //画像のみ編集
     public function update_only_image(Request $request){
+
         $Card = Card::find(decrypt($request->card_id));
+        
+        //カード画像保存先パス
+        $directory = 'public/images/card/' . Auth::id() . '/' . $Card->flashcard_id;
+
 
         $image = $request->file('image');
         if($image != null){
-            $path = $image->store('public/images');
+
+            //すでに画像がある場合は画像ファイル削除する
+            if($Card->img_path != null || $Card->img_path != ""){
+                $delete_target = '/images/card/' . Auth::id() . '/' . $Card->flashcard_id . '/';
+                Storage::disk('public')->delete($delete_target . $Card->img_path);
+            }
+            
+            $path = $image->store($directory);
             $Card->img_path = basename($path);
         }elseif($image == null){
             $Card->img_path = null;
@@ -97,9 +117,10 @@ class CardController extends Controller
 
     //画像削除
     public function delete_image(Request $request){
+
         $Card = Card::find(decrypt($request->card_id));
+        Storage::disk('public')->delete('/images/card/' . Auth::id() . '/' . $Card->flashcard_id . '/' . $Card->img_path);
         $Card->img_path = null;
-        Storage::disk('public')->delete('images/' . $request->img_path);
         $Card->save();
     }
 
@@ -107,7 +128,7 @@ class CardController extends Controller
     //カード削除
     public function delete(Request $request){
         $Card = Card::find(decrypt($request->card_id));
-        Storage::disk('public')->delete('images/' . $Card->img_path);
+        Storage::disk('public')->delete('/images/card/' . Auth::id() . '/' . $Card->flashcard_id . '/' . $Card->img_path);
         $Card = Card::find(decrypt($request->card_id))->delete();
     }
 

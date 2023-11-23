@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FlashCard;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
-
+use Illuminate\Support\Facades\Storage;//ストレージ操作
 
 class FlashCardController extends Controller
 {
@@ -24,10 +24,6 @@ class FlashCardController extends Controller
 
     //home画面で公開ステートの単語帳を取得
     function public_flashcard(Request $request){
-        //リレーション先のaccessesテーブルのtypeで公開ステータス(type=1)に絞り込み
-        // $public_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
-        //     $query->where('type', 1);
-        // })->with(['user.profileImage'])->with(['cards'])->get();
 
         $public_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
             $query->where('type', 1);
@@ -68,6 +64,10 @@ class FlashCardController extends Controller
 
     //単語帳の削除
     function delete(Request $request){
+
+        //単語帳に登録してあるカードの画像ファイルを全て削除
+        $directory = '/public/images/card/' . Auth::id() . '/' . $request->id;
+        Storage::deleteDirectory($directory);
 
         $flashcard = FlashCard::findOrFail($request->id)->delete();
         return response()->json(['success' => '削除しました']);

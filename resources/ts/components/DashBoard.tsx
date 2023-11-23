@@ -93,7 +93,7 @@ export const DashBoard: FC = () => {
                     <Link to="/category/setting">カテゴリ設定</Link>
                 </li>
                 <li className="w-full px-4 py-4 rounded-b-lg">
-                    退会(アカウント)
+                    <Link to="/user/unscribe">退会(アカウント)</Link>
                 </li>
             </ul>
 
