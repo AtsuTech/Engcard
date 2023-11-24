@@ -24,12 +24,27 @@ export const Home: FC = () => {
 
 
     return (
-        <>
+        <main className="w-full mt-5 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+
             <div>
+                <h1 className="text-2xl">Home</h1>
+                <h1>さがす</h1>
+                <div className="flex">
+                    <input type="text" className="w-full h-12 border border-gray-300 rounded-lg " />
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div className="mt-5">
                 <h1>タイムライン</h1>
             </div>
 
-            <div className="flex flex-wrap w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+            <div className="flex flex-wrap w-full /ml-auto /mr-auto /mt-10 mb-10 /p-5 /rounded-3xl /bg-white /text-slate-600">
+                
 
                 {flashcards.length ==0 && <div className="w-full h-96 text-2xl flex justify-center items-center">単語帳がありません</div>}
 
@@ -59,7 +74,7 @@ export const Home: FC = () => {
                 ))}
 
             </div>
-        </>
+        </main>
 
     )
 

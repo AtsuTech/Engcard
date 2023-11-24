@@ -33,9 +33,9 @@ export const OperateFlashCardMenu:FC<{id_encrypt:any,id:any,Update:any}> = ({id_
     return(
         <div className="block w-10 h-5 relative">
 
-            <button onClick={View} className="w-10 h-5 rounded-full border border-gray-300">
+            <button onClick={View} className="w-10 h-5 rounded-full /border /border-gray-100">
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-5 text-gray-100">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                     </svg>
                 </div>

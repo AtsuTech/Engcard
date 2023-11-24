@@ -31,6 +31,7 @@ import { FlashCard } from './components/FlashCard';
 import { Card } from './components/Card';
 import { UpdateCard } from './components/UpdateCard';
 import { CategorySetting } from './components/CategorySetting';
+import { Memory } from './components/Memory';
 
 
 const container = document.getElementById('app');
@@ -42,6 +43,16 @@ root.render(
             <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="*" element={<div>404　ページが見つかりません。</div>} />
+
+                {/* 権限ユーザーのみアクセス可能 */}
+                <Route path='/' element={<AdminRouter />}>
+                    <Route path="/" element={<AdminDashBoard />}>
+                        <Route path="/admin" element={<AdminHome />} />
+                        <Route path="/admin/user/list" element={<UserList />} />
+                    </Route>
+                </Route>
+
+
                 {/* ゲストユーザーのみアクセス可能 */}
                 <Route path='/' element={<GuestRoute />}>
                     <Route path="/login" element={<Login />} />
@@ -53,11 +64,10 @@ root.render(
                 <Route path="/password/forgot" element={<PasswordForgot />} />
                 <Route path="/password/reset" element={<PasswordReset />} />
 
-                <Route path='/' element={<AdminRouter />}>
-                    <Route path="/" element={<AdminDashBoard />}>
-                        <Route path="/admin" element={<AdminHome />} />
-                        <Route path="/admin/user/list" element={<UserList />} />
-                    </Route>
+
+
+                <Route path="/memory" element={<Memory />}>
+                    <Route path=":flashcard_id" element={<Memory />} />
                 </Route>
                 
 

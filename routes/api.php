@@ -117,6 +117,9 @@ Route::middleware(['api'])->group(function ($router){
     //カテゴリのデータ取得
     Route::get('/categories',[CategorysController::class,'list']);
 
+    //id検索で特定のカテゴリのデータ取得
+    Route::get('/category/{id}',[CategorysController::class,'get']);
+
     //編集可能な(ユーザーが作成した)カテゴリのデータ取得
     Route::get('/categories/my',[CategorysController::class,'my_list']);
 

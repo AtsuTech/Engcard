@@ -41,15 +41,29 @@ export const CategorySelect:FC<{value:any ,handleInput: any}> = ({value,handleIn
     },[update]);
 
 
+    const [selected_itme,setSelectedItme] = useState('カテゴリ選択');
+    
+    useEffect(()=>{
+
+        //DB通信でデータ取得
+        axios.get(`/api/category/${value}`).then((response) => { 
+            setSelectedItme(response.data.item);
+        }).catch((error) => { 
+            console.log(error);
+        });
+    
+    },[value]);
+
+
     return(
 
         <div>
 
-            <button 
-                className="block w-32 h-10 border border-gray-300 rounded-lg"
+            <div 
+                className="block text-center py-2 w-32 h-10 border border-gray-300 rounded-lg"
                 onClick={View}>
-                選択▼{}
-            </button>
+                {selected_itme}
+            </div>
 
             {view &&
                 

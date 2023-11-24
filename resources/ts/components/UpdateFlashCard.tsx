@@ -113,6 +113,7 @@ export const UpdateFlashCard:FC = () =>{
 
     return(
         <>
+            <h1 className="text-xs">単語帳を作成/カードの追加</h1>
             <div>
                 <h1 className="text-3xl">単語帳の編集</h1>
             </div>

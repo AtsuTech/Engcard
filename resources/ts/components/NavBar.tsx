@@ -4,10 +4,19 @@ import { Logout } from "./auth/Logout";
 import { Cookies, useCookies } from "react-cookie";
 import { ProfileImage } from "./ProfileImage";
 
+
 export const NavBar: FC = () => {
 
     const [auth_token, setCookie, removeCookie] = useCookies(["token"]);
     const user_name = localStorage.getItem('user_name');
+    const [account_menue,setAccountMenu] = useState(false);
+    const Disp =()=>{
+        if(account_menue == false){
+            setAccountMenu(true);
+        }else if(account_menue == true){
+            setAccountMenu(false);
+        }
+    }
 
     return (
 
@@ -28,11 +37,6 @@ export const NavBar: FC = () => {
                             </Link>
                         </li>
                         <li className="m-2">
-                            <Link to="/dashboard" className="block w-24 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
-                                マイページ
-                            </Link>
-                        </li>
-                        <li className="m-2">
                             <Link to="/flashcard/my" className="block w-24 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
                                 単語帳
                             </Link>
@@ -43,13 +47,40 @@ export const NavBar: FC = () => {
     
                 <div className="flex mr-2">
                     { auth_token.token != null ?
-                        <>
-                            <Logout />
-                            <div className="pt-4 pr-4">
+                        <div className="relative">
+                            
+                            <div className="pt-4 pr-4" onClick={Disp}>
                                 <ProfileImage width={50} height={50}/>
                             </div>
-                            
-                        </>
+
+                            {account_menue &&
+                                <div className="absolute right-0  mt-2 p-2 w-40 h-fit bg-white rounded-lg shadow-lg text-gray-500">
+                                    <div className="flex">
+                                        <div>
+                                            <ProfileImage width={20} height={20}/>
+                                        </div>
+                                        <b>{user_name}</b>
+                                    </div>
+                                    
+                                    <ul className="block w-full text-center">
+                                        <li className="block w-full p-3">
+                                            <Link to="/dashboard">
+                                                ダッシュボード
+                                            </Link>
+                                        </li>
+                                        <li className="w-full p-3">
+                                            <Link to="/mypage">
+                                                マイページ
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Logout />
+                                        </li>
+                                    </ul>
+                                </div>
+                            }    
+                        </div>
+                        
                     :
                         <>
                             <Link to="/login">

@@ -97,6 +97,18 @@ export const DashBoard: FC = () => {
                 </li>
             </ul>
 
+            <div className="flex mt-3 border border-gray-200 rounded-lg">
+                <button className="block w-full h-12 text-center border-r border-gray-200">
+                    単語帳
+                </button>
+                <button className="block w-full h-12 text-center border-r border-gray-200">
+                    単語カード
+                </button>
+                <button className="block w-full h-12 text-center">
+                    お気に入り
+                </button>
+            </div>
+
 
             
         </div>

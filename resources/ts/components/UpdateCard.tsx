@@ -142,7 +142,8 @@ export const UpdateCard:FC = () => {
                     name="sentence" 
                     rows={5} 
                     className="w-full p-2 border border-gray-300" 
-                    defaultValue={card.sentence}
+                    // defaultValue={card.sentence}
+                    value={card.sentence==null ? "": card.sentence}
                     onChange={handleInput} 
                     placeholder="例文:Apple is red and delicious fruits."
                     >
@@ -152,7 +153,8 @@ export const UpdateCard:FC = () => {
                     name="sentence_mean" 
                     rows={5} 
                     className="w-full p-2 border border-gray-300" 
-                    defaultValue={card.sentence_mean}
+                    //defaultValue={card.sentence_mean}
+                    value={card.sentence_mean==null ? "": card.sentence_mean}
                     onChange={handleInput} 
                     placeholder="例文(訳):りんごは赤くて美味しい果物です。"
                     >
@@ -162,7 +164,7 @@ export const UpdateCard:FC = () => {
                     name="link" 
                     className="w-full h-10 border border-gray-300 rounded pl-2" 
                     placeholder="ex.)Gazotan.com" 
-                    value={card.link}
+                    value={card.link==null ? "": card.link}
                     onChange={handleInput} 
                 />
 

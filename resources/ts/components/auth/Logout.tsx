@@ -55,7 +55,7 @@ export const Logout:FC = () => {
 
     return(
         <button 
-            className="block w-24 h-12 mt-4 p-1 ml-2 text-center text-gray-600"
+            className="block w-full h-10 text-center text-gray-500"
             onClick={LogoutAction}
             >
             ログアウト

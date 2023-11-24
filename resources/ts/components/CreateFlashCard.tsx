@@ -88,7 +88,7 @@ export const CreateFlashCard:FC = () =>{
 
     return(
         <div>
-            <h1 className="text-3xl">単語帳を作成</h1>
+            <h1 className="text-xs">単語帳を作成</h1>
             <form onSubmit={Submit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
                 <h1 className="text-3xl mb-3">単語帳を作成</h1>
 
