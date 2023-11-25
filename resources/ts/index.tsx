@@ -32,6 +32,7 @@ import { Card } from './components/Card';
 import { UpdateCard } from './components/UpdateCard';
 import { CategorySetting } from './components/CategorySetting';
 import { Memory } from './components/Memory';
+import { Quiz } from './components/Quiz';
 
 
 const container = document.getElementById('app');
@@ -68,6 +69,9 @@ root.render(
 
                 <Route path="/memory" element={<Memory />}>
                     <Route path=":flashcard_id" element={<Memory />} />
+                </Route>
+                <Route path="/quiz" element={<Quiz />}>
+                    <Route path=":flashcard_id" element={<Quiz />} />
                 </Route>
                 
 

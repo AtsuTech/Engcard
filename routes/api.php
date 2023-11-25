@@ -138,6 +138,15 @@ Route::middleware(['api'])->group(function ($router){
     //カード(公開)の詳細
     Route::get('/card/{id}',[CardController::class,'public_detail_card']);
 
+    //クイズで使用するカードの情報を取得
+    Route::get('/card/quiz/get/{flashcard_id}/{card_index}',[CardController::class,'quiz_choices']);
+
+    //クイズで正解したら暗記完了にする
+    Route::post('/card/quiz/memory/true',[CardController::class,'memory']);
+
+    //クイズで間違えたら暗記完了にする
+    Route::post('/card/quiz/memory/false',[CardController::class,'un_memory']);
+
     //カードの編集
     Route::post('/card/update',[CardController::class,'update']);
 

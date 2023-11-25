@@ -7,6 +7,7 @@ use App\Models\Card;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;//ストレージ操作
+use Illuminate\Support\Arr;//配列操作
 
 class CardController extends Controller
 {
@@ -71,6 +72,49 @@ class CardController extends Controller
             return response()->json($card);
         }
 
+    }
+
+    //(クイズ用)ランダムに3件取得
+    public function quiz_choices(Request $request){
+
+        /*---------------<フロント側で表示中の単語の意味データ(正解の選択肢)の取得>-------------------------
+        *フロントエンドから単語帳idと単語カードのindex番号を受け取る。
+        *まず単語帳idで単語カードを絞る
+        *次に、単語カードのindex番号でskip()で何番目からデータを取り始めるかを決める。
+        *欲しい件数は1個だけなのでtake()に1を指定する
+        *配列として扱うのでtoArray()
+        */
+        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->get()->pluck('word_mean')->toArray();
+
+        //フロント側で表示中の単語の意味データ(正解の選択肢)のid(pk)を取得
+        $correct_id = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->get()->pluck('id');
+
+        //不正解の選択肢を、正解の選択肢を除くものからランダムに3つ取得(今の所、他の単語帳のカードからも選択肢取ってくる仕様)
+        $incorrect = Card::where('id','!=',$correct_id)->inRandomOrder()->take(3)->get()->pluck('word_mean')->toArray();
+
+        //配列の結合(不正解選択肢+正解の選択肢)
+        $choices = array_merge($incorrect,$correct);
+
+        //結合した配列をシャッフル
+        $choices = Arr::shuffle($choices);
+
+        //データ吐き出し
+        return response()->json($choices);
+    }
+
+    //クイズ正解時に暗記完了にする
+    public function memory(Request $request){
+        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->first();
+        $correct->memory = true;
+        $correct->save();
+    }
+
+
+    //クイズ不正解時に暗記未完了にする
+    public function un_memory(Request $request){
+        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->first();
+        $correct->memory = false;
+        $correct->save();
     }
 
     //編集

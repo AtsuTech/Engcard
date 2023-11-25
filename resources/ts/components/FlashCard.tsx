@@ -135,7 +135,9 @@ export const FlashCard:FC = () =>{
                         
 
                         <button className="w-full h-fit m-1 p-4 bg-yellow-400 rounded-full">
+                            <Link to={`/quiz/${flashcard_id}`} className="block w-full h-fit">
                             クイズ
+                            </Link>
                         </button>
                     </div>
 
