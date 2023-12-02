@@ -3,6 +3,8 @@ import React from 'react';
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Title } from "./parts_component/Title";
+import { Button } from "./parts_component/Button";
 
 
 export const CreateFlashCard:FC = () =>{
@@ -88,18 +90,18 @@ export const CreateFlashCard:FC = () =>{
 
     return(
         <div>
-            <h1 className="text-xs">単語帳を作成</h1>
+            {/* <h1 className="text-xs">単語帳を作成</h1> */}
             <form onSubmit={Submit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
-                <h1 className="text-3xl mb-3">単語帳を作成</h1>
-
-                <label className="block w-full mt-4">単語帳の名前を入力(後からでも名前を変更できます)</label>
-                <input type="text" className="w-full h-14 border border-gray-300 rounded pl-4 text-2xl" placeholder="タイトル" 
+                <Title title={'単語帳を作成'} />
+                <label className="block w-full mt-4 text-sm">単語帳の名前を入力(後からでも名前を変更できます)</label>
+                <input type="text" className="w-full h-10 border border-gray-300 rounded-lg pl-2 /text-2xl" 
+                    placeholder="タイトル" 
                     name="title"
                     onChange={TitleInput} 
                     required
                 />
 
-                <label className="block w-full mt-4">公開ステータス</label>
+                <label className="block w-full mt-6 text-sm">公開ステータス</label>
                 <div className="flex w-full h-fit">
 
                     {accessLists.map( (accessList:any) =>(
@@ -112,13 +114,14 @@ export const CreateFlashCard:FC = () =>{
                                 id={accessList.id}
                             />
 
-                            <label htmlFor={accessList.id} className="block w-full h-14 pl-2 border border-gray-300 rounded mr-1 leading-7 focus:outline-none peer-checked:border-2 peer-checked:border-yellow-400">
-                                {accessList.item}<br/><small>{accessList.description}</small>
+                            <label htmlFor={accessList.id} className="block w-full h-14 pl-2 pt-1 border border-gray-300 rounded-lg mr-1 /leading-7 focus:outline-none peer-checked:border-2 peer-checked:border-yellow-400">
+                                {accessList.item}<br/>
+                                <small className="text-xs text-gray-400">{accessList.description}</small>
                             </label>
 
-                            <div className="hidden p-4 absolute right-0 peer-checked:block">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            <div className="hidden p-2.5 absolute right-0 peer-checked:block">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9 text-amber-400">
+                                <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                                 </svg>
                             </div>
   
@@ -127,16 +130,14 @@ export const CreateFlashCard:FC = () =>{
                     )) }
                 </div>
 
-                <label htmlFor="" className="block w-full mt-4">説明</label>
+                <label htmlFor="" className="block w-full mt-6 text-sm">概要(記載は省略できます)</label>
                 <textarea id="" cols={30} rows={10} name="description"
-                    className="w-full h-32 border border-gray-300 rounded pl-4"
-                    onChange={DescriptionInput}>
+                    className="w-full h-32 border border-gray-300 rounded-lg p-2"
+                    onChange={DescriptionInput}
+                    placeholder="単語帳についての説明など" >
                 </textarea>
                     
-                
-                <button type="submit" className="block mr-0 bg-yellow-400 w-full h-10 text-white mt-4 ml-auto mr-auto rounded-full font-medium text-1xl">
-                    単語帳を作成
-                </button>
+                <Button color={'yellow'} text={'単語帳を作成'} />
 
             </form>
         </div>

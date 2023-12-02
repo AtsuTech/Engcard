@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CategorySelect } from "./CategorySelect";
+import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
@@ -80,15 +81,34 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     {/* <select name="category_id" onChange={handleInput}>
                         <CategorySelect />
                     </select> */}
-                    <CategorySelect value={category_id} handleInput={setCategory_id} />
 
-                    <input type="text" 
-                        name="word_mean" 
-                        className="w-full h-10 border border-gray-300 rounded pl-2" 
-                        placeholder="訳 ex.)りんご" 
-                        onChange={handleInput} 
-                        required
-                    />
+                    <div className="flex w-full p-1 border border-gray-300 rounded">
+                        <CategorySelect value={category_id} handleInput={setCategory_id} />
+
+                        <input type="text" 
+                            name="word_mean" 
+                            className="block w-full h-full /border /border-gray-300 /rounded pl-2" 
+                            placeholder="訳 ex.)りんご" 
+                            onChange={handleInput} 
+                            required
+                        />
+                    </div>
+
+
+                    <div className="w-fit">
+                        <label htmlFor="example1" className="flex w-16 cursor-pointer appearance-none items-center justify-center rounded-md bg-amber-400 text-white p-2 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                            <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
+                            </svg>
+                        </label>
+                        <input id="example1" 
+                            type="file" 
+                            accept="image/*" multiple
+                            onChange={handleInputFile}
+                            className="block sr-only w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
+                        />
+                    </div>
+
                     
                 </div>
 
@@ -97,15 +117,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                 /> */}
 
 
-                <div className="w-full">
-                    <label htmlFor="example1" className="mb-1 block text-sm font-medium text-gray-700">Upload file</label>
-                    <input id="example1" 
-                        type="file" 
-                        accept="image/*" multiple
-                        onChange={handleInputFile}
-                        className="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
-                    />
-                </div>
+
 
 
                 <div className="flex">
@@ -126,9 +138,10 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     </textarea>
                 </div>
 
-                <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl" onClick={CreateSubmit}>
+                {/* <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl" onClick={CreateSubmit}>
                     追加
-                </button>
+                </button> */}
+                <ButtonWithOnClick color={'yellow'} text={'追加'} onclick={CreateSubmit} />
             </div>
             
         </>

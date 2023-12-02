@@ -18,11 +18,10 @@ export const ButtonWithOnClick:FC<{text:any,color:string,onclick:any,}> = ({text
 
 
     return(
-        <button type="submit" 
-        onClick={onclick}
-            className={`block w-full h-10 text-white ml-auto mr-auto rounded-full shadow-lg font-medium text-1xl ${color}`}
-            >
-        
+        <button 
+            type="submit" 
+            onClick={onclick}
+            className={`block mt-10  w-full h-12 text-white ml-auto mr-auto rounded-full font-medium text-lg font-light ${color}`}>        
             {text}
         </button>
     );

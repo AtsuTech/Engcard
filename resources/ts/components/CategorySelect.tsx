@@ -60,7 +60,7 @@ export const CategorySelect:FC<{value:any ,handleInput: any}> = ({value,handleIn
         <div>
 
             <div 
-                className="block text-center py-2 w-32 h-10 border border-gray-300 rounded-lg"
+                className="block text-center py-1 w-32 h-7 text-sm border border-gray-300 rounded-lg"
                 onClick={View}>
                 {selected_itme}
             </div>

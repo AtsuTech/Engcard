@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CardList } from "./CardList";
+import { Title } from "./parts_component/Title";
 
 
 export const UpdateFlashCard:FC = () =>{
@@ -13,7 +14,7 @@ export const UpdateFlashCard:FC = () =>{
     const { flashcard_id } = useParams();
 
     //データ表示可能or不可能の判定フラグ
-    const[notFonund,setNotFonund] = useState(false);
+    //const[notFonund,setNotFonund] = useState(false);
 
     interface Flashcard {
         id: string;
@@ -50,7 +51,7 @@ export const UpdateFlashCard:FC = () =>{
             });
 
         }).catch((error) => { 
-            setNotFonund(true);
+            //setNotFonund(true);
         });
     },[]);
 
@@ -112,18 +113,14 @@ export const UpdateFlashCard:FC = () =>{
     }
 
     return(
-        <>
+        <main className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
             <h1 className="text-xs">単語帳を作成/カードの追加</h1>
-            <div>
-                <h1 className="text-3xl">単語帳の編集</h1>
-            </div>
+
+            <Title title={'単語帳の編集'} />
+
+
 
             <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
-            {notFonund ?
-                
-                <div>ページが見つかりません</div>
-
-                :
                 
                 <form onSubmit={updateSubmit} className="flex">
 
@@ -162,7 +159,6 @@ export const UpdateFlashCard:FC = () =>{
 
                 </form>
                 
-            }
             </div>
 
             <div>
@@ -175,6 +171,6 @@ export const UpdateFlashCard:FC = () =>{
 
             
             
-        </>
+        </main>
     );
 }
