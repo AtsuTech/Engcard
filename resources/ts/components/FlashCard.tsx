@@ -160,7 +160,7 @@ export const FlashCard:FC = () =>{
                                 <div className="flex w-full border-r border-gray-300">
 
                                     <div className="flex w-5 items-center justify-center border-r border-gray-300">
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full">
+                                        <div className={`w-2 h-2  rounded-full ${card.memory ? 'bg-amber-400' : 'bg-gray-400'}`}>
                                         </div>
                                     </div>
 
@@ -177,11 +177,12 @@ export const FlashCard:FC = () =>{
                                 {/* right */}
                                 <div className="flex w-full">
 
-                                    <div className="mt-0.5 ml-2">
-                                        <BageDark value={card.category} />
+                                    <div className="mt-3 ml-2">
+                                        {/* <BageDark value={card.category} /> */}
+                                        <span className="block w-fit h-fit bg-gray-400 px-2 text-center text-white text-sm rounded">{card.category}</span>
                                     </div>
                                     
-                                    <div className="ml-2">
+                                    <div className="mt-2.5 ml-2">
                                         {card.word_mean}
                                     </div>
 

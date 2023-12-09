@@ -31,6 +31,7 @@ class Card extends Model
     protected $appends = ['id_encrypt','category'];   
 
     protected $casts = [
+        'memory' => 'boolean',//SQLではBoolean型がtinyintになり0か1で保存されるためboolean値にキャストする
         'created_at' => 'datetime:Y年n月j日',
         'updated_at' => 'datetime:Y年n月j日',
     ];

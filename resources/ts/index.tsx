@@ -33,6 +33,7 @@ import { UpdateCard } from './components/UpdateCard';
 import { CategorySetting } from './components/CategorySetting';
 import { Memory } from './components/Memory';
 import { Quiz } from './components/Quiz';
+import { QuizShuffle } from './components/QuizShuffle';
 
 
 const container = document.getElementById('app');
@@ -72,6 +73,9 @@ root.render(
                 </Route>
                 <Route path="/quiz" element={<Quiz />}>
                     <Route path=":flashcard_id" element={<Quiz />} />
+                </Route>
+                <Route path="/quiz/s/" element={<QuizShuffle />}>
+                    <Route path=":flashcard_id" element={<QuizShuffle />} />
                 </Route>
                 
 
