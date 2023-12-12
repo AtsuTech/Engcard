@@ -9,13 +9,17 @@ export const QuizShuffle:FC =()=>{
 
     const { flashcard_id } = useParams();
 
+    const user_id = localStorage.getItem('user_id');
+
     interface flashcard{
-        id:string,
+        id:string|number,
+        user_id:string|number,
         title:string,
     }
 
     const [flashcard,setFlashcard] = useState<flashcard>({
         id:'',
+        user_id:'',
         title:'',
     });
     const [cards,setCards] = useState<any>([]);
@@ -29,6 +33,7 @@ export const QuizShuffle:FC =()=>{
 
             setFlashcard({
                 id:response.data.id,
+                user_id:response.data.user_id,
                 title:response.data.title,
             });
 
@@ -123,11 +128,16 @@ export const QuizShuffle:FC =()=>{
             card_index:view_card,
         }
 
-        axios.post('/api/card/quiz/memory/true',params).then((response) => { 
         
-        }).catch((error) => { 
-            console.log(error);
-        });
+        if(user_id == flashcard.user_id){
+            axios.post('/api/card/quiz/memory/true',params).then((response) => { 
+            
+            }).catch((error) => { 
+                console.log(error);
+            });
+        }
+
+
 
         setTimeout(() => {
             Shuffle();
@@ -142,11 +152,13 @@ export const QuizShuffle:FC =()=>{
             card_index:view_card,
         }
 
-        axios.post('/api/card/quiz/memory/false',params).then((response) => { 
-            
-        }).catch((error) => { 
-            console.log(error);
-        });
+        if(user_id == flashcard.user_id){
+            axios.post('/api/card/quiz/memory/false',params).then((response) => { 
+                
+            }).catch((error) => { 
+                console.log(error);
+            });
+        }
 
         setTimeout(() => {
             Shuffle();
@@ -225,6 +237,8 @@ export const QuizShuffle:FC =()=>{
             <div className="flex w-full">
                 
                 <div className="w-full mt-3">
+                    <b>{user_id}</b>
+                    
 
 
                 

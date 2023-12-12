@@ -154,7 +154,7 @@ export const FlashCard:FC = () =>{
 
                     {cards.map( (card:any) => (
                         <Link to={`/card/${card.id_encrypt}`} key={card.id}>
-                            <div key={card.id} className="flex h-12 border bg-white border-gray-300 mb-3 /px-2 rounded">
+                            <div key={card.id} className="flex h-fit border bg-white border-gray-300 mb-3 /px-2 rounded">
 
                                 {/* left */}
                                 <div className="flex w-full border-r border-gray-300">
@@ -176,13 +176,9 @@ export const FlashCard:FC = () =>{
 
                                 {/* right */}
                                 <div className="flex w-full">
-
-                                    <div className="mt-3 ml-2">
-                                        {/* <BageDark value={card.category} /> */}
-                                        <span className="block w-fit h-fit bg-gray-400 px-2 text-center text-white text-sm rounded">{card.category}</span>
-                                    </div>
                                     
                                     <div className="mt-2.5 ml-2">
+                                        <span className="w-fit h-fit bg-gray-400 p-1 text-center text-white text-xs rounded mr-1">{card.category}</span>
                                         {card.word_mean}
                                     </div>
 
