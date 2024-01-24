@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { NextSlideButton } from "./parts_component/NextSlideButton";
+import { PrevSlideButton } from "./parts_component/PrevSlideButon";
 
 
 export const Memory:FC =()=>{
@@ -94,8 +96,10 @@ export const Memory:FC =()=>{
 
             <div className="flex w-full">
 
-                <div className="w-24 h-96 bg-gray-100">
-                    {turn > 0 && <button onClick={Back}>←</button>}
+                <div className="flex items-center justify-center h-96">
+                    <div>
+                        {turn > 0 && <PrevSlideButton onClick={Back}/>}
+                    </div>
                 </div>
                 
                 <div className="w-full mt-3">
@@ -118,13 +122,16 @@ export const Memory:FC =()=>{
                     </div>
                     
                 ))}
-                <button onClick={Change}>めくる</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-32" onClick={Change}>
+                    めくる
+                    </button>
                 </div>
 
-                <div className="w-24 h-96 bg-gray-100">
-                    {turn < (cards.length - 1) && <button onClick={Next}>→</button>}
+                <div className="flex items-center justify-center h-96">
+                    <div>
+                        {turn < (cards.length - 1) && <NextSlideButton onClick={Next} />}
+                    </div>
                 </div>
-                
             </div>
 
         </>

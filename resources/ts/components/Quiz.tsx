@@ -9,19 +9,23 @@ export const Quiz:FC =()=>{
 
     const { flashcard_id } = useParams();
 
+    const user_id = localStorage.getItem('user_id');
 
     interface flashcard{
-        id:any,
-        title:any,
+        id:string|number,
+        user_id:string|number,
+        title:string,
     }
 
     const [flashcard,setFlashcard] = useState<flashcard>({
         id:'',
+        user_id:'',
         title:'',
-
     });
-
+    const [cards,setCards] = useState<any>([]);
     const [turn,setTurn] = useState<number>(0);
+    const [mode,setMode] = useState(0);
+
     useEffect(()=>{
 
         // パラメータ(暗号化されたid)付きでアクセスし、該当データをDBより取得
@@ -29,6 +33,7 @@ export const Quiz:FC =()=>{
 
             setFlashcard({
                 id:response.data.id,
+                user_id:response.data.user_id,
                 title:response.data.title,
             });
 
@@ -43,15 +48,49 @@ export const Quiz:FC =()=>{
 
     document.title = "クイズ:"+flashcard.title;
 
-    const [cards,setCards] = useState<any>([]);
     const [change,setChange] = useState(false);
-    const [selected_answer,setSelectedAnswer] = useState('');
+    const [selected_answer,setSelectedAnswer] = useState('');//クリックした選択肢の値を管理
+    const [view_card,setViewCard] = useState<number>();
+
+
+    let random_index:any =[];
+    for (let num = 0; num < cards.length; num++) {
+        random_index.push(num);
+    }
+    
+    const [random_turn,setRandomTurn] = useState<any>([]);
+
+    const SetShuffle =()=>{
+
+        for(var i=0;i<cards.length;i++) {
+
+            let index = Math.floor(Math.random()*random_index.length);
+
+            random_turn.push(random_index[index]);
+
+            //添字の要素を配列から削除　
+            random_index.splice(index,1);
+            
+        } 
+        Shuffle();
+    }
+
+    const SetOrder =()=>{
+        for(var i=0;i<cards.length;i++) {
+
+            random_turn.push(random_index[i]);
+
+        } 
+        Shuffle();
+    }
+
+    console.log(view_card);
+    
+
+    //選択肢を取得
     const [choices,setChoices] = useState([]);
-
     useEffect(()=>{
-
-
-        axios.get(`/api/card/quiz/get/${flashcard_id}/${turn}`).then((response) => { 
+        axios.get(`/api/card/quiz/get/${flashcard_id}/${view_card}`).then((response) => { 
             setChoices(response.data);
         }).catch((error) => { 
             console.log(error);
@@ -59,26 +98,19 @@ export const Quiz:FC =()=>{
     },[turn]);
 
 
+
     //カードのデータをindex番号でフィルタする
-    const selected_card:any = cards.filter((_:any,index:any) => index == turn);
+    const selected_card:any = cards.filter((_:any,index:any) => index == view_card);
 
-    //戻る
-    const Back =()=>{
-        if(turn > 0){
-            setChange(false);
-            setTurn(turn - 1);
-        }
+
+
+    //シャッフルして進む
+    const Shuffle =()=>{
+        setTurn(turn + 1);
+        setViewCard(random_turn[turn]);
         setSelectedAnswer('');
     }
 
-    //進む
-    const Next =()=>{
-        if(turn < (cards.length - 1)){
-            setChange(false);
-            setTurn(turn + 1);
-        }
-        setSelectedAnswer('');
-    }
 
     const Change =()=>{
         if(change == false){
@@ -88,40 +120,54 @@ export const Quiz:FC =()=>{
         }
     }
 
-
+    //正解
     const Correct =()=>{
 
         const params = {
             flashcard_id:flashcard_id,
-            card_index:turn,
+            card_index:view_card,
         }
 
-        axios.post('/api/card/quiz/memory/true',params).then((response) => { 
+        
+        if(user_id == flashcard.user_id){
+            axios.post('/api/card/quiz/memory/true',params).then((response) => { 
+            
+            }).catch((error) => { 
+                console.log(error);
+            });
+        }
 
-        }).catch((error) => { 
-            console.log(error);
-        });
-        //alert('正解');
+
+
+        setTimeout(() => {
+            Shuffle();
+        }, 500);
     }
 
+    //不正解
     const Incorrect =()=>{
 
         const params = {
             flashcard_id:flashcard_id,
-            card_index:turn,
+            card_index:view_card,
         }
 
-        axios.post('/api/card/quiz/memory/false',params).then((response) => { 
+        if(user_id == flashcard.user_id){
+            axios.post('/api/card/quiz/memory/false',params).then((response) => { 
+                
+            }).catch((error) => { 
+                console.log(error);
+            });
+        }
 
-        }).catch((error) => { 
-            console.log(error);
-        });
-        //alert('残念。不正解');
+        setTimeout(() => {
+            Shuffle();
+        }, 500);
     }
 
     const CorrectAnswer:FC<{choice:any,selected_answer:any,action:any}> =({choice,selected_answer,action})=>{
         return(
-            <li className="flex block relative w-full h-12 my-2 bg-gray-100 rounded-full">
+            <li className="flex relative w-full h-12 my-2 bg-gray-100 rounded-full">
                 <input 
                     type="radio" 
                     id={choice} 
@@ -148,7 +194,7 @@ export const Quiz:FC =()=>{
 
     const InCorrectAnswer:FC<{choice:any,selected_answer:any,action:any}> =({choice,selected_answer,action})=>{
         return(
-            <li className="flex block relative w-full h-12 my-2 bg-gray-100 rounded-full">
+            <li className="flex relative w-full h-12 my-2 bg-gray-100 rounded-full">
                 <input 
                     type="radio" 
                     id={choice} 
@@ -178,19 +224,50 @@ export const Quiz:FC =()=>{
         <main>
             
             <header className="flex w-full h-12 border border-b-gray-300">
-                <h1 className="w-full p-3 /text-center">クイズ:{flashcard.title}</h1>
+                <h1 className="w-full p-3 /text-center">クイズ(s):{flashcard.title}</h1>
+                <select name="" id="" className="bg-gray-200 focus:outline-none cursor-pointer" onChange={(e:any) => setMode(e.target.value)}>
+                    <option value={0}>カード順</option>
+                    <option value={1}>ランダム</option>
+                </select>
                 <Link to={`/flashcard/${flashcard_id}`} className="block w-12 mt-2 ">
                     <h5 className="">終了</h5>
                 </Link>
             </header>
 
             <div className="flex w-full">
-
-                <div className="w-24 h-96 bg-gray-100">
-                    {turn > 0 && <button onClick={Back}>←</button>}
-                </div>
                 
                 <div className="w-full mt-3">
+                    <b>{user_id}</b>
+                    
+
+
+                
+                {random_turn.length == 0 &&
+                    <>
+                    {mode == 0 &&
+                        // <button className="w-full h-12 bg-cyan-300" onClick={SetOrder}>
+                        //     開始
+                        // </button>
+  
+                        <div className="flex items-stretch justify-center h-screen">
+                            
+                                <button className="w-96 h-12 bg-cyan-300" onClick={SetOrder}>スタート!</button>
+                            
+                        </div>
+                    }
+                    </>
+                }
+
+                {random_turn.length == 0 &&
+                    <>
+                    {mode == 1 &&
+                        <button className="w-full h-12 bg-cyan-300" onClick={SetShuffle}>
+                            開始
+                        </button>
+                    }
+                    </>
+                }
+
                 
                 {selected_card.map((card:any) => (
                     <div key={card.word} className="w-full">
@@ -230,12 +307,8 @@ export const Quiz:FC =()=>{
                 ))}
                 
                 <button onClick={Change}>答えをみる</button>
-                {/* <h1>{getID}</h1> */}
-                <div>{turn + 1}/{cards.length}</div>
-                </div>
-
-                <div className="w-24 h-96 bg-gray-100">
-                    {turn < (cards.length - 1) && <button onClick={Next}>→</button>}
+                <div>{turn}/{cards.length}</div>
+                <b className="text-red-500">{view_card}</b>
                 </div>
                 
             </div>

@@ -20,10 +20,11 @@ export const NavBar: FC = () => {
 
     return (
 
-            <header className="flex justify-between stiky top-0 z-50 flex w-full h-20 bg-amber-400 text-gray-300">
+            <header className="flex justify-between stiky top-0 z-50 w-full h-20 bg-amber-400 text-gray-300">
                 <h1 className="flex text-white ml-2 font-light">
                 <span className="block text-4xl text-white">
-                    <img src="/storage/material_img/gazotan.png" alt="" width={170} className="mt-3 rounded-lg" />
+                    {/* <img src="/storage/material_img/gazotan.png" alt="" width={170} className="mt-3 rounded-lg" /> */}
+                    Eitan
                 </span>
                     <ul className="flex">
                         <li className="m-2">

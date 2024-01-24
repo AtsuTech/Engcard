@@ -109,7 +109,8 @@ export const Login: FC = () => {
         .catch(function (error:AxiosError|any) {
         
             // --------送信失敗時の処理-------- //
-            alert(error.response.data.error);
+            //alert(error.response.data.error);
+            alert(error);
             console.log(error);
 
         });
