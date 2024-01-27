@@ -67,14 +67,20 @@ export const CategorySelect:FC<{value:any ,handleInput: any}> = ({value,handleIn
 
             {view &&
                 
-                <div className="absolute left-0 top-0 h-screen w-screen">
+                <div className="/absolute /left-0 /top-0 /h-screen /w-screen">
 
-                    <div className="fixed top-0 left-0 bottom-0 right-0 m-auto w-80 h-fit bg-white border border-gray-400 rounded">
+                    {/* <div className="fixed top-0 left-0 bottom-0 right-0 m-auto w-80 h-fit bg-white border border-gray-400 rounded-lg"> */}
+                    <div className="relative top-0 py-2 /right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700">
 
-                        <div className="block w-full leading-8 border-b border-gray-300 text-center">
+                        {/* <div className="block w-full leading-8 border-b border-gray-300 text-center">
                             カテゴリを設定
                             
-                        </div>
+                        </div> */}
+                        <button onClick={View}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                         <ul className="w-full h-80 overflow-auto">
 
                             {categories.map( (category:any) => (
@@ -95,7 +101,7 @@ export const CategorySelect:FC<{value:any ,handleInput: any}> = ({value,handleIn
                             <li><CategoryCreate Update={Update} /></li>
                             
                         </ul>
-                        <button onClick={View}>閉じる</button>
+
                     </div>
 
                 </div>

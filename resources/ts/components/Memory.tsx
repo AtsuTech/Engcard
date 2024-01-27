@@ -1,11 +1,25 @@
 import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { NextSlideButton } from "./parts_component/NextSlideButton";
 import { PrevSlideButton } from "./parts_component/PrevSlideButon";
+import { CloseButton } from "./parts_component/CloseButton";
 
+const FinishMemory = () => {
+    const { flashcard_id } = useParams();
+    const navigate = useNavigate();
+    const url:string = `/flashcard/${flashcard_id}`;
+    
+    const handleFinishMemory = () => {
+        navigate(url);
+    }
+
+    return (
+        <CloseButton onClick={handleFinishMemory} />
+    );
+}
 
 export const Memory:FC =()=>{
 
@@ -60,6 +74,9 @@ export const Memory:FC =()=>{
     const [turn,setTurn] = useState<number>(0);
     const [change,setChange] = useState(false);
 
+    //カードをインデックス番号で1件フィルタ
+    const selected_card:any = cards.filter((_:any,index:any) => index == turn);
+
     const Back =()=>{
         if(turn > 0){
             setChange(false);
@@ -88,46 +105,52 @@ export const Memory:FC =()=>{
         <>
             
             <header className="flex w-full h-12 border border-b-gray-300">
-                <h1 className="text-center">暗記</h1>
-                <Link to={`/flashcard/${flashcard_id}`} className="block w-full mt-2">
-                    <h5 className="text-3xl">終了</h5>
-                </Link>
+                <h1 className="w-full py-2">{flashcard.title}</h1>
+                <div className="w-18">
+                    <FinishMemory />
+                </div>
             </header>
+
+            <div className="text-center">
+                {turn + 1}/{cards.length}
+            </div>
 
             <div className="flex w-full">
 
-                <div className="flex items-center justify-center h-96">
+                <div className="flex items-center justify-center w-20 h-96">
                     <div>
                         {turn > 0 && <PrevSlideButton onClick={Back}/>}
                     </div>
                 </div>
                 
                 <div className="w-full mt-3">
-                {cards.map( (card:any,index:number) => (
+                    {selected_card.map( (card:any,index:number) => (
 
-                    <div key={index} className="w-full">
-                        {turn == index && 
-                            <>
-                            {change ?
-                                <div className="flex w-full h-96 border border-gray-300 rounded text-6xl items-center justify-center">
-                                    {card.word_mean}
-                                </div>
-                            :
-                                <div className="flex w-full h-96 border border-gray-300 rounded text-6xl items-center justify-center">
-                                    {card.word}
-                                </div>
-                            }
-                            </>
-                        }    
-                    </div>
-                    
-                ))}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-32" onClick={Change}>
+                        <div key={index} className="flex flex-col items-center justify-center h-screen">
+                            
+                            <div>
+                                {change ?
+                                    <div className="text-6xl ">
+                                        {card.word_mean}
+                                    </div>
+                                :
+                                    <div className="text-6xl">
+                                        {card.word}
+                                    </div>
+                                }
+      
+                            </div>
+
+                        </div>                          
+                        
+                    ))}
+                    <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border border-gray-400 hover:bg-amber-300 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
                     めくる
                     </button>
+
                 </div>
 
-                <div className="flex items-center justify-center h-96">
+                <div className="flex items-center justify-center w-20 h-96">
                     <div>
                         {turn < (cards.length - 1) && <NextSlideButton onClick={Next} />}
                     </div>
