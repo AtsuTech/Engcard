@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { UpdateCardImage } from "./UpdateCardImage";
 import { CategorySelect } from "./CategorySelect";
+import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
+import { Title } from "./parts_component/Title";
 
 
 export const UpdateCard:FC = () => {
@@ -101,47 +103,54 @@ export const UpdateCard:FC = () => {
     
 
     return (
-        <section>
-            
-            <h5 className="text-3xl">カード編集</h5>
+
+        <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white md:w-2/3">
+
+            <Title title={'カード編集'} />
 
             <div>
                 <Link to={`/flashcard/${card.flashcard_id}`}><span>単語帳:{card.flashcard_title}</span></Link>/
                 <Link to=""><span>単語:{card.word}</span></Link>
             </div>
 
-            <UpdateCardImage id={card_id} />
-
             <form>
 
+                <label htmlFor="word">単語</label>
                 <input type="text" 
+                    id="word"
                     name="word" 
-                    className="w-full h-10 border border-gray-300 rounded pl-2" 
+                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg" 
                     placeholder="単語 ex.)Apple" 
                     value={card.word}
                     onChange={handleInput} 
                     required
                 />
 
-                <div className="flex">
-
+                <label htmlFor="word_mean">意味</label>
+                <div className="flex w-full h-10 border border-gray-300 rounded-lg pl-2">
                     <CategorySelect value={selected} handleInput={setSelected} />
-
                     <input type="text" 
+                        id="word_mean"
                         name="word_mean" 
-                        className="w-full h-10 border border-gray-300 rounded pl-2" 
+                        className="w-full" 
                         placeholder="訳 ex.)りんご" 
                         value={card.word_mean}
                         onChange={handleInput} 
                         required
                     />
-                    
+                </div>
+
+                <div className="mt-5 mb-5">
+                    <label htmlFor="">画像</label>
+                    <UpdateCardImage id={card_id} />
                 </div>
                 
+                <label htmlFor="sentence">例文</label>
                 <textarea 
+                    id="sentence"
                     name="sentence" 
                     rows={5} 
-                    className="w-full p-2 border border-gray-300" 
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
                     // defaultValue={card.sentence}
                     value={card.sentence==null ? "": card.sentence}
                     onChange={handleInput} 
@@ -149,10 +158,12 @@ export const UpdateCard:FC = () => {
                     >
                 </textarea>
 
+                <label htmlFor="sentence_mean">例文の訳</label>
                 <textarea 
+                    id="sentence_mean"
                     name="sentence_mean" 
                     rows={5} 
-                    className="w-full p-2 border border-gray-300" 
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
                     //defaultValue={card.sentence_mean}
                     value={card.sentence_mean==null ? "": card.sentence_mean}
                     onChange={handleInput} 
@@ -160,21 +171,18 @@ export const UpdateCard:FC = () => {
                     >
                 </textarea>
 
+                <label htmlFor="link">関連リンク</label>
                 <input type="text" 
+                    id="link"
                     name="link" 
-                    className="w-full h-10 border border-gray-300 rounded pl-2" 
+                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg" 
                     placeholder="ex.)Gazotan.com" 
                     value={card.link==null ? "": card.link}
                     onChange={handleInput} 
                 />
 
-                <button 
-                    //type="submit" 
-                    className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl"
-                    onClick={UpdateSubmit}>
-                    更新
-                </button>
+                <ButtonWithOnClick text="更新" color="yellow" onclick={UpdateSubmit} />
             </form>
-        </section>
+        </div>
     );
 }
