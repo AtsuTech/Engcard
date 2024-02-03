@@ -52,7 +52,7 @@ export const Home: FC = () => {
                     
                     <div key={flashcard.id} className="block w-3/6 p-1">
                         <div className="border border-gray-300 p-2 rounded">
-                        <Link to={`/flashcard/${flashcard.id_encrypt}`} className="block w-full text-2xl">
+                        <Link to={`/flashcard/${flashcard.uuid}`} className="block w-full text-2xl">
                             {flashcard.title}
                         </Link>
                         <div className="flex">

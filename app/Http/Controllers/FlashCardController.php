@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\FlashCard;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Support\Facades\Storage;//ストレージ操作
+use Hashids\Hashids;//idをランダムでユニークな文字列に変換
 
 class FlashCardController extends Controller
 {
     //詳細画面
     function detail_flashcard($id){
 
-        //暗号化したidをデコード
-        $id = decrypt($id);
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $id = $hashids->decode($id)[0];//※配列で帰ってくる
         
         //デコードしたidで検索
         $flashcard = FlashCard::with(['user'])->with(['cards'])->findOrFail($id);

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-export const OperateFlashCardMenu:FC<{id_encrypt:any,id:any,Update:any}> = ({id_encrypt,id,Update}) => {
+export const OperateFlashCardMenu:FC<{uuid:any,id:any,Update:any}> = ({uuid,id,Update}) => {
 
     const [view,setView] = useState<boolean>(false);
     function View(){
@@ -46,12 +46,12 @@ export const OperateFlashCardMenu:FC<{id_encrypt:any,id:any,Update:any}> = ({id_
             <div className="relative top-0 right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700">
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                     <li>
-                        <Link to={`/flashcard/${id_encrypt}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <Link to={`/flashcard/${uuid}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                             詳細
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/flashcard/update/${id_encrypt}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <Link to={`/flashcard/update/${uuid}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                             編集
                         </Link>
                     </li>

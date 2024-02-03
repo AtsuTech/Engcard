@@ -31,7 +31,7 @@ class Card extends Model
         return  $category['item'];
     }
     //SPAでJSONでアクセサの値を返す時は$appendsメソッドで返す
-    protected $appends = ['uuid','id_encrypt'];   
+    protected $appends = ['uuid','category'];   
 
     protected $casts = [
         'memory' => 'boolean',//SQLではBoolean型がtinyintになり0か1で保存されるためboolean値にキャストする

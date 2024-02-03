@@ -92,10 +92,10 @@ export const MyFlashCards:FC =() =>{
                                     {myflashcard.access.type == 1 && <PublicIcon value={myflashcard.access.item} />}
                                 </div>
 
-                                <OperateFlashCardMenu id_encrypt={myflashcard.id_encrypt} id={myflashcard.id} Update={Update} />
+                                <OperateFlashCardMenu uuid={myflashcard.uuid} id={myflashcard.id} Update={Update} />
                             </div>
 
-                            <Link to={`/flashcard/${myflashcard.id_encrypt}`} className="block w-full">
+                            <Link to={`/flashcard/${myflashcard.uuid}`} className="block w-full">
 
                                 <div className="p-2">
                                     <h5 className="/font-semibold text-xl pb-2">{myflashcard.title}</h5>

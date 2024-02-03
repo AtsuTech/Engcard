@@ -150,7 +150,11 @@ export const FlashCard:FC = () =>{
                         <div className="text-center text-xs mt-1">リストをクリックすると詳細な情報を見ることができます</div>
                     </div>
                     
-                    {cards.length == 0 && <div>カードがありません</div>}
+                    {cards.length == 0 && 
+                        <div className="flex items-center justify-center h-96">
+                            <div>カードがありません</div>
+                        </div>
+                    }
 
                     {cards.map( (card:any) => (
                         <Link to={`/card/${card.uuid}`} key={card.id}>
