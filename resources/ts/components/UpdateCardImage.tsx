@@ -11,6 +11,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
     const [formImageFile,setFormImageFile] = useState<any>();
     const [cardImg,setCardImg] = useState<any>();
     const [defaultImg,setDefaultImg] = useState<string>();
+    const [card_id,setCardId] = useState<any>();
 
 
     //現在画像の画像ファイル名取得
@@ -20,6 +21,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
         axios.get('/api/card/' + id).then((response) => { 
             setCardImg(response.data.img_path);
             setDefaultImg('/storage/images/card/'+ response.data.user_id + '/' + response.data.flashcard_id + '/' + response.data.img_path);
+            setCardId(response.data.id);
         }).catch((error) => { 
             console.log(error);
         });
@@ -50,7 +52,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
         
         //axios通信で渡すクエリパラメータ
         const params = new FormData();
-        params.append('card_id',id);
+        params.append('card_id',card_id);
         params.append('image',formImageFile);
 
         
@@ -75,7 +77,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
     const Delete =(e:any)=>{
         //axios通信で渡すクエリパラメータ
         const params = new FormData();
-        params.append('card_id',id);
+        params.append('card_id',card_id);
         params.append('img_path',cardImg);
         
 

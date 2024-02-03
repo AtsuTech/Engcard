@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;//ストレージ操作
 use Illuminate\Support\Arr;//配列操作
+use Hashids\Hashids;//idをランダムでユニークな文字列に変換
 
 class CardController extends Controller
 {
@@ -59,8 +60,9 @@ class CardController extends Controller
     //詳細画面
     function public_detail_card($id){
 
-        //暗号化したidをデコード
-        $id = decrypt($id);
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $id = $hashids->decode($id)[0];//※配列で帰ってくる
         
         //デコードしたidで検索
         $card = Card::with(['flashcard'])->findOrFail($id);
@@ -119,7 +121,8 @@ class CardController extends Controller
 
     //編集
     public function update(Request $request){
-        $Card = Card::find(decrypt($request->card_id));
+        //$Card = Card::find(decrypt($request->card_id));
+        $Card = Card::find($request->card_id);
 
         $Card->category_id = $request->integer('category_id');
         $Card->word = $request->word;
@@ -134,7 +137,8 @@ class CardController extends Controller
     //画像のみ編集
     public function update_only_image(Request $request){
 
-        $Card = Card::find(decrypt($request->card_id));
+        //$Card = Card::find(decrypt($request->card_id));
+        $Card = Card::find($request->card_id);
         
         //カード画像保存先パス
         $directory = 'public/images/card/' . Auth::id() . '/' . $Card->flashcard_id;
@@ -162,7 +166,9 @@ class CardController extends Controller
     //画像削除
     public function delete_image(Request $request){
 
-        $Card = Card::find(decrypt($request->card_id));
+        //$Card = Card::find(decrypt($request->card_id));
+        $Card = Card::find($request->card_id);
+
         Storage::disk('public')->delete('/images/card/' . Auth::id() . '/' . $Card->flashcard_id . '/' . $Card->img_path);
         $Card->img_path = null;
         $Card->save();
@@ -171,9 +177,9 @@ class CardController extends Controller
 
     //カード削除
     public function delete(Request $request){
-        $Card = Card::find(decrypt($request->card_id));
+        $Card = Card::find($request->card_id);
         Storage::disk('public')->delete('/images/card/' . Auth::id() . '/' . $Card->flashcard_id . '/' . $Card->img_path);
-        $Card = Card::find(decrypt($request->card_id))->delete();
+        $delete_card = Card::find($request->card_id)->delete();
     }
 
 }

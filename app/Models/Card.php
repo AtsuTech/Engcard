@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 //use App\Models\PartOfSpeech;
 use App\Models\Category;
+use Hashids\Hashids;//idをランダムでユニークな文字列に変換
 
 class Card extends Model
 {
@@ -15,20 +16,22 @@ class Card extends Model
         return $this->BelongsTo('App\Models\Flashcard');
     }
 
-    //アクセサを使いDBのデータを加工する。
-    public function getIdEncryptAttribute()
+    //アクセサリを使いuuidをカラムに追加する
+    public function getUuidAttribute()
     {
-        //encryptメソッドでidを暗号化したものを、新しいカラムとして追加する
-        return  encrypt($this->id);
+        $hashids = new Hashids('', 10); 
+        $uuid = $hashids->encode($this->id); 
+        return $uuid;
     }
 
+    //アクセサリを使いカテゴリをカラムに追加する
     public function getCategoryAttribute()
     {
         $category = Category::find($this->category_id,'item');
         return  $category['item'];
     }
     //SPAでJSONでアクセサの値を返す時は$appendsメソッドで返す
-    protected $appends = ['id_encrypt','category'];   
+    protected $appends = ['uuid','id_encrypt'];   
 
     protected $casts = [
         'memory' => 'boolean',//SQLではBoolean型がtinyintになり0か1で保存されるためboolean値にキャストする

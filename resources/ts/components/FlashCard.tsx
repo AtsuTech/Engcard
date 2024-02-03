@@ -153,7 +153,7 @@ export const FlashCard:FC = () =>{
                     {cards.length == 0 && <div>カードがありません</div>}
 
                     {cards.map( (card:any) => (
-                        <Link to={`/card/${card.id_encrypt}`} key={card.id}>
+                        <Link to={`/card/${card.uuid}`} key={card.id}>
                             <div key={card.id} className="flex h-fit border bg-white border-gray-300 mb-3 /px-2 rounded">
 
                                 {/* left */}

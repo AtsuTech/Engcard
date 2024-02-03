@@ -38,7 +38,7 @@ export const UpdateCard:FC = () => {
             console.log(response);
             
             setCard({
-                card_id:response.data.id_encrypt,
+                card_id:response.data.id,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
                 sentence : response.data.sentence,

@@ -37,7 +37,7 @@ export const Card:FC = () => {
             console.log(response);
             
             setCards({
-                card_id:response.data.id_encrypt,
+                card_id:response.data.id,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
                 img_path : '/storage/images/card/'+ response.data.user_id + '/' + response.data.flashcard_id + '/' + response.data.img_path,
@@ -80,7 +80,7 @@ export const Card:FC = () => {
             <Link to={`/card/update/${card.card_id}`}>
                 編集
             </Link>
-            <DeleteCard id={card_id} flashcard_id={card.flashcard_id} />
+            <DeleteCard id={card.card_id} flashcard_id={card.flashcard_id} />
             <h5>単語帳{card.flashcard_title}</h5>
             <p></p>
 
