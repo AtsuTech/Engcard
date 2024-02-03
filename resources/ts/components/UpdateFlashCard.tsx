@@ -153,7 +153,7 @@ export const UpdateFlashCard:FC = () =>{
                     />
 
 
-                    <button type="submit" className="block mr-0 bg-blue-400 w-36 h-14 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
+                    <button type="submit" className="block bg-blue-400 w-36 h-14 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
                         更新
                     </button>
 
