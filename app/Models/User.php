@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject; //追記
-use App\Models\ProfileImage; //プロフィール画像のパスをカラムに追加のため使用
+//use App\Models\ProfileImage; //プロフィール画像のパスをカラムに追加のため使用
+//use App\Models\Follow;//フォローモデル
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 
 class User extends Authenticatable implements JWTSubject
@@ -61,7 +62,36 @@ class User extends Authenticatable implements JWTSubject
     }
 
     //リレーション
-    public function profileImage(){
-        return optional($this->hasOne('App\Models\profileImage'));
+    // public function profileImage(){
+    //     return optional($this->hasOne('App\Models\profileImage'));
+    // }
+    // public function follows(){
+    //     return optional($this->hasMany('App\Models\Follow'));
+    // }
+
+    //リレーション
+    // public function follows()
+    // {
+    //     return $this->hasMany('App\Models\Follow');
+    // }
+
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows','following', 'followed');
+        //return $this->belongsToMany(User::class, 'follows','followed','following');
+        
     }
+
+
+    public function followed()
+    {
+        //return $this->belongsToMany(User::class, 'follows','following', 'followed');
+        return $this->belongsToMany(User::class, 'follows','followed','following');
+        
+    }
+
+
+
+
 }

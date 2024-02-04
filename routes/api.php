@@ -10,6 +10,8 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\UserProfileImgController;
 use App\Http\Controllers\UserUnscribeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\FlashCardController;
 use App\Http\Controllers\FlashcardFavoriteController;
 use App\Http\Controllers\AccessController;
@@ -80,6 +82,18 @@ Route::middleware(['api'])->group(function ($router){
 
     //退会処理
     Route::post('/user/unscribe',[UserUnscribeController::class,'unscribe']);
+
+    //プロフィール閲覧で使用するユーザー情報の取得
+    Route::get('/profile/{id}',[ProfileController::class,'get_user']);
+
+    //フォロー状態の確認
+    Route::get('/follow/status/{id}',[FollowController::class,'check_following']);
+
+    //フォロー付与
+    Route::post('/follow/add',[FollowController::class,'following']);
+
+    //フォロー解除
+    Route::post('/follow/remove',[FollowController::class,'unfollowing']);
 
     //公開単語帳を全て取得
     Route::get('/flashcard/public',[FlashCardController::class,'public_flashcard']);

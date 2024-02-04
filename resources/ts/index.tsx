@@ -23,6 +23,7 @@ import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
 import { UserUpdate } from './components/auth/UserUpdate';
 import { UserUnscribe } from './components/auth/UserUnscribe';
+import { Profile } from './components/Profile';
 import { PasswordUpdate } from './components/auth/PasswordUpdate';
 import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
@@ -105,6 +106,11 @@ root.render(
 
                     <Route path="/card" element={<Card />}>
                         <Route path=":card_id" element={<Card />} />
+                    </Route>
+
+
+                    <Route path="/profile" element={<Profile />}>
+                        <Route path=":user_id" element={<Profile />} />
                     </Route>
 
                 </Route>
