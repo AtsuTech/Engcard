@@ -4,10 +4,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from "react";
 
 
+type FollowingProps = {
+    id: any;
+    update: () => void;
+}
 
 
-
-export const Following:FC<{id:any}> =({id})=>{
+export const Following:FC<FollowingProps> =({id,update})=>{
 
     const [status,setStatus] = useState<boolean>();
     const [toggle,setToggle] = useState<boolean>(false);
@@ -33,6 +36,7 @@ export const Following:FC<{id:any}> =({id})=>{
         axios.post('/api/follow/add',{user_id:id}).then((response) => { 
         
             alert('フォローしました');
+            update();
             setToggle(true);
 
         }).catch((error) => { 
@@ -47,6 +51,7 @@ export const Following:FC<{id:any}> =({id})=>{
         axios.post('/api/follow/remove',{user_id:id}).then((response) => { 
         
             alert('フォロー解除');
+            update();
             setToggle(false);
 
         }).catch((error) => { 
@@ -59,16 +64,14 @@ export const Following:FC<{id:any}> =({id})=>{
             {status ?
 
                 <button 
-                    className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="w-32 bg-amber-400 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-full"
                     onClick={Remove}>
                     フォロー解除
                 </button>
 
             :
-
-
                 <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="w-32 bg-white hover:bg-amber-100 text-amber-400 font-bold py-2 px-4 rounded-full border border-amber-400"
                     onClick={Add}>
                     フォロー
                 </button>

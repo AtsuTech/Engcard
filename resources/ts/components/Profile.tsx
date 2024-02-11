@@ -11,6 +11,14 @@ export const Profile:FC =()=>{
     const [user,setUser] = useState<any>();
     const [update,setUpdate] = useState<boolean>(false);
 
+    function Update (){
+        if(update){
+            setUpdate(false);
+        }else if(!update){
+            setUpdate(true);
+        }
+    }
+
     useEffect(()=>{
 
         // パラメータ(暗号化されたid)付きでアクセスし、該当データをDBより取得
@@ -22,7 +30,7 @@ export const Profile:FC =()=>{
         }).catch((error) => { 
             console.log('通信エラーが発生しました');
         });
-    },[]);
+    },[update]);
 
     return(
         <>
@@ -35,7 +43,7 @@ export const Profile:FC =()=>{
                             </div>
                             <div className="w-32 flex-shrink-0">
                                 <div>
-                                    <Following id={user.id} />
+                                    <Following id={user.id} update={Update} />
                                 </div>
                                 
                             </div>
