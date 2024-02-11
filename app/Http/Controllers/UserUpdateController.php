@@ -39,11 +39,24 @@ class UserUpdateController extends Controller
         }
 
 
+        $check = User::where('personal_id','=',$request->personal_id)->get();
+
+        /*personal_idが既に使われていないか確認
+        既に同じものが使われている場合は被らなくなるまで再生成*/
+
+
         // 変更するユーザーを選択してインスタンス化
-        $User = User::find(Auth::user()->id);
-        $User->name = $request->name;
-        $User->email = $request->email;
-        $User->save();
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        //未使用のIDしか変更を受け付けない
+        if($check->count() == 0){
+            $user->personal_id = $request->personal_id;
+        }
+        $user->comment =  $request->comment;
+
+        $user->save();
 
         return response()->json([
             'message' => 'ユーザー情報を更新しました',

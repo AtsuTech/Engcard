@@ -2,6 +2,9 @@ import { FC } from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
+import { Title } from "../parts_component/Title";
+import { ProfileImageUpload } from "../ProfileImageUpload";
+import { ButtonWithOnClick } from "../parts_component/ButtonWithOnClick";
 
 export const UserUpdate:FC = () =>{
 
@@ -13,11 +16,15 @@ export const UserUpdate:FC = () =>{
     interface Me{
         name:string;
         email:string;
+        personal_id:string;
+        comment:string,
     }
 
     const [me ,setMe] = useState<Me>({
         name:'',
         email:'',
+        personal_id:'',
+        comment:'',
     });
 
     const [validation,setValidation] = useState({
@@ -33,7 +40,9 @@ export const UserUpdate:FC = () =>{
             
             setMe({
                 name:response.data.name,
-                email:response.data.email,           
+                email:response.data.email,   
+                personal_id:response.data.personal_id,        
+                comment:response.data.comment,
             });
 
         }).catch((error:AxiosError|any) => { 
@@ -56,6 +65,8 @@ export const UserUpdate:FC = () =>{
         const data = {
             name:me.name,
             email:me.email,
+            personal_id:me.personal_id,
+            comment:me.comment,
         }
 
         axios.post('/api/user/update',data).then((response:AxiosResponse|any) => { 
@@ -74,32 +85,56 @@ export const UserUpdate:FC = () =>{
     }
 
     return(
-        <div>
-            <h1 className="text-3xl">ユーザー情報更新</h1>
+        <div className="block rounded-3xl bg-white text-slate-600 p-5">
+            <Title title="ユーザー情報更新" />
 
-            <form onSubmit={Update} className="block rounded-3xl bg-white text-slate-600 p-5">
+            <ProfileImageUpload />
 
-                <span className="text-red-600">{validation.name}</span>
+            <form>
+
+                <label htmlFor="">ユーザー名</label>
                 <input type="text" 
                     name="name" 
                     value={me.name} 
                     onChange={handleInput} 
                     placeholder="名前"
-                    className="w-full h-10 mt-5 border border-gray-400 rounded"
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
                 />
+                <span className="text-red-600">{validation.name}</span>
 
-                <span className="text-red-600">{validation.email}</span>
+                <label htmlFor="">メールアドレス</label>
                 <input type="email" 
                     name="email" 
                     value={me.email}  
                     onChange={handleInput} 
                     placeholder="メールアドレス"
-                    className="w-full h-10 mt-5 border border-gray-400 rounded"
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
+                />
+                <span className="text-red-600">{validation.email}</span>
+
+                <label htmlFor="">ユーザーID</label>
+                <input type="text" 
+                    name="personal_id" 
+                    value={me.personal_id}  
+                    onChange={handleInput} 
+                    placeholder="ユーザーID"
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
                 />
 
-                <button type="submit" className="block mr-0 bg-blue-400 w-36 h-10 text-white ml-auto mr-auto rounded-lg font-medium text-1xl m-5">
-                    変更
-                </button>
+                <label htmlFor="">紹介文</label>
+                <textarea 
+                    name="comment" 
+                    id="" 
+                    cols={30} 
+                    rows={10}
+                    value={me.comment}  
+                    className="w-full p-2 border border-gray-300 rounded-lg" 
+                    onChange={handleInput} 
+                >
+
+                </textarea>
+
+                <ButtonWithOnClick onclick={Update} color="yellow" text="変更" />
 
             </form>
 

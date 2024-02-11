@@ -70,7 +70,7 @@ export const NavBar: FC = () => {
                                             </Link>
                                         </li>
                                         <li className="w-full p-3">
-                                            <Link to="/mypage">
+                                            <Link to="">
                                                 マイページ
                                             </Link>
                                         </li>

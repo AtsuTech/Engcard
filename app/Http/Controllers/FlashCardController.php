@@ -52,7 +52,11 @@ class FlashCardController extends Controller
             "created_at" =>  \Carbon\Carbon::now(), 
             "updated_at" => \Carbon\Carbon::now(),  
         ]);
-        $id = encrypt($id);
+        
+        //idをハッシュ化
+        $hashids = new Hashids('', 10); 
+        $id = $hashids->encode($id);
+        
         return response()->json(['success' => '作成できました','id' =>  $id]);
     }
 

@@ -45,7 +45,9 @@ export const MyFlashCards:FC =() =>{
     }
 
     
-
+    // function FlashcardLink() {
+        
+    // }
 
     return (
         <>
@@ -76,7 +78,20 @@ export const MyFlashCards:FC =() =>{
                     <FlashCardCountBage value={flashcards.length} />
                 </div>
 
-                {flashcards.length == 0 && <div className="flex items-center justify-center h-96">単語帳がありません</div>}
+                {flashcards.length == 0 && 
+                    <>
+                        <div className="flex items-center justify-center h-96">
+                            <div>
+                                <div className="mb-2">単語帳がありません</div>
+                                <button className="lex justify-center items-center block w-full h-16 bg-amber-400 text-center text-white rounded-full">
+                                    <Link to="/flashcard/create">単語帳を作る</Link>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </>
+                   
+                }
                 
                     
                 

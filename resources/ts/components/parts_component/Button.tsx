@@ -20,7 +20,7 @@ export const Button:FC<{text:any,color:string}> = ({text,color}) =>{
     return(
         <button 
             type="submit" 
-            className={`block mt-10  w-full h-12 text-white ml-auto mr-auto rounded-full font-medium text-lg font-light ${color}`}>
+            className={`block mt-10  w-full h-12 text-white ml-auto mr-auto rounded-full /font-medium text-lg font-light ${color}`}>
             {text}
         </button>
     );
