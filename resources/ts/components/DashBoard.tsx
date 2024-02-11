@@ -21,6 +21,7 @@ export const DashBoard: FC = () => {
         email:string;
         password:string;
         created_at:string;
+        personal_id:string,
     }
 
     const [me ,setMe] = useState<Me>({
@@ -28,6 +29,7 @@ export const DashBoard: FC = () => {
         email:'',
         password:'',
         created_at:'',
+        personal_id:'',
     });
 
     useEffect(()=>{
@@ -39,7 +41,8 @@ export const DashBoard: FC = () => {
                 name:response.data.name,
                 email:response.data.email,
                 password:response.data.password,
-                created_at:response.data.created_at,                
+                created_at:response.data.created_at,  
+                personal_id:response.data.personal_id,           
             });
 
         }).catch((error:AxiosError|any) => { 
@@ -56,7 +59,11 @@ export const DashBoard: FC = () => {
             <div className="border border-gray-300 p-2 rounded-lg">
                 <div className="flex">
                     <ProfileImage width={80} height={80} />
-                    <h5 className="text-2xl flex justify-center items-center ml-3">{me.name}</h5>
+                    <h5 className="text-2xl flex justify-center items-center ml-3">
+                        {me.name}
+                        <br />@{me.personal_id}                       
+                    </h5>
+
                     <ProfileImageUpload />
                 </div>
 

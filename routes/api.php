@@ -84,7 +84,7 @@ Route::middleware(['api'])->group(function ($router){
     Route::post('/user/unscribe',[UserUnscribeController::class,'unscribe']);
 
     //プロフィール閲覧で使用するユーザー情報の取得
-    Route::get('/profile/{id}',[ProfileController::class,'get_user']);
+    Route::get('/profile/{personal_id}',[ProfileController::class,'get_user']);
 
     //フォロー状態の確認
     Route::get('/follow/status/{id}',[FollowController::class,'check_following']);
