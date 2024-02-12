@@ -68,6 +68,9 @@ Route::middleware(['api'])->group(function ($router){
     //パスワードリセット処理
     Route::post('/password/reset',[PasswordResetController::class,'passwordreset'])->name('password.reset');
 
+    //ユーザーIDの重複確認
+    Route::get('/user/personal_id/check/{personal_id}',[UserUpdateController::class,'check_personal_id']);
+
     //ユーザー情報の更新
     Route::post('/user/update',[UserUpdateController::class,'update']);
 

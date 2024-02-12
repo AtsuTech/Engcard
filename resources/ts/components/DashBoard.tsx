@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
-import { ProfileImageUpload } from "./ProfileImageUpload";
 import { ProfileImage } from "./ProfileImage";
 
 
@@ -63,8 +62,6 @@ export const DashBoard: FC = () => {
                         {me.name}
                         <br />@{me.personal_id}                       
                     </h5>
-
-                    <ProfileImageUpload />
                 </div>
 
                 <ul>

@@ -3,8 +3,10 @@ import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
 import { Title } from "../parts_component/Title";
+import { ProfileImage } from "../ProfileImage";
 import { ProfileImageUpload } from "../ProfileImageUpload";
 import { ButtonWithOnClick } from "../parts_component/ButtonWithOnClick";
+
 
 export const UserUpdate:FC = () =>{
 
@@ -32,6 +34,8 @@ export const UserUpdate:FC = () =>{
         email:'',
     });
 
+    const [user_id_check,setUserIdCheck] = useState<boolean>(true);
+
     //現在の情報を取得
     useEffect(()=>{
         // トークンでアクセスしてユーザー名を取得
@@ -53,9 +57,29 @@ export const UserUpdate:FC = () =>{
     },[]);
 
     
+    const CheckUserId =(e:any)=>{
+
+
+        
+    }
+
+    useEffect(()=>{
+        // トークンでアクセスしてユーザー名を取得
+        axios.get('/api/user/personal_id/check/' + me.personal_id).then((response:AxiosResponse|any) => { 
+
+            setUserIdCheck(response.data.result);
+            
+        }).catch((error:AxiosError|any) => { 
+            // alert('NG');
+            console.log(error);
+        });
+    },[me.personal_id]);
+
+    
     const handleInput =(e:any)=> {
         setMe({...me, [e.target.name]: e.target.value});
     }
+
 
     //更新ボタン押した時の処理
     const Update =(e:any)=>{
@@ -88,7 +112,15 @@ export const UserUpdate:FC = () =>{
         <div className="block rounded-3xl bg-white text-slate-600 p-5">
             <Title title="ユーザー情報更新" />
 
-            <ProfileImageUpload />
+            <div>プロフィール画像</div>
+            <div className="flex w-full p-2 border border-gray-300 rounded-lg" >
+                <ProfileImage width={80} height={80} />
+                <div className="flex">
+                    <ProfileImageUpload />
+                    <button className="">削除</button>
+                </div>
+            </div>
+
 
             <form>
 
@@ -112,14 +144,23 @@ export const UserUpdate:FC = () =>{
                 />
                 <span className="text-red-600">{validation.email}</span>
 
-                <label htmlFor="">ユーザーID</label>
+                <label htmlFor="">ユーザーID{me.personal_id}  </label>
                 <input type="text" 
                     name="personal_id" 
                     value={me.personal_id}  
                     onChange={handleInput} 
+                    onFocus={CheckUserId}
                     placeholder="ユーザーID"
                     className="w-full p-2 border border-gray-300 rounded-lg" 
                 />
+                <div>
+                    {user_id_check ?
+                        <span className="text-green-300">このユーザーIDは使用可能です</span>
+                    :
+                        <span className="text-rose-600">このユーザーIDは他のユーザーが使用しているので使えません</span>
+                    }  
+                </div>
+
 
                 <label htmlFor="">紹介文</label>
                 <textarea 
@@ -134,7 +175,7 @@ export const UserUpdate:FC = () =>{
 
                 </textarea>
 
-                <ButtonWithOnClick onclick={Update} color="yellow" text="変更" />
+                <ButtonWithOnClick onclick={Update} color="yellow" text="保存" />
 
             </form>
 

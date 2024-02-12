@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CardList } from "./CardList";
 import { Title } from "./parts_component/Title";
+import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
 
 export const UpdateFlashCard:FC = () =>{
@@ -20,6 +21,7 @@ export const UpdateFlashCard:FC = () =>{
         id: string;
         user_id:string|number;
         title: string;
+        description: string;
         access_id: string|number;
         created_at: string;
         updated_at: string;
@@ -30,6 +32,7 @@ export const UpdateFlashCard:FC = () =>{
         id:'',
         user_id:'',
         title:'',
+        description:'',
         access_id:'',
         created_at:'',
         updated_at:'',
@@ -45,6 +48,7 @@ export const UpdateFlashCard:FC = () =>{
                 id:response.data.id,
                 user_id:response.data.user_id,
                 title:response.data.title,
+                description:response.data.description,
                 access_id:response.data.access_id,
                 created_at:response.data.created_at,
                 updated_at:response.data.updated_at,
@@ -76,9 +80,9 @@ export const UpdateFlashCard:FC = () =>{
         });
     },[]);
 
-
+    
     //input入力された値で更新
-    const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleInput = (e:any) => {
 
         //イベントハンドラが実行された後にオブジェクトのプロパティにアクセスする必要がある場合は、e.persist() を呼ぶ必要がある
         e.persist();
@@ -97,6 +101,7 @@ export const UpdateFlashCard:FC = () =>{
             id: flashcard.id,
             user_id: flashcard.user_id,
             title: flashcard.title,
+            description: flashcard.description,
             access_id: flashcard.access_id,
         }
 
@@ -113,49 +118,63 @@ export const UpdateFlashCard:FC = () =>{
     }
 
     return(
-        <main className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+        <main className="block w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
             <h1 className="text-xs">単語帳を作成/カードの追加</h1>
 
             <Title title={'単語帳の編集'} />
 
 
 
-            <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+            <div className="block w-full /ml-auto /mr-auto mt-10 mb-10 /p-5 rounded-3xl bg-white">
                 
-                <form onSubmit={updateSubmit} className="flex">
+                <form>
 
-                    <ul className="w-32 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
-                    {accessLists.map( (accessList:any) =>(
-                        <li className="flex" key={accessList.id}>
-                            <input type="radio" name="access" value={accessList.id}
-                                onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
-                                checked={flashcard.access_id == accessList.id } 
-                                required 
-                                className="sr-only peer"
-                                id={accessList.id}
-                            />
-                            <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">{accessList.item}</label>
-                            <div className="hidden p-1 peer-checked:block">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                            </div>
-                            
-                        </li>
-                    )) }
-                    </ul>
+                    <div className="flex w-full h-fit border border-gray-300 rounded-lg p-2  /text-3xl">
+                        <ul className="w-32 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+                        {accessLists.map( (accessList:any) =>(
+                            <li className="flex" key={accessList.id}>
+                                <input type="radio" name="access" value={accessList.id}
+                                    onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
+                                    checked={flashcard.access_id == accessList.id } 
+                                    required 
+                                    className="sr-only peer"
+                                    id={accessList.id}
+                                />
+                                <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">{accessList.item}</label>
+                                <div className="hidden p-1 peer-checked:block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                </div>
+                                
+                            </li>
+                        )) }
+                        </ul>
 
 
-                    <input type="text" className="w-full h-14 border border-gray-300 rounded-lg pl-2 mx-1 text-3xl" placeholder="タイトル" value={flashcard.title}
-                        name="title"
+                        <input type="text" 
+                            className="w-full h-14 /border border-gray-300 rounded-lg pl-2 /mx-1 text-3xl" 
+                            placeholder="タイトル" 
+                            value={flashcard.title}
+                            name="title"
+                            onChange={handleInput} 
+                            required
+                        />                        
+                    </div>
+
+                    <textarea 
+                        name="description" 
+                        id="" 
+                        className="w-full h-32 border border-gray-300 rounded-lg pl-2 mt-2"
                         onChange={handleInput} 
-                        required
-                    />
+                        value={flashcard.description}
+                    >
+                    </textarea>
 
-
-                    <button type="submit" className="block bg-blue-400 w-36 h-14 text-white ml-auto mr-auto rounded-lg font-medium text-1xl">
-                        更新
-                    </button>
+                    <div>
+                        <ButtonWithOnClick text="保存" color="yellow" onclick={updateSubmit} />
+                    </div>
+                   
 
                 </form>
                 

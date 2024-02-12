@@ -64,6 +64,7 @@ class FlashCardController extends Controller
     function update(Request $request){
         $flashcard = FlashCard::find($request->id);
         $flashcard->title = $request->title;
+        $flashcard->description = $request->description;
         $flashcard->access_id = $request->access_id;
         $flashcard->save();
     }

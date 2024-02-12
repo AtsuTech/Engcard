@@ -10,6 +10,39 @@ use JWTAuth;
 
 class UserUpdateController extends Controller
 {
+
+    //ユーザーID重複確認
+    public function check_personal_id(Request $request){
+
+        $check = User::where('personal_id','=',$request->personal_id)->get();
+        $get_id = User::where('personal_id','=',$request->personal_id)->first();
+        $my_id = User::find(Auth::id());
+
+
+        //$check->count() == 0
+        if($check->count() == 0){
+            return response()->json([
+                'result' => true,
+            ]);
+        }elseif($get_id->id == Auth::id()){
+            //一致するものが有るとき
+            return response()->json([
+                'result' => true,
+            ]);
+
+
+        }elseif($check->count() == 0){
+            //一致するものが有るとき
+            return response()->json([
+                'result' => false,
+            ]);
+
+
+        }
+    }
+
+
+
     //ユーザー情報更新処理
     public function update(Request $request){
 

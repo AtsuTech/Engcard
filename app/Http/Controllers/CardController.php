@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;//ストレージ操作
 use Illuminate\Support\Arr;//配列操作
-use Hashids\Hashids;//idをランダムでユニークな文字列に変換
+use Hashids\Hashids;//idをランダムでユニークな文字列に変換/解読
 
 class CardController extends Controller
 {
@@ -19,12 +19,20 @@ class CardController extends Controller
     //新規追加
     public function create(Request $request){
 
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $flashcard_id = $hashids->decode($request->flashcard_id)[0];//※配列で帰ってくる
+
+
         //カード画像保存先パス
-        $directory = 'public/images/card/' . Auth::id() . '/' . decrypt($request->flashcard_id);
+        //$directory = 'public/images/card/' . Auth::id() . '/' . decrypt($request->flashcard_id);
+        $directory = 'public/images/card/' . Auth::id() . '/' . $flashcard_id;
 
         $Card = new Card;
 
-        $Card->flashcard_id = decrypt($request->flashcard_id);
+        
+        //$Card->flashcard_id = decrypt($request->flashcard_id);
+        $Card->flashcard_id = $flashcard_id;
         $Card->user_id = Auth::id();
 
         $image = $request->file('image');
