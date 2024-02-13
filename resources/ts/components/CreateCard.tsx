@@ -93,6 +93,8 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
             
             <div className="w-full p-2 border border-gray-300 rounded-lg" >
                 <h5 className="pb-3">単語カード作成</h5>
+
+                
                 <div className="flex">
 
                     
@@ -114,13 +116,13 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                             }
                         </label>
                          
-                        
+                        {/* この中に余白いる */}
                         <input id="example1" 
                             type="file" 
                             accept="image/*" multiple
                             onChange={handleInputFile}
                             ref={fileInputRef}
-                            className="block sr-only w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
+                            className="block sr-only text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
                         />
 
                     </div>
@@ -149,8 +151,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         />
                     </div>
 
-                </div>
-
+                </div> 
 
                 <div>
                     <a href="" className="text-cyan-500 m-1">例文を追加</a>
@@ -173,7 +174,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         onChange={handleInput} 
                         placeholder="例文(訳):りんごは赤くて美味しい果物です。">
                     </textarea>
-                </div>
+                </div> 
 
                 <ButtonWithOnClick color={'yellow'} text={'追加'} onclick={CreateSubmit} />
             </div>

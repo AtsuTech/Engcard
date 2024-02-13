@@ -118,7 +118,7 @@ export const UpdateFlashCard:FC = () =>{
     }
 
     return(
-        <main className="block w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+        <div className="block w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
             <h1 className="text-xs">単語帳を作成/カードの追加</h1>
 
             <Title title={'単語帳の編集'} />
@@ -129,8 +129,8 @@ export const UpdateFlashCard:FC = () =>{
                 
                 <form>
 
-                    <div className="flex w-full h-fit border border-gray-300 rounded-lg p-2  /text-3xl">
-                        <ul className="w-32 h-14 pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+                    <div className="flex w-full h-fit border border-gray-300 rounded-lg p-1  /text-3xl">
+                        <ul className="w-fit h-fit pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
                         {accessLists.map( (accessList:any) =>(
                             <li className="flex" key={accessList.id}>
                                 <input type="radio" name="access" value={accessList.id}
@@ -140,20 +140,18 @@ export const UpdateFlashCard:FC = () =>{
                                     className="sr-only peer"
                                     id={accessList.id}
                                 />
-                                <label htmlFor={accessList.id} className="block w-full leading-7 /text-center focus:outline-none peer-checked:/bg-yellow-400">{accessList.item}</label>
-                                <div className="hidden p-1 peer-checked:block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                <label htmlFor={accessList.id} className="block w-14 leading-5 text-xs text-center focus:outline-none peer-checked:text-amber-500">{accessList.item}</label>
+                                <div className="hidden p-0.5 peer-checked:block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-400">
+                                    <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                                     </svg>
                                 </div>
-                                
                             </li>
                         )) }
                         </ul>
 
-
                         <input type="text" 
-                            className="w-full h-14 /border border-gray-300 rounded-lg pl-2 /mx-1 text-3xl" 
+                            className="w-full h-10 /border border-gray-300 rounded-lg pl-2 /font-bold text-2xl" 
                             placeholder="タイトル" 
                             value={flashcard.title}
                             name="title"
@@ -162,6 +160,7 @@ export const UpdateFlashCard:FC = () =>{
                         />                        
                     </div>
 
+                    <label htmlFor="">概要</label>
                     <textarea 
                         name="description" 
                         id="" 
@@ -180,16 +179,17 @@ export const UpdateFlashCard:FC = () =>{
                 
             </div>
 
-            <div>
-                <h1 className="text-3xl">単語カード追加</h1>
+            <div className="mt-5 mb-5">
+                <hr className="border-bottom border-dashed border-2 border-amber-400 ..." />
             </div>
+            
+
+            <Title title={'単語カード'} />
 
             <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
                 <CardList id={flashcard_id} />
             </div>
 
-            
-            
-        </main>
+        </div>
     );
 }
