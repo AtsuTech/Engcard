@@ -79,7 +79,7 @@ export const Login: FC = () => {
         }
 
         // axiosでログインAPIにemail,passwordをHTTP通信で送る
-        axios.post('http://127.0.0.1:8000/api/login', data).then(function (response:AxiosResponse|any){
+        axios.post('/api/login', data).then(function (response:AxiosResponse|any){
 
             // --------送信成功時の処理-------- //
             //alert('ログイン成功');

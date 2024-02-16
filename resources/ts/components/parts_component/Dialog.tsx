@@ -5,7 +5,6 @@ export const Dialog:FC<{open:boolean,title:string,message:string,func:any}> = ({
 
     const modal = document.getElementById("modal") as any;
 
-    console.log(modal);
     if(open){
         modal.showModal();
     }
@@ -14,7 +13,6 @@ export const Dialog:FC<{open:boolean,title:string,message:string,func:any}> = ({
         <div>
             <dialog 
                 
-                // open={open}
                 className="w-96 h-30 ml-auto mr-auto bg-white p-5 shadow-lg rounded-2xl text-slate-500 border border-slate-300"
                 id="modal"
             >
@@ -43,3 +41,8 @@ export const Dialog:FC<{open:boolean,title:string,message:string,func:any}> = ({
 
     
 }
+
+
+
+
+
