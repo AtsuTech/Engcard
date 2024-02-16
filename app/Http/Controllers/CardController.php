@@ -87,6 +87,11 @@ class CardController extends Controller
     //(クイズ用)ランダムに3件取得
     public function quiz_choices(Request $request){
 
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $flashcard_id = $hashids->decode($request->flashcard_id)[0];//※配列で帰ってくる
+        
+
         /*---------------<フロント側で表示中の単語の意味データ(正解の選択肢)の取得>-------------------------
         *フロントエンドから単語帳idと単語カードのindex番号を受け取る。
         *まず単語帳idで単語カードを絞る
@@ -94,13 +99,29 @@ class CardController extends Controller
         *欲しい件数は1個だけなのでtake()に1を指定する
         *配列として扱うのでtoArray()
         */
-        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->get()->pluck('word_mean')->toArray();
+        $correct = Card::where('flashcard_id',$flashcard_id)//単語帳に紐づくカードだけにフィルタ
+                        ->skip($request->card_index)//フロントから送られてきたインデックス(カードのDBでの保存順)までスキップしてデータを取得
+                        ->take(1)//1つ取得。skipとtake(1)を組み合わせて街灯のインデックスのカードだけ取得
+                        ->get()
+                        ->pluck('word_mean')//word_meanカラムだけを取得
+                        ->toArray();//配列に変換
 
         //フロント側で表示中の単語の意味データ(正解の選択肢)のid(pk)を取得
-        $correct_id = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->get()->pluck('id');
+        $correct_id = Card::where('flashcard_id',$flashcard_id)->skip($request->card_index)->take(1)->get()->pluck('id')->first();
+
+        //正解のカードの意味を取得
+        $word_mean = Card::find($correct_id)->word_mean;
 
         //不正解の選択肢を、正解の選択肢を除くものからランダムに3つ取得(今の所、他の単語帳のカードからも選択肢取ってくる仕様)
-        $incorrect = Card::where('id','!=',$correct_id)->inRandomOrder()->take(3)->get()->pluck('word_mean')->toArray();
+        $incorrect = Card::where('id','!=',$correct_id) //正解のカードのidを除く
+                            ->where('word_mean','!=',$word_mean) //正解のカードと同一の値(同じテキストの単語の意味)がある場合は除く
+                            ->inRandomOrder()//ランダムに取得
+                            ->take(3)//３つ取得
+                            ->get()//複薄データを取得
+                            ->pluck('word_mean')//word_meanカラムだけを取得
+                            ->toArray();//配列に変換
+
+        //$incorrect = array_values(array_unique($incorrect)); // 重複を除外
 
         //配列の結合(不正解選択肢+正解の選択肢)
         $choices = array_merge($incorrect,$correct);
@@ -114,7 +135,12 @@ class CardController extends Controller
 
     //クイズ正解時に暗記完了にする
     public function memory(Request $request){
-        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->first();
+
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $flashcard_id = $hashids->decode($request->flashcard_id)[0];//※配列で帰ってくる
+        
+        $correct = Card::where('flashcard_id',$flashcard_id)->skip($request->card_index)->take(1)->first();
         $correct->memory = true;
         $correct->save();
     }
@@ -122,7 +148,12 @@ class CardController extends Controller
 
     //クイズ不正解時に暗記未完了にする
     public function un_memory(Request $request){
-        $correct = Card::where('flashcard_id',decrypt($request->flashcard_id))->skip($request->card_index)->take(1)->first();
+
+        //ハッシュ化されたuuidをデコード
+        $hashids = new Hashids('', 10); 
+        $flashcard_id = $hashids->decode($request->flashcard_id)[0];//※配列で帰ってくる
+        
+        $correct = Card::where('flashcard_id',$flashcard_id)->skip($request->card_index)->take(1)->first();
         $correct->memory = false;
         $correct->save();
     }

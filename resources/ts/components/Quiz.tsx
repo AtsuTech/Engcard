@@ -92,6 +92,7 @@ export const Quiz:FC =()=>{
     useEffect(()=>{
         axios.get(`/api/card/quiz/get/${flashcard_id}/${view_card}`).then((response) => { 
             setChoices(response.data);
+            console.log(choices);
         }).catch((error) => { 
             console.log(error);
         });
@@ -289,7 +290,7 @@ export const Quiz:FC =()=>{
                                 </div>
                                 <div>
                                     {choices.map( (choice:any,index:number) => (
-                                        <ul key={choice}>
+                                        <ul key={index}>
                                         {choice == card.word_mean?
                                             <CorrectAnswer choice={choice} selected_answer={selected_answer} action={Correct} />
                                             :
