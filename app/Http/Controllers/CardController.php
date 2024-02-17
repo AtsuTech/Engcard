@@ -121,7 +121,7 @@ class CardController extends Controller
                             ->pluck('word_mean')//word_meanカラムだけを取得
                             ->toArray();//配列に変換
 
-        //$incorrect = array_values(array_unique($incorrect)); // 重複を除外
+        $incorrect = array_values(array_unique($incorrect)); // 重複を除外
 
         //配列の結合(不正解選択肢+正解の選択肢)
         $choices = array_merge($incorrect,$correct);
