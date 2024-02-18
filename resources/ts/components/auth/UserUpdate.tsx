@@ -80,6 +80,33 @@ export const UserUpdate:FC = () =>{
         setMe({...me, [e.target.name]: e.target.value});
     }
 
+    const ProfileImageDelete:FC = () =>{
+
+        const Delete =()=>{
+
+            const confirm = window.confirm("削除しますが本当によろしいですか？");
+
+            if(confirm){
+                axios.post('/api/user/profile/image/delete').then((response:AxiosResponse|any) => { 
+
+                    //成功時の処理
+                    alert('プロフィール画像を削除しました');
+                    
+                }).catch((error:AxiosError|any) => { 
+
+                    alert('通信エラーが発生しました');
+                });
+            }
+
+        }
+
+        return(
+            <button className="w-fit h-10 p-1 px-2 bg-gray-400 text-white rounded-md" onClick={Delete}>削除</button>
+        );
+
+    }
+
+
 
     //更新ボタン押した時の処理
     const Update =(e:any)=>{
@@ -115,9 +142,13 @@ export const UserUpdate:FC = () =>{
             <div>プロフィール画像</div>
             <div className="flex w-full p-2 border border-gray-300 rounded-lg" >
                 <ProfileImage width={80} height={80} />
-                <div className="flex">
-                    <ProfileImageUpload />
-                    <button className="">削除</button>
+                <div className="flex items-center justify-center ">
+                    <div className="ml-3">
+                        <ProfileImageUpload />
+                    </div>
+                    <div className="ml-3">
+                        <ProfileImageDelete />
+                    </div>
                 </div>
             </div>
 

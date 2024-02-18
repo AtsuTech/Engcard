@@ -83,8 +83,14 @@ Route::middleware(['api'])->group(function ($router){
     //プロフィール画像アップロード
     Route::post('/user/profile/image/upload',[UserProfileImgController::class,'upload_img']);
 
+    //プロフィール画像削除
+    Route::post('/user/profile/image/delete',[UserProfileImgController::class,'delete_img']);
+
     //退会処理
     Route::post('/user/unscribe',[UserUnscribeController::class,'unscribe']);
+
+    //ダッシュボードで使用する自分の情報取得
+    Route::get('/account/me',[ProfileController::class,'get_me']);
 
     //プロフィール閲覧で使用するユーザー情報の取得
     Route::get('/profile/{personal_id}',[ProfileController::class,'get_user']);

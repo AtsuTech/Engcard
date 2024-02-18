@@ -21,13 +21,15 @@ export const ProfileImage:FC<{width:number,height:number,}> = ({width,height}) =
 
     return(
         <>
-            {my_image != "" &&
-                <img src={ '/storage/images/profile/' + my_image} width={width} height={height} className="block rounded-full border border-gray-400" />
-            }
-
-            {my_image == "" &&            
+            {my_image != "" ?
+                <img src={ '/storage/images/profile/' + my_image} width={width} height={height} alt={my_image} className="block rounded-full border border-gray-400" />
+                :
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width={width} height={height} className="block rounded-full" />
             }
+
+            {/* {my_image == null &&            
+                
+            } */}
             
         </>
     );
