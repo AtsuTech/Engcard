@@ -5,7 +5,7 @@ import { CategoryCreate } from "./CategoryCreate";
 
 
 //親コンポーネントより変数(value)と関数(handleInput)を受け取り
-export const CategorySelect:FC<{name:any, value:any ,handleInput: any}> = ({name,value,handleInput}) =>{
+export const SubMeanCategorySelect:FC<{name:any, value:any, onchange:any }> = ({name,value,onchange}) =>{
 
     const [categories,setCategory] = useState<any>([]);
 
@@ -41,7 +41,7 @@ export const CategorySelect:FC<{name:any, value:any ,handleInput: any}> = ({name
     },[update]);
 
 
-    const [selected_itme,setSelectedItme] = useState('カテゴリ選択');
+    const [selected_itme,setSelectedItme] = useState('設定なし');
     
     useEffect(()=>{
 
@@ -67,15 +67,10 @@ export const CategorySelect:FC<{name:any, value:any ,handleInput: any}> = ({name
 
             {view &&
                 
-                <div className="/absolute /left-0 /top-0 /h-screen /w-screen">
+                <div className="">
 
-                    {/* <div className="fixed top-0 left-0 bottom-0 right-0 m-auto w-80 h-fit bg-white border border-gray-400 rounded-lg"> */}
                     <div className="relative top-0 py-2 /right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700">
 
-                        {/* <div className="block w-full leading-8 border-b border-gray-300 text-center">
-                            カテゴリを設定
-                            
-                        </div> */}
                         <button onClick={View}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -88,10 +83,9 @@ export const CategorySelect:FC<{name:any, value:any ,handleInput: any}> = ({name
                                     <input className="sr-only peer" 
                                         type="radio" 
                                         value={category.id} 
-                                        //name="category_id" 
                                         name={name}
                                         id={'#category' + category.id} 
-                                        onChange={(e:any) => handleInput(e.target.value)} 
+                                        onChange={onchange}
                                         onClick={View}
                                         checked={category.id == value} 
                                     />

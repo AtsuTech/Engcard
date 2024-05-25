@@ -21,6 +21,7 @@ export const Card:FC = () => {
         memory:'',
         category:'',
         link:'',
+        user_id:'',
         flashcard_id:'',
         flashcard_title:'',
         created_at:'',
@@ -46,6 +47,7 @@ export const Card:FC = () => {
                 memory : response.data.memory,
                 category : response.data.category,
                 link : response.data.link,
+                user_id:  response.data.flashcard.user_id,
                 flashcard_id : response.data.flashcard.id_encrypt,
                 flashcard_title:response.data.flashcard.title,
                 created_at: response.data.created_at,
@@ -71,16 +73,20 @@ export const Card:FC = () => {
     }
 
 
-
+    const user_id:any = localStorage.getItem('user_id');
 
 
     return(
         <>
             <h5>{message}</h5>
-            <Link to={`/card/update/${card.card_id}`}>
-                編集
-            </Link>
-            <DeleteCard id={card.card_id} flashcard_id={card.flashcard_id} />
+            {user_id == card.user_id &&
+                <div>
+                    <Link to={`/card/update/${card.card_id}`}>
+                        編集
+                    </Link>
+                    <DeleteCard id={card.card_id} flashcard_id={card.flashcard_id} />                    
+                </div>
+            }
             <h5>単語帳{card.flashcard_title}</h5>
             <p></p>
 

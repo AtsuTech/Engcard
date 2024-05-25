@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card;
+use App\Models\WordMean;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;//ストレージ操作
@@ -25,44 +26,89 @@ class CardController extends Controller
 
 
         //カード画像保存先パス
-        //$directory = 'public/images/card/' . Auth::id() . '/' . decrypt($request->flashcard_id);
         $directory = 'public/images/card/' . Auth::id() . '/' . $flashcard_id;
 
-        $Card = new Card;
+        // $Card = new Card;
 
-        
-        //$Card->flashcard_id = decrypt($request->flashcard_id);
-        $Card->flashcard_id = $flashcard_id;
-        $Card->user_id = Auth::id();
+        // $Card->flashcard_id = $flashcard_id;
+        // $Card->user_id = Auth::id();
 
-        $image = $request->file('image');
-        if($image != null){
-            $path = $image->store($directory);
-            $Card->img_path = basename($path);
-        }elseif($image == null){
-            $Card->img_path = null;
-        }
+        // $image = $request->file('image');
+        // if($image != null){
+        //     $path = $image->store($directory);
+        //     $Card->img_path = basename($path);
+        // }elseif($image == null){
+        //     $Card->img_path = null;
+        // }
        
 
-        $Card->category_id = $request->integer('category_id');
-        $Card->word = $request->word;
-        $Card->word_mean = $request->word_mean;
+        // $Card->category_id = $request->integer('category_id');
+        // $Card->word = $request->word;
+        // $Card->word_mean = $request->word_mean;
 
-        if($request->sentence == null||$request->sentence ==""){
-            $Card->sentence = "";
-        }else{
-            $Card->sentence = $request->sentence;
-        }
+        // if($request->sentence == null||$request->sentence ==""){
+        //     $Card->sentence = "";
+        // }else{
+        //     $Card->sentence = $request->sentence;
+        // }
 
-        if($request->sentence_mean == null||$request->sentence_mean ==""){
-            $Card->sentence_mean = "";
-        }else{
-            $Card->sentence_mean = $request->sentence_mean;
-        }
+        // if($request->sentence_mean == null||$request->sentence_mean ==""){
+        //     $Card->sentence_mean = "";
+        // }else{
+        //     $Card->sentence_mean = $request->sentence_mean;
+        // }
         
-        $Card->memory = false;
+        // $Card->memory = false;
 
-        $Card->save();
+        // $Card->save();
+
+        //画像ファイル受け取り
+        $image = $request->file('image');
+        //画像ファイルの有無判定
+        if($image != null){
+            //画像ファイルがあれば、public下ディレクトにファイル保存
+            $path = $image->store($directory);
+            //DBにファイル名を保存
+            $img_path = basename($path);
+        }elseif($image == null){
+            //画像ファイルが無ければ、DBにファイル名をnullで保存
+            $img_path = null;
+        }
+
+        $id = Card::insertGetId([
+            "flashcard_id" => $flashcard_id,
+            "user_id" => Auth::id(),
+            "img_path" => $img_path,
+            "category_id" => $request->integer('category_id'),
+            "word" => $request->word,
+            "word_mean" => $request->word_mean,
+            "sentence" => empty($request->sentence) ? "" : $request->sentence,
+            "sentence_mean" => empty($request->sentence_mean) ? "" : $request->sentence_mean,
+            "memory" => false,
+
+            "created_at" =>  \Carbon\Carbon::now(), 
+            "updated_at" => \Carbon\Carbon::now(),  
+        ]);
+
+
+        //サブの意味を保存
+        if(!empty($request->sub_means)){
+            // JSON文字列を配列に変換
+            $sub_means_array = json_decode($request->sub_means, true);
+
+            // 配列として適切にアクセスできることを確認した後に、ループを実行
+            foreach ($sub_means_array as $sub_mean) {
+                // 記入があものだけ保存する
+                if($sub_mean['word_mean'] != ""){
+                    $sub_word_means = new WordMean;
+                    $sub_word_means->card_id = $id;
+                    $sub_word_means->category_id = (int)$sub_mean['category_id'];
+                    $sub_word_means->word_mean = $sub_mean['word_mean'];
+                    $sub_word_means->save();
+                }
+            }
+        }
+
     }
 
     //詳細画面

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useState, useRef} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CategorySelect } from "./CategorySelect";
+import { SubMeanCategorySelect } from "./SubMeanCategorySelect";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
@@ -21,6 +22,26 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         e.persist();
         setCard({...card, [e.target.name]: e.target.value }); 
     }
+
+    // サブの意味を配列で保管
+    const [subWordMeans, setSubWordMeans] = useState<any>([
+        //５まで登録可能
+        { category_id:1, word_mean: '' },
+        { category_id:1, word_mean: '' },
+        { category_id:1, word_mean: '' },
+        { category_id:1, word_mean: '' },
+        { category_id:1, word_mean: '' },
+    ]);
+    const handleInputSub = (index: number, name: string, value: string) => {
+        //元の配列をコピーして、それを編集するようにする
+        const newSubWordMeans = [...subWordMeans];
+        if (!newSubWordMeans[index]) {
+            newSubWordMeans[index] = { category_id: '', word_mean: '' };
+        }
+        newSubWordMeans[index][name] = value;
+        setSubWordMeans(newSubWordMeans);
+    }
+    //console.log(subWordMeans);
 
     const [defaultImg,setDefaultImg] = useState<string|null>();
 
@@ -67,6 +88,8 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
         params.append('sentence_mean',card.sentence_mean);
+
+        params.append('sub_means',JSON.stringify(subWordMeans))
         
         //DBにデータ送る
         axios.post('/api/card/create', params).then(function (response: AxiosResponse<Response>) {
@@ -140,7 +163,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
 
                     <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1">
-                        <CategorySelect value={category_id} handleInput={setCategory_id} />
+                        <CategorySelect name="category_id" value={category_id} handleInput={setCategory_id} />
 
                         <input type="text" 
                             name="word_mean" 
@@ -175,6 +198,31 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         placeholder="例文(訳):りんごは赤くて美味しい果物です。">
                     </textarea>
                 </div> 
+
+                <div>
+                    <h4>サブの意味を追加</h4>
+                     
+                    {subWordMeans.map((dummy:any,index:any) => (
+                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1">
+                            <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
+                            {/* {subWordMeans[index] ? (
+                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
+                            ) : (
+                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={1} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)} />
+                            )} */}
+                            <input type="text"
+                                name={`word_mean[${index}][word_mean]`}
+                                value={subWordMeans.word_mean}
+                                className=""
+                                placeholder="ワード"
+                                onChange={(e) => handleInputSub(index, 'word_mean', e.target.value)}
+                                required
+                            />
+                        </div>
+                    ))} 
+
+
+                </div>
 
                 <ButtonWithOnClick color={'yellow'} text={'追加'} onclick={CreateSubmit} />
             </div>
