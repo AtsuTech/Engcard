@@ -22,10 +22,13 @@ export const NavBar: FC = () => {
 
             <header className="flex justify-between stiky top-0 z-50 w-full h-20 bg-amber-400 text-gray-300">
                 <h1 className="flex text-white ml-2 font-light">
-                <span className="block text-4xl text-white">
-                    {/* <img src="/storage/material_img/gazotan.png" alt="" width={170} className="mt-3 rounded-lg" /> */}
-                    Eitan
-                </span>
+                    <span className="block text-4xl text-white">
+                        {/* <img src="/storage/material_img/gazotan.png" alt="" width={170} className="mt-3 rounded-lg" /> */}
+                        Eitan
+                    </span>                    
+                </h1>    
+
+                <div className="hidden md:block">
                     <ul className="flex">
                         <li className="m-2">
                             <Link to="/home" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
@@ -42,8 +45,10 @@ export const NavBar: FC = () => {
                                 単語帳
                             </Link>
                         </li>
-                    </ul>
-                </h1>
+                    </ul>                    
+                </div>
+
+                
     
     
                 <div className="flex mr-2">

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FlashCard;
+//use App\Models\FlashCard;
+use App\Models\Flashcard;
 use Illuminate\Support\Facades\Auth; // Authファサードを読み込む
 use Illuminate\Support\Facades\Storage;//ストレージ操作
 use Hashids\Hashids;//idをランダムでユニークな文字列に変換
@@ -18,7 +19,7 @@ class FlashCardController extends Controller
         $id = $hashids->decode($id)[0];//※配列で帰ってくる
         
         //デコードしたidで検索
-        $flashcard = FlashCard::with(['user'])->with(['cards'])->findOrFail($id);
+        $flashcard = Flashcard::with(['user'])->with(['cards'])->findOrFail($id);
         return response()->json($flashcard);
 
     }
@@ -44,7 +45,7 @@ class FlashCardController extends Controller
     function create(Request $request){
         //$flashcard = new FlashCard;
         //$flashcard->fill($request->all())->save();
-        $id = FlashCard::insertGetId([
+        $id = Flashcard::insertGetId([
             'user_id' => $request->user_id,
             'title' => $request->title,
             'access_id' => $request->access_id,
@@ -62,7 +63,7 @@ class FlashCardController extends Controller
 
     //単語帳の更新
     function update(Request $request){
-        $flashcard = FlashCard::find($request->id);
+        $flashcard = Flashcard::find($request->id);
         $flashcard->title = $request->title;
         $flashcard->description = $request->description;
         $flashcard->access_id = $request->access_id;
@@ -76,7 +77,7 @@ class FlashCardController extends Controller
         $directory = '/public/images/card/' . Auth::id() . '/' . $request->id;
         Storage::deleteDirectory($directory);
 
-        $flashcard = FlashCard::findOrFail($request->id)->delete();
+        $flashcard = Flashcard::findOrFail($request->id)->delete();
         return response()->json(['success' => '削除しました']);
 
     }

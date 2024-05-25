@@ -121,7 +121,7 @@ export const Login: FC = () => {
 
 
     return (
-        <div className="block w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+        <div className="block md:w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
             <Dialog open={open} title="ログイン成功" message={message} func={JumpLink} />
             <h1 className="w-full text-center text-2xl mt-10 mb-10">ログイン</h1>
 
