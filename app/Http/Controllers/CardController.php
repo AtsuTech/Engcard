@@ -119,7 +119,7 @@ class CardController extends Controller
         $id = $hashids->decode($id)[0];//※配列で帰ってくる
         
         //デコードしたidで検索
-        $card = Card::with(['flashcard'])->findOrFail($id);
+        $card = Card::with(['flashcard'])->with('wordmeans')->findOrFail($id);
 
         $access = $card->flashcard->access->type;
         if($access == 0){

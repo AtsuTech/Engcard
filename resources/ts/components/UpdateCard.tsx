@@ -4,7 +4,10 @@ import { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { UpdateCardImage } from "./UpdateCardImage";
+import { UpdateSubMean } from "./UpdateSubMean";
+import { CreateSubMean } from "./CreateSubMean";
 import { CategorySelect } from "./CategorySelect";
+//import { SubMeanCategorySelect } from "./SubMeanCategorySelect";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 import { Title } from "./parts_component/Title";
 
@@ -14,10 +17,20 @@ export const UpdateCard:FC = () => {
     //URLからパラメータを取得
     const { card_id } = useParams();
 
-    const [card,setCard] = useState({
+    const [reload,setReload] = useState(false);
+    const valueReload = () =>{
+        if(reload){
+            setReload(false);
+        }else if(!reload){
+            setReload(true);
+        }
+    }
+
+    const [card,setCard] = useState<any>({
         card_id:'',
         word:'',
         word_mean:'',
+        sub_word_mean:'',
         sentence:'',
         sentence_mean:'',
         memory:'',
@@ -41,6 +54,7 @@ export const UpdateCard:FC = () => {
                 card_id:response.data.id,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
+                sub_word_mean : response.data.wordmeans,
                 sentence : response.data.sentence,
                 sentence_mean : response.data.sentence_mean,
                 memory : response.data.memory,
@@ -56,7 +70,7 @@ export const UpdateCard:FC = () => {
             console.log(error);
         
         });
-    },[]);
+    },[reload]);
 
 
 
@@ -100,6 +114,8 @@ export const UpdateCard:FC = () => {
         });
     }
 
+
+
     
 
     return (
@@ -128,7 +144,9 @@ export const UpdateCard:FC = () => {
 
                 <label htmlFor="word_mean">意味</label>
                 <div className="flex w-full h-10 border border-gray-300 rounded-lg pl-2">
-                    <CategorySelect value={selected} handleInput={setSelected} />
+                    <CategorySelect value={selected} name="category_id" handleInput={setSelected} />
+
+
                     <input type="text" 
                         id="word_mean"
                         name="word_mean" 
@@ -140,6 +158,19 @@ export const UpdateCard:FC = () => {
                     />
                 </div>
 
+                {/* サブの意味 */}
+                {card.sub_word_mean && card.sub_word_mean.length > 0 && 
+                    card.sub_word_mean.map((sub_mean: any, index: number) => (
+                        <div key={index} className="">
+                            <UpdateSubMean id={sub_mean.id} category_id={sub_mean.category_id} word_mean={sub_mean.word_mean} reload={valueReload} />        
+                        </div>
+                    ))
+                    
+                }
+                {card.sub_word_mean.length < 6 && 
+                    <CreateSubMean card_id={card_id} reload={valueReload} />
+                }
+                
                 <div className="mt-5 mb-5">
                     <label htmlFor="">画像</label>
                     <UpdateCardImage id={card_id} />

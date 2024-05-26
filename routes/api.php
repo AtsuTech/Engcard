@@ -17,6 +17,7 @@ use App\Http\Controllers\FlashcardFavoriteController;
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CategorysController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\WordMeanController;
 //use App\Http\Controllers\ProfileImageController;
 
 
@@ -181,6 +182,15 @@ Route::middleware(['api'])->group(function ($router){
 
     //カードの削除
     Route::post('/card/delete',[CardController::class,'delete']);
+
+    //サブの意味を新規登録
+    Route::post('/word_mean/create',[WordMeanController::class,'create']);
+
+    //サブの意味を編集
+    Route::post('/word_mean/update',[WordMeanController::class,'update']);
+
+    //サブの意味を削除
+    Route::post('/word_mean/delete',[WordMeanController::class,'delete']);
 
 
 });

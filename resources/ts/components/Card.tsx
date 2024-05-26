@@ -11,10 +11,11 @@ export const Card:FC = () => {
     //URLからパラメータを取得
     const { card_id } = useParams();
 
-    const [card,setCards] = useState({
+    const [card,setCards] = useState<any>({
         card_id:'',
         word:'',
         word_mean:'',
+        sub_word_mean:'',
         img_path:'',
         sentence:'',
         sentence_mean:'',
@@ -41,6 +42,7 @@ export const Card:FC = () => {
                 card_id:response.data.id,
                 word : response.data.word,
                 word_mean : response.data.word_mean,
+                sub_word_mean : response.data.wordmeans,
                 img_path : '/storage/images/card/'+ response.data.user_id + '/' + response.data.flashcard_id + '/' + response.data.img_path,
                 sentence : response.data.sentence,
                 sentence_mean : response.data.sentence_mean,
@@ -107,11 +109,26 @@ export const Card:FC = () => {
 
                 <div className="w-full h-fit">
                     <div className="w-full hit bg-yellow-400">意味</div>
-                    <div className="flex text-3xl p-2">
-                        <div className="mt-0.5">
-                            <BageDark value={card.category}/>
+                    <div className="text-3xl p-2">
+
+                        <div className="flex">
+                            <div className="mt-0.5">
+                                <BageDark value={card.category}/>
+                            </div>
+                            <div className="ml-1 text-2xl">{card.word_mean}</div>
                         </div>
-                        <div className="ml-1 text-2xl">{card.word_mean}</div>
+
+                        {/* サブの意味 */}
+                        {card.sub_word_mean && card.sub_word_mean.length > 0 && 
+                            card.sub_word_mean.map((sub_mean: any, index: number) => (
+                                <div key={index} className="flex">
+                                    <div className="mt-0.5">
+                                        <BageDark value={sub_mean.category}/>
+                                    </div>
+                                    <div className="ml-1 text-2xl">{sub_mean.word_mean}</div>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
 

@@ -16,6 +16,10 @@ class Card extends Model
         return $this->BelongsTo('App\Models\Flashcard');
     }
 
+    public function wordmeans(){
+        return  $this->HasMany('App\Models\WordMean');
+    }
+
     //アクセサリを使いuuidをカラムに追加する
     public function getUuidAttribute()
     {
