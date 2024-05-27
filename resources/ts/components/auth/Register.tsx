@@ -109,13 +109,13 @@ export const Register: FC = () => {
     return (
         <>
             { process ? 
-                <div className="block w-1/3 ml-auto mr-auto mt-2 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+                <div className="block md:w-1/3 ml-auto mr-auto mt-2 mb-10 p-5 rounded-3xl bg-white text-slate-600">
                     <div>
                         { isLoading ? '送信中....' : '' }
                     </div>
-
-                    <LinkLogo link="/" width={180} />
-                    <h1 className="w-full text-center text-2xl mt-10 mb-5">新規登録</h1>
+                    <LinkLogo link="/" width={120} />  
+                    
+                    {/* <h1 className="w-full text-center text-2xl mt-10 mb-5">新規登録</h1> */}
                     <form onSubmit={registerSubmit}>
 
 
