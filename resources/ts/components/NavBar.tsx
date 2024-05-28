@@ -23,7 +23,7 @@ export const NavBar: FC = () => {
             <header className="flex justify-between stiky top-0 z-50 w-full h-20 bg-amber-400 text-gray-300">
 
                 <div className="flex items-center justify-center w-100 h-20">
-                    <img src={location.protocol + '//' + window.location.host + "/storage/images/material/brand-logo.png" } alt="" width={110} className="ml-4 mr-4 rounded-lg" />
+                    <img src={location.protocol + '//' + window.location.host + "/material/images/brand-logo.png"} alt="" width={110} className="ml-4 mr-4 rounded-lg" />
                 </div>  
 
                 <div className="hidden md:block">
