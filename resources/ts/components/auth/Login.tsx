@@ -4,7 +4,7 @@ import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {Link,useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { Dialog } from "../parts_component/Dialog";
-
+import { LinkLogo } from "../parts_component/LinkLogo";
 
 
 
@@ -123,7 +123,12 @@ export const Login: FC = () => {
     return (
         <div className="block md:w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
             <Dialog open={open} title="ログイン成功" message={message} func={JumpLink} />
-            <h1 className="w-full text-center text-2xl mt-10 mb-10">ログイン</h1>
+
+            <div className="w-full mb-4">
+                <div className="w-fit ml-auto mr-auto">
+                    <LinkLogo link="/" width={120} />  
+                </div>                        
+            </div>
 
             <form onSubmit={LoginSubmit}>
                 <div>
@@ -149,11 +154,11 @@ export const Login: FC = () => {
             </form>
 
             <Link to="/register" className="">
-                <span className="block w-full text-cyan-500 mt-10">新規登録</span>
+                <span className="block w-full text-cyan-500 mt-5">新規登録</span>
             </Link>
 
             <Link to="/password/forgot" className="">
-                <span className="block w-full text-cyan-500 mt-10">パスワードを忘れた</span>
+                <span className="block w-full text-cyan-500 mt-5">パスワードを忘れた</span>
             </Link>
 
         </div>

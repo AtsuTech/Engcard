@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Link } from 'react-router-dom';
+import { LinkLogo } from "./parts_component/LinkLogo";
 
 export const Index: FC = () => {
 
@@ -10,10 +11,11 @@ export const Index: FC = () => {
                 p-20 text-white h-screen"
                 >
                 
-                <h1 className="text-5xl">ようこそGazotanへ</h1>
+                <LinkLogo link="/" width={160} />  
+                <h2 className="text-3xl md:text-5xl mt-4">Engcardで語彙力を高めよう</h2>
 
                 <p className="mt-10">
-                    画像で覚えるweb英単語帳
+                    Engcard(エンカード)は英単語の暗記することに機能を特化したweb単語帳です。
                 </p>
 
 

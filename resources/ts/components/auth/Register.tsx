@@ -113,7 +113,12 @@ export const Register: FC = () => {
                     <div>
                         { isLoading ? '送信中....' : '' }
                     </div>
-                    <LinkLogo link="/" width={120} />  
+
+                    <div className="w-full">
+                        <div className="w-fit ml-auto mr-auto">
+                            <LinkLogo link="/" width={120} />  
+                        </div>                        
+                    </div>
                     
                     {/* <h1 className="w-full text-center text-2xl mt-10 mb-5">新規登録</h1> */}
                     <form onSubmit={registerSubmit}>
