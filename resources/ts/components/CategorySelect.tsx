@@ -57,17 +57,17 @@ export const CategorySelect:FC<{name:any, value:any ,handleInput: any}> = ({name
 
     return(
 
-        <div>
+        <div className="relative inline-block">
 
             <div 
-                className="block text-center py-1 w-32 h-7 text-sm border border-gray-300 rounded-lg"
+                className="block text-center py-1 w-20 h-7 text-sm border border-gray-300 rounded-lg"
                 onClick={View}>
                 {selected_itme}
             </div>
 
             {view &&
                 
-                <div className="/absolute /left-0 /top-0 /h-screen /w-screen">
+                <div className="absolute top-full left-0 mt-2 z-50">
 
                     {/* <div className="fixed top-0 left-0 bottom-0 right-0 m-auto w-80 h-fit bg-white border border-gray-400 rounded-lg"> */}
                     <div className="relative top-0 py-2 /right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700">

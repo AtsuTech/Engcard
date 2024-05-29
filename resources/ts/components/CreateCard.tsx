@@ -118,7 +118,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                 <h5 className="pb-3">単語カード作成</h5>
 
                 
-                <div className="flex">
+                <div className="md:flex">
 
                     
                     <input type="text" 
@@ -162,7 +162,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
 
 
-                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1">
+                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg md:ml-1">
                         <CategorySelect name="category_id" value={category_id} handleInput={setCategory_id} />
 
                         <input type="text" 
@@ -181,7 +181,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     <a href="" className="text-cyan-500 m-1">外部リンクを追加</a>
                 </div>
 
-                <div className="flex">
+                <div className="md:flex">
                     <textarea 
                         name="sentence" 
                         rows={5} 
@@ -203,7 +203,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     <h4>サブの意味を追加</h4>
                      
                     {subWordMeans.map((dummy:any,index:any) => (
-                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1">
+                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1 mt-2">
                             <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
                             {/* {subWordMeans[index] ? (
                                 <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>

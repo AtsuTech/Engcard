@@ -57,26 +57,26 @@ export const SubMeanCategorySelect:FC<{name:any, value:any, onchange:any }> = ({
 
     return(
 
-        <div>
+        <div className="relative inline-block">
 
             <div 
-                className="block text-center py-1 w-32 h-7 text-sm border border-gray-300 rounded-lg"
+                className="block text-center py-1 w-20 h-7 text-sm border border-gray-300 rounded-lg"
                 onClick={View}>
                 {selected_itme}
             </div>
 
             {view &&
                 
-                <div className="">
+                <div className="absolute top-full left-0 mt-2 z-50">
 
-                    <div className="relative top-0 py-2 /right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700">
+                    <div className="top-0 py-2 z-10 bg-white divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700">
 
-                        <button onClick={View}>
+                        <button className="absolute right-0" onClick={View}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            <path strokeLinecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <ul className="w-full h-80 overflow-auto">
+                        <ul className="mt-10 w-full h-80 overflow-auto">
 
                             {categories.map( (category:any) => (
                                 <li key={category.id}>
