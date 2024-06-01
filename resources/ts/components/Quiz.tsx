@@ -5,7 +5,7 @@ import { useState, useEffect} from "react";
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { CloseButton } from "./parts_component/CloseButton";
-
+import { QuizResult } from "./QuizResult";
 
 
 const FinishQuiz = () => {
@@ -252,10 +252,10 @@ export const Quiz:FC =()=>{
 
 
     return(
-        <main className="h-screen">
+        <main className="h-screen text-gray-500">
             
             <header className="sticky top-0 flex w-full h-12 border border-b-gray-300 z-50">
-                <h1 className="w-20 p-3 /text-center">クイズ</h1>
+                <h1 className="w-40 p-3 /text-center">クイズ</h1>
 
                 <div className="w-full">
                     {turn > 0 &&
@@ -263,22 +263,34 @@ export const Quiz:FC =()=>{
                     }
 
                     {turn == 0 &&
-                        <select name="" id="" className="block w-30 h-10 bg-amber-300 ml-auto mr-auto my-0.5 text-gray-500 rounded-lg focus:outline-none cursor-pointer" onChange={(e:any) => setMode(e.target.value)}>
-                            <option value={0}>カード順</option>
-                            <option value={1}>ランダム</option>
-                        </select>                
+                        <div className="flex w-fit h-10 ml-auto mr-auto  my-0.5 /bg-green-700 border border-gray-300 px-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 w-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                            </svg>
+                            <select name="" id="" className="block w-30 /h-10 px-2  /bg-amber-300 ml-auto mr-auto focus:outline-none cursor-pointer" onChange={(e:any) => setMode(e.target.value)}>
+                                <option value={0}>カード順</option>
+                                <option value={1}>ランダム</option>
+                            </select>     
+                        </div>
+           
                     }                    
                 </div>
 
-                <FinishQuiz />
+                <div className="w-40 relative">
+                    <div className="absolute inset-y-0 right-1 flex my-2 ">
+                        <FinishQuiz /> 
+                    </div>
+                </div>
+                
             </header>
-            <div>
-            クイズ:{flashcard.title}
+
+            <div className="ml-1">
+                単語帳:{flashcard.title}
             </div>
 
             <div className="/bg-green-400 absolute inset-0 flex items-center justify-center w-100 h-full">
                 
-                <div className="w-full /bg-slate-600">
+                <div className="w-full px-2 /bg-slate-600">
 
                     <div className="w-fit ml-auto mr-auto">
 
@@ -315,14 +327,16 @@ export const Quiz:FC =()=>{
                             {change ?
                                 <div>
                                     <h5>正解</h5>
-                                    <div className="flex w-full h-48 md:h-96 border border-gray-300 rounded text-6xl items-center justify-center">
+                                    <button onClick={Change}>もどる</button>
+                                    <div className="flex w-full h-48 md:h-96 text-6xl items-center justify-center">
                                         {card.word_mean}
                                     </div>
                                 </div>
 
                             :
                                 <div>
-                                    <div className="flex w-full h-48 md:h-96 border border-gray-300 rounded text-6xl items-center justify-center" id="card_id" data-id={card.id}>
+                                    <button onClick={Change}>答えをみる</button>
+                                    <div className="flex w-full h-48 md:h-96 /border /border-gray-300 /rounded text-6xl items-center justify-center" id="card_id" data-id={card.id}>
                                         {card.word}
                                         
                                     </div>
@@ -340,7 +354,7 @@ export const Quiz:FC =()=>{
                                 </div>
                             }
                             </>
-                            <button onClick={Change}>答えをみる</button>
+                            
                             <b className="text-red-500">{view_card}</b>
                         </div>
                     
@@ -349,17 +363,18 @@ export const Quiz:FC =()=>{
 
                     {turn > cards.length &&
                         <div>
-                            <div>終了</div>
-                            <div>正解数</div>
-                            <div>
-                                {count_correct}/{cards.length}問中
+                            <div className="text-center text-2xl">クイズ結果</div>
+                            <div className="text-center mt-2">
+                                正解数:{count_correct} / {cards.length}問正解
                             </div>
-                            <div>
-                                {(count_correct/cards.length)*100}%
+
+                            <div className="ml-auto mr-auto">
+                                <QuizResult total={cards.length} collect={count_correct} />
                             </div>
+
+
                         </div>
                     }
-                    
 
                 </div>
                 
