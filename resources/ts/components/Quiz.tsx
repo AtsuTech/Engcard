@@ -1,8 +1,26 @@
 import { FC } from "react";
 import { useParams } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 import { useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CloseButton } from "./parts_component/CloseButton";
+
+
+
+const FinishQuiz = () => {
+    const { flashcard_id } = useParams();
+    const navigate = useNavigate();
+    const url:string = `/flashcard/${flashcard_id}`;
+    
+    const handleFinishMemory = () => {
+        navigate(url);
+    }
+
+    return (
+        <CloseButton onClick={handleFinishMemory} />
+    );
+}
 
 
 export const Quiz:FC =()=>{
@@ -222,94 +240,103 @@ export const Quiz:FC =()=>{
 
 
     return(
-        <main>
+        <main className="h-screen">
             
-            <header className="flex w-full h-12 border border-b-gray-300">
-                <h1 className="w-full p-3 /text-center">クイズ(s):{flashcard.title}</h1>
-                <select name="" id="" className="bg-gray-200 focus:outline-none cursor-pointer" onChange={(e:any) => setMode(e.target.value)}>
-                    <option value={0}>カード順</option>
-                    <option value={1}>ランダム</option>
-                </select>
-                <Link to={`/flashcard/${flashcard_id}`} className="block w-12 mt-2 ">
-                    <h5 className="">終了</h5>
-                </Link>
-            </header>
+            <header className="sticky top-0 flex w-full h-12 border border-b-gray-300 z-50">
+                <h1 className="w-20 p-3 /text-center">クイズ</h1>
 
-            <div className="flex w-full">
+                <div className="w-full">
+                    {turn > 0 &&
+                        <div className="w-full p-3 text-center /bg-sky-400">{turn} / {cards.length}</div>
+                    }
+
+                    {turn == 0 &&
+                        <select name="" id="" className="block w-30 h-10 bg-amber-300 ml-auto mr-auto my-0.5 text-gray-500 rounded-lg focus:outline-none cursor-pointer" onChange={(e:any) => setMode(e.target.value)}>
+                            <option value={0}>カード順</option>
+                            <option value={1}>ランダム</option>
+                        </select>                
+                    }                    
+                </div>
+
+                <FinishQuiz />
+            </header>
+            <div>
+            クイズ:{flashcard.title}
+            </div>
+
+            <div className="/bg-green-400 absolute inset-0 flex items-center justify-center w-100 h-full">
                 
-                <div className="w-full mt-3">
-                    <b>{user_id}</b>
+                <div className="w-full /bg-slate-600">
+
+                    <div className="w-fit ml-auto mr-auto">
+
+
+                        {random_turn.length == 0 &&
+                            <>
+                            <p className="mb-2 text-center">
+                                単語帳:{flashcard.title}<br/>
+                                のクイズをスタートします。
+                            </p>
+                            {mode == 0 &&    
+                                <div className="">
+                                    <button className="px-1 w-full md:px-0 md:w-96 h-12 rounded-full bg-amber-300 text-2xl" onClick={SetOrder}>
+                                        Start!
+                                    </button>
+                                </div>
+                            }
+
+                            {mode == 1 &&
+                                <button className="px-1 w-full md:px-0 md:w-96 h-12 rounded-full bg-amber-300 text-2xl" onClick={SetShuffle}>
+                                    Start!
+                                </button>
+                            }
+                            </>
+                        }                        
+                    </div>
+                    
+                    
+                    {selected_card.map((card:any) => (
+                        <div key={card.word} className="w-full">
+                            
+                            <>
+                            {change ?
+                                <div>
+                                    <h5>正解</h5>
+                                    <div className="flex w-full h-48 md:h-96 border border-gray-300 rounded text-6xl items-center justify-center">
+                                        {card.word_mean}
+                                    </div>
+                                </div>
+
+                            :
+                                <div>
+                                    <div className="flex w-full h-48 md:h-96 border border-gray-300 rounded text-6xl items-center justify-center" id="card_id" data-id={card.id}>
+                                        {card.word}
+                                        
+                                    </div>
+                                    <div>
+                                        {choices.map( (choice:any,index:number) => (
+                                            <ul key={index}>
+                                            {choice == card.word_mean?
+                                                <CorrectAnswer choice={choice} selected_answer={selected_answer} action={Correct} />
+                                                :
+                                                <InCorrectAnswer choice={choice} selected_answer={selected_answer} action={Incorrect} />
+                                            }
+                                            </ul>
+                                        ))}  
+                                    </div>
+                                </div>
+                            }
+                            </>
+                            <button onClick={Change}>答えをみる</button>
+                            <b className="text-red-500">{view_card}</b>
+                        </div>
+                    
+                    ))}
+
+
+
                     
 
-
-                
-                {random_turn.length == 0 &&
-                    <>
-                    {mode == 0 &&
-                        // <button className="w-full h-12 bg-cyan-300" onClick={SetOrder}>
-                        //     開始
-                        // </button>
-  
-                        <div className="flex items-stretch justify-center h-screen">
-                            
-                                <button className="w-96 h-12 bg-cyan-300" onClick={SetOrder}>スタート!</button>
-                            
-                        </div>
-                    }
-                    </>
-                }
-
-                {random_turn.length == 0 &&
-                    <>
-                    {mode == 1 &&
-                        <button className="w-full h-12 bg-cyan-300" onClick={SetShuffle}>
-                            開始
-                        </button>
-                    }
-                    </>
-                }
-
-                
-                {selected_card.map((card:any) => (
-                    <div key={card.word} className="w-full">
-                         
-                        <>
-                        {change ?
-                            <div>
-                                <h5>正解</h5>
-                                <div className="flex w-full h-96 border border-gray-300 rounded text-6xl items-center justify-center">
-                                    {card.word_mean}
-                                </div>
-                            </div>
-
-                        :
-                            <div>
-                                <div className="flex w-full h-96 border border-gray-300 rounded text-6xl items-center justify-center" id="card_id" data-id={card.id}>
-                                    {card.word}
-                                    
-                                </div>
-                                <div>
-                                    {choices.map( (choice:any,index:number) => (
-                                        <ul key={index}>
-                                        {choice == card.word_mean?
-                                            <CorrectAnswer choice={choice} selected_answer={selected_answer} action={Correct} />
-                                            :
-                                            <InCorrectAnswer choice={choice} selected_answer={selected_answer} action={Incorrect} />
-                                        }
-                                        </ul>
-                                    ))}  
-                                </div>
-                            </div>
-                        }
-                        </>
-                          
-                    </div>
-                  
-                ))}
-                
-                <button onClick={Change}>答えをみる</button>
-                <div>{turn}/{cards.length}</div>
-                <b className="text-red-500">{view_card}</b>
                 </div>
                 
             </div>
