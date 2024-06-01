@@ -70,33 +70,43 @@ export const Quiz:FC =()=>{
     const [selected_answer,setSelectedAnswer] = useState('');//クリックした選択肢の値を管理
     const [view_card,setViewCard] = useState<number>();
 
+    //正解数を数える
+    const [count_correct,setCountCollect] = useState(0);
 
-    let random_index:any =[];
+
+    let card_index:any =[];
     for (let num = 0; num < cards.length; num++) {
-        random_index.push(num);
+        card_index.push(num);
     }
     
-    const [random_turn,setRandomTurn] = useState<any>([]);
+    const [card_view_turn,setRandomTurn] = useState<any>([]);
 
+    //
+    const countCollect =()=>{
+        setCountCollect(count_correct + 1);
+    }
+
+    //ランダムに出題
     const SetShuffle =()=>{
 
         for(var i=0;i<cards.length;i++) {
 
-            let index = Math.floor(Math.random()*random_index.length);
+            let index = Math.floor(Math.random()*card_index.length);
 
-            random_turn.push(random_index[index]);
+            card_view_turn.push(card_index[index]);
 
             //添字の要素を配列から削除　
-            random_index.splice(index,1);
+            card_index.splice(index,1);
             
         } 
         Shuffle();
     }
 
+    //順番通りに出題
     const SetOrder =()=>{
         for(var i=0;i<cards.length;i++) {
 
-            random_turn.push(random_index[i]);
+            card_view_turn.push(card_index[i]);
 
         } 
         Shuffle();
@@ -126,7 +136,7 @@ export const Quiz:FC =()=>{
     //シャッフルして進む
     const Shuffle =()=>{
         setTurn(turn + 1);
-        setViewCard(random_turn[turn]);
+        setViewCard(card_view_turn[turn]);
         setSelectedAnswer('');
     }
 
@@ -157,9 +167,11 @@ export const Quiz:FC =()=>{
         }
 
 
-
         setTimeout(() => {
             Shuffle();
+
+            //正解数をカウントする
+            countCollect();
         }, 500);
     }
 
@@ -271,21 +283,22 @@ export const Quiz:FC =()=>{
                     <div className="w-fit ml-auto mr-auto">
 
 
-                        {random_turn.length == 0 &&
+                        {card_view_turn.length == 0 &&
                             <>
                             <p className="mb-2 text-center">
                                 単語帳:{flashcard.title}<br/>
                                 のクイズをスタートします。
                             </p>
+
                             {mode == 0 &&    
-                                <div className="">
-                                    <button className="px-1 w-full md:px-0 md:w-96 h-12 rounded-full bg-amber-300 text-2xl" onClick={SetOrder}>
-                                        Start!
-                                    </button>
-                                </div>
+                                //カードを順番通りに出題
+                                <button className="px-1 w-full md:px-0 md:w-96 h-12 rounded-full bg-amber-300 text-2xl" onClick={SetOrder}>
+                                    Start!
+                                </button>
                             }
 
                             {mode == 1 &&
+                                //カードをランダムに出題
                                 <button className="px-1 w-full md:px-0 md:w-96 h-12 rounded-full bg-amber-300 text-2xl" onClick={SetShuffle}>
                                     Start!
                                 </button>
@@ -334,7 +347,18 @@ export const Quiz:FC =()=>{
                     ))}
 
 
-
+                    {turn > cards.length &&
+                        <div>
+                            <div>終了</div>
+                            <div>正解数</div>
+                            <div>
+                                {count_correct}/{cards.length}問中
+                            </div>
+                            <div>
+                                {(count_correct/cards.length)*100}%
+                            </div>
+                        </div>
+                    }
                     
 
                 </div>
