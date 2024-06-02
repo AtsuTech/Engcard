@@ -1,13 +1,22 @@
 import { FC } from "react";
 import {Link,useNavigate} from 'react-router-dom';
+import { useState, useEffect} from "react";
 
-export const Dialog:FC<{open:boolean,title:string,message:string,func:any}> = ({open,title,message,func}) =>{
+export const LoginSuccessDialog:FC<{open:boolean,title:string,message:string,func:any}> = ({open,title,message,func}) =>{
 
     const modal = document.getElementById("modal") as any;
 
-    if(open){
-        modal.showModal();
-    }
+    // if(open){
+    //     modal.showModal();
+    // }
+    useEffect(() => {
+        const modal = document.getElementById("modal") as HTMLDialogElement;
+        if (open) {
+            modal.showModal();
+        } else {
+            modal.close();
+        }
+    }, [open]);
 
     return(
         <div>
@@ -27,10 +36,10 @@ export const Dialog:FC<{open:boolean,title:string,message:string,func:any}> = ({
                 <p className="text-center">{message}</p>
 
                 <button 
-                    className="block text-center m-auto mr-0 w-20 bg-cyan-500 text-white pt-2 pb-2 rounded-lg"
+                    className="block text-center m-auto mr-0 w-20 bg-amber-400 text-white pt-2 pb-2 rounded-full"
                     onClick={func}
                 >
-                確認
+                OK
                 </button>
 
                 

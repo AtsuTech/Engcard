@@ -139,7 +139,7 @@ export const UserUpdate:FC = () =>{
         <div className="block rounded-3xl bg-white text-slate-600 p-5">
             <Title title="ユーザー情報更新" />
 
-            <div>プロフィール画像</div>
+            <div className="mt-5">プロフィール画像</div>
             <div className="flex w-full p-2 border border-gray-300 rounded-lg" >
                 <ProfileImage width={80} height={80} />
                 <div className="flex items-center justify-center ">
@@ -155,56 +155,69 @@ export const UserUpdate:FC = () =>{
 
             <form>
 
-                <label htmlFor="">ユーザー名</label>
-                <input type="text" 
-                    name="name" 
-                    value={me.name} 
-                    onChange={handleInput} 
-                    placeholder="名前"
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                />
-                <span className="text-red-600">{validation.name}</span>
+                <div className="mt-5">
+                    <label htmlFor="">ユーザー名</label>
+                    <input type="text" 
+                        name="name" 
+                        value={me.name} 
+                        onChange={handleInput} 
+                        placeholder="名前"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
+                    />
+                    <div>
+                        <span className="text-rose-600">{validation.name}</span>
+                    </div>
+                </div>
 
-                <label htmlFor="">メールアドレス</label>
-                <input type="email" 
-                    name="email" 
-                    value={me.email}  
-                    onChange={handleInput} 
-                    placeholder="メールアドレス"
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                />
-                <span className="text-red-600">{validation.email}</span>
-
-                <label htmlFor="">ユーザーID{me.personal_id}  </label>
-                <input type="text" 
-                    name="personal_id" 
-                    value={me.personal_id}  
-                    onChange={handleInput} 
-                    onFocus={CheckUserId}
-                    placeholder="ユーザーID"
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                />
-                <div>
-                    {user_id_check ?
-                        <span className="text-green-300">このユーザーIDは使用可能です</span>
-                    :
-                        <span className="text-rose-600">このユーザーIDは他のユーザーが使用しているので使えません</span>
-                    }  
+                <div className="mt-5">
+                    <label htmlFor="">メールアドレス</label>
+                    <input type="email" 
+                        name="email" 
+                        value={me.email}  
+                        onChange={handleInput} 
+                        placeholder="メールアドレス"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
+                    />
+                    <div>
+                        <span className="text-red-600">{validation.email}</span>     
+                    </div>             
                 </div>
 
 
-                <label htmlFor="">紹介文</label>
-                <textarea 
-                    name="comment" 
-                    id="" 
-                    cols={30} 
-                    rows={10}
-                    value={me.comment}  
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                    onChange={handleInput} 
-                >
+                <div className="mt-5">
+                    <label htmlFor="">ユーザーID{me.personal_id}  </label>
+                    <input type="text" 
+                        name="personal_id" 
+                        value={me.personal_id}  
+                        onChange={handleInput} 
+                        onFocus={CheckUserId}
+                        placeholder="ユーザーID"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
+                    />
+                    <div>
+                        {user_id_check ?
+                            <span className="text-green-300">このユーザーIDは使用可能です</span>
+                        :
+                            <span className="text-rose-600">このユーザーIDは他のユーザーが使用しているので使えません</span>
+                        }  
+                    </div>                    
+                </div>
 
-                </textarea>
+
+                <div className="mt-5 mb-10">
+                    <label htmlFor="">紹介文</label>
+                    <textarea 
+                        name="comment" 
+                        id="" 
+                        cols={30} 
+                        rows={10}
+                        value={me.comment}  
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
+                        onChange={handleInput} 
+                    >
+
+                    </textarea>                    
+                </div>
 
                 <ButtonWithOnClick onclick={Update} color="yellow" text="保存" />
 

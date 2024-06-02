@@ -224,7 +224,10 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                 </div>
 
-                <ButtonWithOnClick color={'yellow'} text={'追加'} onclick={CreateSubmit} />
+                <div className="mt-10">
+                    <ButtonWithOnClick color={'yellow'} text={'カード追加'} onclick={CreateSubmit} />
+                </div>
+
             </div>
             
         </>

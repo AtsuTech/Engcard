@@ -3,7 +3,7 @@ import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {Link,useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
-import { Dialog } from "../parts_component/Dialog";
+import { LoginSuccessDialog } from "../parts_component/LoginSuccessDialog";
 import { LinkLogo } from "../parts_component/LinkLogo";
 
 
@@ -30,8 +30,9 @@ export const Login: FC = () => {
     //ページ遷移で使う
     const navigate = useNavigate();
 
+    //ログイン後の移動先
     const JumpLink =()=>{
-        navigate('/dashboard');
+        navigate('/flashcard/my');
         
     }
     
@@ -122,7 +123,7 @@ export const Login: FC = () => {
 
     return (
         <div className="block md:w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
-            <Dialog open={open} title="ログイン成功" message={message} func={JumpLink} />
+            <LoginSuccessDialog open={open} title="ログイン成功" message={message} func={JumpLink} />
 
             <div className="w-full mb-4">
                 <div className="w-fit ml-auto mr-auto">

@@ -170,7 +170,7 @@ export const UpdateFlashCard:FC = () =>{
                     >
                     </textarea>
 
-                    <div>
+                    <div className="mt-10">
                         <ButtonWithOnClick text="保存" color="yellow" onclick={updateSubmit} />
                     </div>
                    
