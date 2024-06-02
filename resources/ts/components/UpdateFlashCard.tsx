@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CardList } from "./CardList";
+import { PageBack } from "./parts_component/PageBack";
 import { Title } from "./parts_component/Title";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
@@ -119,6 +120,12 @@ export const UpdateFlashCard:FC = () =>{
 
     return(
         <div className="block w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+
+            <div className="mb-1">
+                <PageBack />
+            </div>
+            
+
             <h1 className="text-xs">単語帳を作成/カードの追加</h1>
 
             <Title title={'単語帳の編集'} />

@@ -26,7 +26,7 @@ export const NavBar: FC = () => {
                     <img src={location.protocol + '//' + window.location.host + "/material/images/brand-logo.png"} alt="" width={110} className="ml-4 mr-4 rounded-lg" />
                 </div>  
 
-                <div className="hidden md:block">
+                <div className="hidden md:block ml-auto mr-auto">
                     <ul className="flex">
                         <li className="m-2">
                             <Link to="/home" className="block w-20 h-12 mt-4 p-1 ml-2 text-center text-gray-600">
@@ -46,14 +46,22 @@ export const NavBar: FC = () => {
                     </ul>                    
                 </div>
 
-                
+                <ul className="flex w-fit /bg-slate-500">
+                    <li className="m-2">
+                        <Link to={'/search'} className="block h-12 mt-4 p-1 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-white">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </Link>                            
+                    </li>
+                </ul>
+
     
-    
-                <div className="flex mr-2">
+                <div className="flex px-4 /bg-lime-300">
                     { auth_token.token != null ?
                         <div className="relative">
                             
-                            <div className="pt-4 pr-4" onClick={Disp}>
+                            <div className="pt-4" onClick={Disp}>
                                 <ProfileImage width={50} height={50}/>
                             </div>
 

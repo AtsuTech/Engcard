@@ -19,6 +19,7 @@ import { PasswordReset } from './components/auth/PasswordReset';
 import { AuthRoute } from './components/auth/AuthRoute';
 import { GuestRoute } from './components/auth/GuestRoute';
 import { Home } from './components/Home';
+import { Search } from './components/Search';
 import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
 import { UserUpdate } from './components/auth/UserUpdate';
@@ -99,6 +100,8 @@ root.render(
                     </Route>
 
                     <Route path="/home" element={<Home />} />
+                    <Route path="/search" element={<Search />}/>
+                    
 
                     <Route path="/flashcard" element={<FlashCard />}>
                         <Route path=":flashcard_id" element={<FlashCard />} />

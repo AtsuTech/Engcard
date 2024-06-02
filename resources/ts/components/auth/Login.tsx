@@ -4,6 +4,7 @@ import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {Link,useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { LoginSuccessDialog } from "../parts_component/LoginSuccessDialog";
+import { Button } from "../parts_component/Button";
 import { LinkLogo } from "../parts_component/LinkLogo";
 
 
@@ -151,7 +152,8 @@ export const Login: FC = () => {
                     />
                 </div> */}
                 <TextInput  htmlFor="pass" label="パスワード"  type="password" value={loginInput.password} name="password" func={handleInput} placeholder="パスワード" />
-                <button type="submit" className="block mt-10 bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">ログイン</button>
+                {/* <button type="submit" className="block mt-10 bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">ログイン</button> */}
+                <Button text="ログイン" color="yellow"/>
             </form>
 
             <Link to="/register" className="">

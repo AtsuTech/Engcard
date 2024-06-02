@@ -9,6 +9,7 @@ import { CreateSubMean } from "./CreateSubMean";
 import { CategorySelect } from "./CategorySelect";
 //import { SubMeanCategorySelect } from "./SubMeanCategorySelect";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
+import { PageBack } from "./parts_component/PageBack";
 import { Title } from "./parts_component/Title";
 
 
@@ -121,6 +122,8 @@ export const UpdateCard:FC = () => {
     return (
 
         <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white md:w-2/3">
+
+            <PageBack />
 
             <Title title={'カード編集'} />
 

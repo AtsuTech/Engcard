@@ -4,6 +4,7 @@ import { useState, useEffect,useRef} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BageDark } from "./parts_component/BageDark";
+import { PageBack } from "./parts_component/PageBack";
 import { FlashcardFavorite } from "./FlashcardFavorite";
 
 export const FlashCard:FC = () =>{
@@ -85,6 +86,8 @@ export const FlashCard:FC = () =>{
                 {/* <div>単語帳:{flashcard.title}</div> */}
                 
                 <div className="w-full h-fit /border /border-gray-300 rounded-lg p-3 bg-white">
+
+                    <PageBack />
 
                     <div className="flex text-right text-xs mb-2">
                         <small className="flex">
@@ -173,7 +176,7 @@ export const FlashCard:FC = () =>{
                                     </div>
 
                                     <div className="w-16 h-hit p-1">
-                                        <img src={'/storage/images/card/'+ flashcard.user_id + '/' + flashcard.id + '/' + card.img_path} alt="" className="block w-10 h-10 rounded-full" />
+                                        <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ flashcard.user_id + '/' + flashcard.id + '/' + card.img_path} alt="" className="block w-10 h-10 rounded-full" />
                                     </div>
 
                                 </div>

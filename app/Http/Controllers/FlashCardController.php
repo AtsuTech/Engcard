@@ -41,6 +41,15 @@ class FlashCardController extends Controller
         return response()->json($my_flashcards);
     }
 
+    //単語帳の検索
+    function search(Request $request){
+        $search_flashcards = FlashCard::whereHas('access', function ($query) use ($request) {
+            $query->where('type', 1);
+        })->where('title','LIKE',"%{$request->keyword}%")->get();
+        //$search_flashcards = FlashCard::where('title','LIKE',"%{$request->keyword}%")->get();
+        return response()->json($search_flashcards);
+    }
+
     //新しい単語帳を作成
     function create(Request $request){
         //$flashcard = new FlashCard;

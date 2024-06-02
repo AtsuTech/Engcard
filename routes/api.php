@@ -117,6 +117,9 @@ Route::middleware(['api'])->group(function ($router){
     //単語帳の詳細
     Route::get('/flashcard/{id}',[FlashCardController::class,'detail_flashcard']);
 
+    //単語帳の検索
+    Route::get('/flashcard/search/{keyword}',[FlashCardController::class,'search']);
+
     //単語帳の更新
     Route::post('/flashcard/update',[FlashCardController::class,'update']);
 
