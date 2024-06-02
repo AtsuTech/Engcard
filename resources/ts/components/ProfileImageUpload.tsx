@@ -21,7 +21,7 @@ export const ProfileImageUpload:FC = () => {
     var w:number;
     var h:number;
     const modal = document.getElementById("modal") as any;
-
+    const body = document.getElementById("body") as any; //index.blade.phpのbody要素から取得
 
     if (canvas_inner) {
 
@@ -74,6 +74,12 @@ export const ProfileImageUpload:FC = () => {
         // ファイル読み込みを実行
         reader.readAsDataURL(fileData);
         modal.showModal();
+
+        //画面スクロール無効
+        if(body){
+            body.style.overflow = 'hidden'; 
+        }
+        
     }
 
     // ファイルが指定された時にloadLocalImage()を実行
@@ -139,8 +145,18 @@ export const ProfileImageUpload:FC = () => {
         canvas_inner.removeEventListener("mousemove", Move); 
     };
 
+    //スマホ画面タッチ開始検知
+    const TouchStart = (e:any) => {
+        canvas_inner.addEventListener("touchmove", TouchMove); //スマホ操作
+    }
 
-    //画像の移動
+    //スマホ画面タッチ終了検知
+    const TouchEnd = (e:any) => {
+        canvas_inner.removeEventListener("touchmove", TouchMove); //スマホ操作
+    }
+
+
+    //画像の移動(PCマウス)
     var Move = (e:any) => {                             
 
         //eにはイベントの情報が入る
@@ -169,6 +185,37 @@ export const ProfileImageUpload:FC = () => {
         
         }
   
+    }
+
+    //画像の移動(スマホタッチ)
+    var TouchMove = (e:any) => {                             
+
+        //eにはイベントの情報が入る
+        //位置の設定
+        let rect = e.target.getBoundingClientRect();
+        if(w != 300){
+            x = e.touches[0].clientX - rect.left -(w/2);
+        }
+        if(h != 300){
+            y = e.touches[0].clientY - rect.top -(h/2);
+        }
+
+        // Canvas上に画像を表示
+        var img = new Image();
+        img.src = uploadImgSrc;
+        img.onload = function() {
+            // canvas内の要素をクリアする
+            ctx_inner.clearRect(0, 0, canvas_inner.width, canvas_inner.height);
+    
+            //書き換え
+            ctx_inner.fillStyle = "#fff";
+            ctx_inner.fillRect(0,0,300,300);
+            ctx_inner.drawImage(img,x,y,w,h);
+            canvasOuterDraw();
+            filter();
+        
+        }
+    
     }
 
     //画像拡大
@@ -230,21 +277,33 @@ export const ProfileImageUpload:FC = () => {
         request.send(formData);
         modal.close();
         alert("画像を更新しました");
+
+        //画面スクロール有効
+        if(body){
+            body.style.overflow = 'visible'; 
+        }
     }
 
-  
+    //キャンセル
     const Cancel =()=>{
         var file = document.getElementById('file') as any;
         file.value = '';
         ctx_inner.fillRect(0,0,300,300);
         ctx_outer.fillRect(0,0,300,300);
         modal.close();
+        document.addEventListener('touchmove', function(e:any) {e.off();}, {passive: false});
+        document.addEventListener('wheel', function(e:any) {e.off();}, {passive: false});
+
+        //画面スクロール有効
+        if(body){
+            body.style.overflow = 'visible'; 
+        }
     }
 
 
     return(
         <div>
-            
+            {/* 編集ボタン部分 */}
             <label className="flex w-full cursor-pointer appearance-none items-center justify-center rounded-md bg-amber-400 text-white p-2 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
@@ -254,8 +313,9 @@ export const ProfileImageUpload:FC = () => {
                 <input type="file" name="file" id="file" accept="image/*" className="sr-only block w-full"></input>
             </label>
 
-            <dialog className="w-fit rounded-2xl" id="modal">
-                <header className="w-full h-20 flex items-center justify-center">
+            {/* モーダル部分 */}
+            <dialog className="w-fit h-fit rounded-2xl z-50" id="modal">
+                <header className="w-full h-10 flex items-center justify-center">
                     <h1 className="text-slate-600 text-1xl">プロフィール画像を設定</h1>
                 </header>
                 
@@ -264,11 +324,13 @@ export const ProfileImageUpload:FC = () => {
                     <canvas id="canvas-inner" 
                             className="rounded-full absolute top-0 cursor-move" 
                             onMouseDown={MouseDown} 
-                            onMouseUp={MouseUp}>
+                            onMouseUp={MouseUp}
+                            onTouchStart={TouchStart} 
+                            onTouchEnd={TouchEnd}>
                     </canvas>
                 </div>
 
-                <div className="w-full h-20 flex items-center justify-center">
+                <div className="w-full h-10 flex items-center justify-center">
                     <label className="w-full text-center text-sm" htmlFor="">元サイズ</label>
                     <input type="range" name="scale" min="300" max="1200" className="w-full" onInput={(e) => Zoom(e)}/> 
                     <label className="w-full text-center text-sm" htmlFor="">拡大</label>
@@ -279,8 +341,8 @@ export const ProfileImageUpload:FC = () => {
                         <ButtonWithOnClick color="gray" text="キャンセル" onclick={Cancel} />
                     </div>
                     <div className="p-3 w-full">
-                        <ButtonWithOnClick color="yellow" text="設定" onclick={Upload} />
-                    </div>
+                        <ButtonWithOnClick color="yellow" text="保存" onclick={Upload} />
+                    </div>                        
                 </div>
             </dialog>
 
