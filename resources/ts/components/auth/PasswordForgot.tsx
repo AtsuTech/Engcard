@@ -1,6 +1,7 @@
 import { FC } from "react";
 import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import { LinkLogo } from "../parts_component/LinkLogo";
 
 export const PasswordForgot: FC = () => {
 
@@ -36,23 +37,39 @@ export const PasswordForgot: FC = () => {
     }
 
     return (
-        <div className="w-96 ml-auto mr-auto">
+        <div className="block md:w-1/3 ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white text-slate-600">
 
-            <h1 className="w-full border-b-2 text-center text-2xl mt-10 mb-10">パスワードリセット</h1>
+            <div className="w-full mb-4">
+                <div className="w-fit ml-auto mr-auto">
+                    <LinkLogo link="/" width={120} />  
+                </div>                        
+            </div>
+
+            <h1 className="w-full /text-center text-2xl mt-10 mb-10">パスワードをリセットする</h1>
+
+            <p className="mb-10">
+                パスワードリセットの申請メールを送信します。<br/>
+                あなたのメールアドレスを入力し送信ボタンを押して下さい。
+            </p>
+
 
             <form onSubmit={ResetSubmit}>
                 <div>
-                    <p>メールアドレス</p>
+                    <label>メールアドレス</label>
                     <input type="email" name="email" value={email}  
                         onChange={handleInput} 
-                        className="block w-full h-10 border border-gray-600 rounded pl-2"
+                        className="block w-full pl-4 h-10 border bg-gray-200 rounded-full"
+                        placeholder="example@mail.com"
                     />
                 </div>
-                <button 
-                    type="submit" 
-                    className="block mt-10 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">
-                    パスワードリセット申請メールを送る
-                </button>
+                <div className="mt-10">
+                    <button 
+                        type="submit" 
+                        className="block w-full h-10 text-white ml-auto mr-auto rounded-full font-medium text-lg bg-amber-400">
+                        メール送信
+                    </button>                    
+                </div>
+
             </form>
         </div>
     );
