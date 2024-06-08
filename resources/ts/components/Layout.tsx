@@ -10,7 +10,7 @@ export const Layout: FC = () => {
         <>
             <NavBar />
             <main className="md:bg-zinc-100 p-0 m-0 md:pt-10 md:pb-10">
-                <div className="block md:w-2/3 ml-auto mr-auto md:p-5 text-slate-600">
+                <div className="block md:max-w-4xl md:w-2/3 ml-auto mr-auto md:p-5 text-slate-600">
                     <Outlet />
                 </div>
             </main>

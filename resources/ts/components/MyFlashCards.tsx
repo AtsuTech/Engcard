@@ -54,25 +54,32 @@ export const MyFlashCards:FC =() =>{
 
             <div className="block w-full ml-auto mr-auto mb-10 rounded-3xl bg-white p-5">
 
-                <Title title={"自分の単語帳"} />
+                
+                <div className="flex">
 
-                {/* <div className="pt-3 mr-0">
-                    <MakeFlashCardButton />
-                </div> */}
-
-                <div className="flex flex-row-reverse">
-                    <div className="flex w-fit h-hit items-center justify-center border bg-gray-200 p-2 rounded-full mt-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                        </svg>
-
-                        <select name="" id="" className="bg-gray-200 focus:outline-none cursor-pointer" onChange={(e:any) => setFilter(e.target.value)}>
-                            <option value={-1}>すべて</option>
-                            <option value={0}>非公開</option>
-                            <option value={1}>公開</option>
-                        </select>
+                    <div className="w-full">
+                        <Title title={"自分の単語帳"} />
                     </div>
+
+                    <div>
+                        <div className="flex flex-row-reverse">
+                            <div className="flex w-fit h-hit items-center justify-center border bg-gray-200 p-2 rounded-full /mt-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                                </svg>
+
+                                <select name="" id="" className="bg-gray-200 focus:outline-none cursor-pointer" onChange={(e:any) => setFilter(e.target.value)}>
+                                    <option value={-1}>すべて</option>
+                                    <option value={0}>非公開</option>
+                                    <option value={1}>公開</option>
+                                </select>
+                            </div>
+                        </div>                        
+                    </div>
+
                 </div>
+
+
 
                 <div className="flex items-center justify-center my-3">
                     <FlashCardCountBage value={flashcards.length} />

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import { CardList } from "./CardList";
+import { UpdateCardList } from "./UpdateCardList";
 import { PageBack } from "./parts_component/PageBack";
 import { Title } from "./parts_component/Title";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
@@ -119,7 +119,7 @@ export const UpdateFlashCard:FC = () =>{
     }
 
     return(
-        <div className="block w-full /ml-auto /mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+        <div className="block w-full /ml-auto /mr-auto /mt-10 /mb-10 p-1 md:p-5 rounded-3xl bg-white">
 
             <div className="mb-1">
                 <PageBack />
@@ -128,18 +128,15 @@ export const UpdateFlashCard:FC = () =>{
 
             <h1 className="text-xs">単語帳を作成/カードの追加</h1>
 
-            <Title title={'単語帳の編集'} />
+            <div className="flex">
+                <div className="w-full">
+                    <Title title={'単語帳の編集'} />
+                </div>
 
-
-
-            <div className="block w-full /ml-auto /mr-auto mt-10 mb-10 /p-5 rounded-3xl bg-white">
-                
-                <form>
-
-                    <div className="flex w-full h-fit border border-gray-300 rounded-lg p-1  /text-3xl">
-                        <ul className="w-fit h-fit pl-1 text-sm text-gray-700 border border-gray-300 rounded-lg" aria-labelledby="dropdownDefaultButton">
+                <div className="w-fit">
+                    <ul className="flex w-fit h-8 text-sm text-gray-700 border border-gray-300 rounded-lg overflow-hidden" aria-labelledby="dropdownDefaultButton">
                         {accessLists.map( (accessList:any) =>(
-                            <li className="flex" key={accessList.id}>
+                            <li className="flex items-center w-fit" key={accessList.id}>
                                 <input type="radio" name="access" value={accessList.id}
                                     onChange={(e:any) => setFlashcard({ ...flashcard, access_id: e.target.value })} 
                                     checked={flashcard.access_id == accessList.id } 
@@ -147,43 +144,46 @@ export const UpdateFlashCard:FC = () =>{
                                     className="sr-only peer"
                                     id={accessList.id}
                                 />
-                                <label htmlFor={accessList.id} className="block w-14 leading-5 text-xs text-center focus:outline-none peer-checked:text-amber-500">{accessList.item}</label>
-                                <div className="hidden p-0.5 peer-checked:block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-400">
-                                    <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
+
+                                <label htmlFor={accessList.id} className="w-20 h-10 text-xs text-center focus:outline-none peer-checked:bg-amber-400 peer-checked:text-white flex items-center justify-center">
+                                    {accessList.item}
+                                </label>
+
                             </li>
                         )) }
-                        </ul>
+                    </ul> 
+                </div>
 
-                        <input type="text" 
-                            className="w-full h-10 /border border-gray-300 rounded-lg pl-2 /font-bold text-2xl" 
-                            placeholder="タイトル" 
-                            value={flashcard.title}
-                            name="title"
-                            onChange={handleInput} 
-                            required
-                        />                        
-                    </div>
+            </div>
 
-                    <label htmlFor="">概要</label>
-                    <textarea 
-                        name="description" 
-                        id="" 
-                        className="w-full h-32 border border-gray-300 rounded-lg pl-2 mt-2"
-                        onChange={handleInput} 
-                        value={flashcard.description}
-                    >
-                    </textarea>
 
-                    <div className="mt-10">
-                        <ButtonWithOnClick text="保存" color="yellow" onclick={updateSubmit} />
-                    </div>
-                   
 
-                </form>
+            <div className="block w-full mt-2 mb-10 rounded-3xl bg-white">
                 
+                <label htmlFor="">タイトル</label>
+                <input type="text" 
+                    className="w-full h-10 border border-gray-300 rounded-lg pl-2" 
+                    placeholder="タイトル" 
+                    value={flashcard.title}
+                    name="title"
+                    onChange={handleInput} 
+                    required
+                /> 
+
+                <label htmlFor="" className="mt-2">概要</label>
+                <textarea 
+                    name="description" 
+                    id="" 
+                    className="w-full h-32 border border-gray-300 rounded-lg pl-2 mt-1"
+                    onChange={handleInput} 
+                    value={flashcard.description}
+                >
+                </textarea>
+
+                <div className="mt-10">
+                    <ButtonWithOnClick text="保存" color="yellow" onclick={updateSubmit} />
+                </div>
+                                   
             </div>
 
             <div className="mt-5 mb-5">
@@ -194,7 +194,7 @@ export const UpdateFlashCard:FC = () =>{
             <Title title={'単語カード'} />
 
             <div className="block w-full ml-auto mr-auto mt-10 mb-10 rounded-3xl bg-white">
-                <CardList id={flashcard_id} />
+                <UpdateCardList id={flashcard_id} />
             </div>
 
         </div>

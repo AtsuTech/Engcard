@@ -7,13 +7,15 @@ import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
-    const [card,setCard] = useState<any>({
-        img_path:'',
-        word:'', 
-        word_mean:'',
-        sentence:'',
-        sentence_mean:'',
-    });
+    const initialCardState = {
+        img_path: '',
+        word: '',
+        word_mean: '',
+        sentence: '',
+        sentence_mean: '',
+    };
+
+    const [card,setCard] = useState<any>(initialCardState);
 
     const [category_id,setCategory_id] = useState<any>(1);
 
@@ -94,10 +96,20 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         //DBにデータ送る
         axios.post('/api/card/create', params).then(function (response: AxiosResponse<Response>) {
 
-            // 送信成功時の処理
-            alert('保存しました');
+            // 送信成功時の処理 //
 
-            //カードのuseEffectを発火させるための関数
+            //フォームをクリア
+            setCard(initialCardState);
+            setCategory_id(1);
+            setFile(null);
+            setDefaultImg(null);
+            setSubWordMeans([
+                { category_id:1, word_mean: '' },
+                { category_id:1, word_mean: '' },
+                { category_id:1, word_mean: '' },
+                { category_id:1, word_mean: '' },
+                { category_id:1, word_mean: '' },
+            ]);
             Update();
             
         })
@@ -105,7 +117,6 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
             // 送信失敗時の処理
             alert('失敗しました。');
-            console.log(error);
             
         });
         
@@ -115,7 +126,14 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         <>
             
             <div className="w-full p-2 border border-gray-300 rounded-lg" >
-                <h5 className="pb-3">単語カード作成</h5>
+                <h5 className="pb-3">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 w-6 h-6">
+                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>単語カード作成</div>
+                </h5>
 
                 
                 <div className="md:flex">
@@ -125,6 +143,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         name="word" 
                         className="w-full h-10 border border-gray-300 rounded-lg pl-2 mr-1" 
                         placeholder="単語 ex.)Apple" 
+                        value={card.word}
                         onChange={handleInput} 
                         required
                     />
@@ -169,6 +188,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                             name="word_mean" 
                             className="block w-full h-full pl-2" 
                             placeholder="訳 ex.)りんご" 
+                            value={card.word_mean}
                             onChange={handleInput} 
                             required
                         />
@@ -187,6 +207,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         rows={5} 
                         className="w-full p-2 border border-gray-300 rounded-lg mr-1" 
                         onChange={handleInput} 
+                        value={card.sentence}
                         placeholder="例文:Apple is red and delicious fruits.">
                     </textarea>
 
@@ -195,6 +216,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                         rows={5} 
                         className="w-full p-2 border border-gray-300 rounded-lg" 
                         onChange={handleInput} 
+                        value={card.sentence_mean}
                         placeholder="例文(訳):りんごは赤くて美味しい果物です。">
                     </textarea>
                 </div> 
@@ -203,17 +225,12 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     <h4>サブの意味を追加</h4>
                      
                     {subWordMeans.map((dummy:any,index:any) => (
-                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg ml-1 mt-2">
+                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg mt-2">
                             <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
-                            {/* {subWordMeans[index] ? (
-                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
-                            ) : (
-                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={1} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)} />
-                            )} */}
                             <input type="text"
                                 name={`word_mean[${index}][word_mean]`}
-                                value={subWordMeans.word_mean}
-                                className=""
+                                value={subWordMeans[index].word_mean}
+                                className="w-full"
                                 placeholder="ワード"
                                 onChange={(e) => handleInputSub(index, 'word_mean', e.target.value)}
                                 required
