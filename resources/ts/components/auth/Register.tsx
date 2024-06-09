@@ -173,11 +173,11 @@ export const Register: FC = () => {
                     </form> 
 
                     <Link to="/login" className="">
-                        <span className="block w-full text-cyan-500 mt-10">ログイン</span>
+                        <span className="block w-full text-cyan-500 mt-5">ログイン</span>
                     </Link>
 
                     <Link to="/password/forgot" className="">
-                        <span className="block w-full text-cyan-500 mt-10">パスワードを忘れた</span>
+                        <span className="block w-full text-cyan-500 mt-5">パスワードを忘れた</span>
                     </Link>      
                 </div>
             :

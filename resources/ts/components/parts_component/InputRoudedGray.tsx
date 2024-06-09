@@ -5,15 +5,9 @@ export const InputRoundedGray:FC<{label:any,type:any,name:any,value:any,placehol
     return(
         <div className="pt-4">
 
-            <label htmlFor={name} className="pl-2">
+            <label htmlFor={name} className="block pl-2 mb-1">
                 {label}
             </label>
-
-            {error && 
-                <div>
-                    <span className="text-rose-500">{error}</span>
-                </div>
-            }
 
             <input 
                 autoComplete="off"
@@ -25,6 +19,11 @@ export const InputRoundedGray:FC<{label:any,type:any,name:any,value:any,placehol
                 className={`block w-full pl-3 h-10 border bg-gray-200 rounded-full ${error ? "border border-rose-500 bg-rose-200" : ""}`}
                 placeholder={placeholder}
             />
+            {error && 
+                <div>
+                    <span className="text-rose-500 text-xs">{error}</span>
+                </div>
+            }
         </div>
     );
 }
