@@ -117,6 +117,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
             // 送信失敗時の処理
             alert('失敗しました。');
+            console.log(error);
             
         });
         
