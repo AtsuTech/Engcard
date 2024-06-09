@@ -3,9 +3,11 @@ import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { RegisterEmailVerify } from "./RegisterEmailVerify";
 import {Link,useNavigate} from 'react-router-dom';
-import { InputRoundedGray } from "../parts_component/InputRoudedGray";
+import { InputWithValidation } from "../parts_component/InputWithValidation";
 import { Button } from "../parts_component/Button";
 import { LinkLogo } from "../parts_component/LinkLogo";
+import { Loading } from "../parts_component/Loading";
+
 
 export const Register: FC = () => {
 
@@ -110,9 +112,6 @@ export const Register: FC = () => {
         <>
             { process ? 
                 <div className="block md:w-1/3 ml-auto mr-auto mt-2 mb-10 p-5 rounded-3xl bg-white text-slate-600">
-                    <div>
-                        { isLoading ? '送信中....' : '' }
-                    </div>
 
                     <div className="w-full">
                         <div className="w-fit ml-auto mr-auto">
@@ -120,11 +119,9 @@ export const Register: FC = () => {
                         </div>                        
                     </div>
                     
-                    {/* <h1 className="w-full text-center text-2xl mt-10 mb-5">新規登録</h1> */}
-                    <form onSubmit={registerSubmit}>
+                    <form>
 
-
-                        <InputRoundedGray  
+                        <InputWithValidation  
                             label="名前"  
                             type="text" 
                             value={user.name} 
@@ -135,7 +132,7 @@ export const Register: FC = () => {
                         />
 
 
-                        <InputRoundedGray  
+                        <InputWithValidation  
                             label="メールアドレス"  
                             type="email" 
                             value={user.email} 
@@ -146,7 +143,7 @@ export const Register: FC = () => {
                         />
 
 
-                        <InputRoundedGray  
+                        <InputWithValidation  
                             label="パスワード"  
                             type="password" 
                             value={user.password} 
@@ -158,7 +155,7 @@ export const Register: FC = () => {
 
 
 
-                        <InputRoundedGray  
+                        <InputWithValidation  
                             label="パスワード(確認でもう一度入力)"  
                             type="password" 
                             value={user.password_confirmation} 
@@ -168,7 +165,17 @@ export const Register: FC = () => {
                             error={response.error_password}
                         />
 
-                        <Button text="登録" color="yellow"/>
+                        {/* <Button text="登録" color="yellow"/> */}
+                        <button 
+                            type="submit" 
+                            className="block w-full mt-8 p-2 text-white ml-auto mr-auto rounded-full font-medium text-lg bg-amber-400"                        
+                            onClick={registerSubmit}>
+                                { isLoading ?  
+                                    <Loading /> 
+                                : 
+                                    <span>登録</span>
+                                }
+                        </button> 
 
                     </form> 
 

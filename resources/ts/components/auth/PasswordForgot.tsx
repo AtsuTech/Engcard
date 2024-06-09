@@ -2,10 +2,14 @@ import { FC } from "react";
 import React, { useState} from 'react';
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { LinkLogo } from "../parts_component/LinkLogo";
+import { Loading } from "../parts_component/Loading";
 
 export const PasswordForgot: FC = () => {
 
-    const [email, setEmail] = useState<string>();
+    document.title = "パスワードリセット";
+
+    const [email, setEmail] = useState<string>("");
+    const [loading,setLoading] = useState(false);
 
     const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
 
@@ -19,18 +23,23 @@ export const PasswordForgot: FC = () => {
     const ResetSubmit = (e:any) =>{
         //フォームデータ送信時に画面を再更新しないようにする処理
         e.preventDefault();
+        setLoading(true);
 
         const params = {
             email: email,
         }
+
+        
       
         axios.post('http://127.0.0.1:8000/api/password/forgot', params).then(function (response) {
             // 送信成功時の処理
+            setLoading(false);
             alert('メール送信成功');
 
         })
         .catch(function (error) {
             // 送信失敗時の処理
+            setLoading(false);
             alert('通信に失敗しました');
         });
 
@@ -53,7 +62,7 @@ export const PasswordForgot: FC = () => {
             </p>
 
 
-            <form onSubmit={ResetSubmit}>
+            <form >
                 <div>
                     <label>メールアドレス</label>
                     <input type="email" name="email" value={email}  
@@ -63,11 +72,18 @@ export const PasswordForgot: FC = () => {
                     />
                 </div>
                 <div className="mt-10">
+
                     <button 
                         type="submit" 
-                        className="block w-full h-10 text-white ml-auto mr-auto rounded-full font-medium text-lg bg-amber-400">
-                        メール送信
-                    </button>                    
+                        className="block w-full p-2 text-white ml-auto mr-auto rounded-full font-medium text-lg bg-amber-400"                        
+                        onClick={ResetSubmit}>
+                            { loading ?  
+                                <Loading /> 
+                            : 
+                                <span>メール送信</span>
+                            }
+                    </button>   
+              
                 </div>
 
             </form>

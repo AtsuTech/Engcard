@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         // メールアドレスが合致するユーザーが居なければエラー返す
         if($user == null){
-            return response()->json(['error' => 'このメールアドレスで登録されたユーザーが見つかりませんでした'], 401);
+            return response()->json(['email' => 'このメールアドレスで登録されたユーザーが見つかりませんでした'], 401);
         }
 
         // メールアドレスが合致するユーザーがいた場合、データを取得
@@ -46,12 +46,12 @@ class LoginController extends Controller
 
         // メール承認のカラムがnullどうかチェック。nullならログインを却下する
         if(is_null($verify_check)){
-            return response()->json(['error' => 'メールアドレスの承認が完了していません。承認がされていないアカウントではログインできません。'], 401);
+            return response()->json(['email' => 'メールアドレスの承認が完了していません。承認がされていないアカウントではログインできません。'], 401);
         }
 
         //JWTAuth::attempt()にしないとトークンが得られなかった(auth()->attemptだとtrueと帰ってくる)
         if (! $token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'ログインできません。パスワードが間違っていないかご確認ください。'], 401);
+            return response()->json(['password' => 'ログインできません。パスワードが間違っていないかご確認ください。'], 401);
         }
 
         return $this->respondWithToken($token,$verify_check,$user_name,$user_id);

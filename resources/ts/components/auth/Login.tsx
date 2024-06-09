@@ -6,25 +6,8 @@ import { useCookies } from "react-cookie";
 import { LoginSuccessDialog } from "../parts_component/LoginSuccessDialog";
 import { Button } from "../parts_component/Button";
 import { LinkLogo } from "../parts_component/LinkLogo";
+import { InputWithValidation } from "../parts_component/InputWithValidation";
 
-
-
-const TextInput:FC<{label:any,htmlFor:any,type:any,name:any,value:any,placeholder:any,func:any}> = ({label,htmlFor,type,name,value,placeholder,func}) =>{
-    return(
-        <>
-            <label htmlFor={htmlFor}>{label}</label>
-                <input 
-                    id={htmlFor}
-                    type={type} 
-                    name={name}
-                    value={value}  
-                    onChange={func} 
-                    className="block w-full pl-3 h-10 border bg-gray-200 rounded-full"
-                    placeholder={placeholder}
-                />
-        </>
-    );
-}
 
 
 export const Login: FC = () => {
@@ -52,6 +35,11 @@ export const Login: FC = () => {
     const [loginInput, setLogin] = useState<Login>({
         email: '',
         password: '',
+    });
+
+    const [error,setErroe] = useState({
+        email:'',
+        password:'',
     });
 
 
@@ -111,9 +99,11 @@ export const Login: FC = () => {
         .catch(function (error:AxiosError|any) {
         
             // --------送信失敗時の処理-------- //
-            alert(error.response.data.error);
-            //alert(error);
-            console.log(error);
+            alert("ログイン失敗");
+            setErroe({
+                email:error.response.data.email,
+                password:error.response.data.password,
+            })
 
         });
 
@@ -133,26 +123,28 @@ export const Login: FC = () => {
             </div>
 
             <form onSubmit={LoginSubmit}>
-                <div>
-                    <p>メールアドレス</p>
-                    <input type="email" name="email" 
-                        value={loginInput.email}  
-                        onChange={handleInput} 
-                        className="block w-full pl-3 h-10 border bg-gray-200 rounded-full"
-                        placeholder="メールアドレス"
-                    />
-                </div>
-                {/* <div className="mt-10">
-                    <p>パスワード</p>
-                    <input type="password" name="password" 
-                        value={loginInput.password}  
-                        onChange={handleInput}
-                        className="w-full h-10 border border-gray-600 rounded"
-                        placeholder="パスワード"
-                    />
-                </div> */}
-                <TextInput  htmlFor="pass" label="パスワード"  type="password" value={loginInput.password} name="password" func={handleInput} placeholder="パスワード" />
-                {/* <button type="submit" className="block mt-10 bg-amber-400 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">ログイン</button> */}
+
+                
+                <InputWithValidation  
+                    label="メールアドレス"  
+                    type="email" 
+                    value={loginInput.email} 
+                    name="email" 
+                    func={handleInput} 
+                    placeholder="メールアドレス" 
+                    error={error.email}
+                />
+
+                <InputWithValidation  
+                    label="パスワード"  
+                    type="password" 
+                    value={loginInput.password} 
+                    name="password" 
+                    func={handleInput} 
+                    placeholder="パスワード" 
+                    error={""}
+                />
+
                 <Button text="ログイン" color="yellow"/>
             </form>
 

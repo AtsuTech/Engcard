@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 
-export const InputRoundedGray:FC<{label:any,type:any,name:any,value:any,placeholder:any,func:any,error:any}> = ({label,type,name,value,placeholder,func,error}) =>{
+export const InputWithValidation:FC<{label:any,type:any,name:any,value:any,placeholder:any,func:any,error:any}> = ({label,type,name,value,placeholder,func,error}) =>{
     return(
         <div className="pt-4">
 
@@ -10,7 +10,7 @@ export const InputRoundedGray:FC<{label:any,type:any,name:any,value:any,placehol
             </label>
 
             <input 
-                autoComplete="off"
+                //autoComplete="off"
                 id={name}
                 type={type} 
                 name={name}
