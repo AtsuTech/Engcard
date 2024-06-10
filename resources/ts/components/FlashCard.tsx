@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { BageDark } from "./parts_component/BageDark";
 import { PageBack } from "./parts_component/PageBack";
 import { FlashcardFavorite } from "./FlashcardFavorite";
+import { CardList } from "./CardList";
 
 export const FlashCard:FC = () =>{
 
@@ -160,39 +161,50 @@ export const FlashCard:FC = () =>{
                     }
 
                     {cards.map( (card:any) => (
-                        <Link to={`/card/${card.uuid}`} key={card.id}>
-                            <div key={card.id} className="flex h-fit border bg-white border-gray-300 mb-3 /px-2 rounded">
+                        <CardList 
+                            id ={card.id}
+                            uuid ={card.uuid}
+                            memory ={card.memory}
+                            word ={card.word}
+                            word_mean ={card.word_mean}
+                            category ={card.category}
+                            user_id ={card.user_id}
+                            flashcard_id ={card.flashcard_id}
+                            img_path ={card.img_path}
+                        /> 
+                        // <Link to={`/card/${card.uuid}`} key={card.id}>
+                        //     <div key={card.id} className="flex h-fit border bg-white border-gray-300 mb-3 /px-2 rounded">
 
-                                {/* left */}
-                                <div className="flex w-full border-r border-gray-300">
+                        //         {/* left */}
+                        //         <div className="flex w-full border-r border-gray-300">
 
-                                    <div className="flex w-5 items-center justify-center border-r border-gray-300">
-                                        <div className={`w-2 h-2  rounded-full ${card.memory ? 'bg-amber-400' : 'bg-gray-400'}`}>
-                                        </div>
-                                    </div>
+                        //             <div className="flex w-5 items-center justify-center border-r border-gray-300">
+                        //                 <div className={`w-2 h-2  rounded-full ${card.memory ? 'bg-amber-400' : 'bg-gray-400'}`}>
+                        //                 </div>
+                        //             </div>
 
-                                    <div className="w-full pt-2.5 pl-2">
-                                        {card.word}
-                                    </div>
+                        //             <div className="w-full pt-2.5 pl-2">
+                        //                 {card.word}
+                        //             </div>
 
-                                    <div className="w-16 h-hit p-1">
-                                        <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ flashcard.user_id + '/' + flashcard.id + '/' + card.img_path} alt="" className="block w-10 h-10 rounded-full" />
-                                    </div>
+                        //             <div className="w-16 h-hit p-1">
+                        //                 <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ flashcard.user_id + '/' + flashcard.id + '/' + card.img_path} alt="" className="block w-10 h-10 rounded-full" />
+                        //             </div>
 
-                                </div>
+                        //         </div>
 
-                                {/* right */}
-                                <div className="flex w-full">
+                        //         {/* right */}
+                        //         <div className="flex w-full">
                                     
-                                    <div className="mt-2.5 ml-2">
-                                        <span className="w-fit h-fit bg-gray-400 p-1 text-center text-white text-xs rounded mr-1">{card.category}</span>
-                                        {card.word_mean}
-                                    </div>
+                        //             <div className="mt-2.5 ml-2">
+                        //                 <span className="w-fit h-fit bg-gray-400 p-1 text-center text-white text-xs rounded mr-1">{card.category}</span>
+                        //                 {card.word_mean}
+                        //             </div>
 
-                                </div>
+                        //         </div>
 
-                            </div>
-                        </Link>
+                        //     </div>
+                        // </Link>
                     ))}
 
                 </div>

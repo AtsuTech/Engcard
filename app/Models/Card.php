@@ -32,6 +32,10 @@ class Card extends Model
     public function getCategoryAttribute()
     {
         $category = Category::find($this->category_id,'item');
+        if($this->category_id == 1){
+            //category_id = 1(設定なし)の時はnullを返す。フロントエンドでnullの時は表示しない条件付きレンダリングに対応させる
+            $category['item'] = null;
+        }
         return  $category['item'];
     }
     //SPAでJSONでアクセサの値を返す時は$appendsメソッドで返す
