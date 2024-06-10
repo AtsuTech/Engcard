@@ -73,7 +73,8 @@ class CardController extends Controller
 
             //reactからアクセスできるように権限付与
             $fullPath = Storage::path($path);//storageのフルパスを取得
-            chmod($fullPath, 0755);
+            //chmod($fullPath, 0755);
+            system('chmod 755' . $fullPath);
         }elseif($image == null){
             //画像ファイルが無ければ、DBにファイル名をnullで保存
             $img_path = null;
