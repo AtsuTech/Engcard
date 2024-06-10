@@ -24,7 +24,7 @@ export const Home: FC = () => {
 
 
     return (
-        <main className="w-full mt-5 mb-10 p-5 rounded-3xl bg-white text-slate-600">
+        <main className="w-full /mt-5 /mb-10 p-5 rounded-3xl bg-white text-slate-600">
 
             <div>
                 <h1 className="text-2xl">Home</h1>
@@ -50,7 +50,7 @@ export const Home: FC = () => {
 
                 {flashcards.map( (flashcard:any) => (
                     
-                    <div key={flashcard.id} className="block w-3/6 p-1">
+                    <div key={flashcard.id} className="block w-full md:w-3/6 p-1">
                         <div className="border border-gray-300 p-2 rounded">
                         <Link to={`/flashcard/${flashcard.uuid}`} className="block w-full text-2xl">
                             {flashcard.title}

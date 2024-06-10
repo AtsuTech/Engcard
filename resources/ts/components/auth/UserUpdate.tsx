@@ -6,6 +6,7 @@ import { Title } from "../parts_component/Title";
 import { ProfileImage } from "../ProfileImage";
 import { ProfileImageUpload } from "../ProfileImageUpload";
 import { ButtonWithOnClick } from "../parts_component/ButtonWithOnClick";
+import { DashBoardBreadcrumbs } from "../DashBoardBreadcrumbs";
 
 
 export const UserUpdate:FC = () =>{
@@ -137,6 +138,9 @@ export const UserUpdate:FC = () =>{
 
     return(
         <div className="block rounded-3xl bg-white text-slate-600 p-5">
+
+            <DashBoardBreadcrumbs current="ユーザー情報更新" />
+
             <Title title="ユーザー情報更新" />
 
             <div className="mt-5">プロフィール画像</div>

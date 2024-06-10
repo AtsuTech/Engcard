@@ -3,10 +3,13 @@ import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
 import { PageBack } from "../parts_component/PageBack";
+import { SettingBreadcrumbs } from "../SettingBreadcrumbs";
 import { Title } from "../parts_component/Title";
 
 
 export const UserUnscribe:FC =()=>{
+
+    document.title = '退会';
 
     const [auth_token, setCookie, removeCookie] = useCookies(["token"]);
 
@@ -61,13 +64,12 @@ export const UserUnscribe:FC =()=>{
     return(
         <div className="block rounded-3xl bg-white text-slate-600 p-5 /h-96">
 
-            <div className="flex">
-                <PageBack />
-                <Title title="退会" />
-            </div>
-
+            <SettingBreadcrumbs current="退会" />
+            
+            <Title title="退会" />
+        
             <p className="my-3">
-                退会するにあたり、以下をご確認ください。
+                以下をご確認ください。
             </p>
 
             <div className="w-full bg-slate-200 py-2 rounded-lg">
@@ -81,7 +83,7 @@ export const UserUnscribe:FC =()=>{
                 </div>
             </div>
 
-            <p className="py-4 text-right">注意事項を確認した上で、退会処理に進みますか？</p>
+            <p className="py-4 text-right">退会処理に進みますか？</p>
 
 
             <div className="w-full flex justify-end">

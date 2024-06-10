@@ -2,6 +2,9 @@ import { FC } from "react";
 import { useLocation } from 'react-router-dom';
 import React, { useState} from 'react';
 import axios from 'axios';
+import { SettingBreadcrumbs } from "../SettingBreadcrumbs";
+import { Title } from "../parts_component/Title";
+import { Button } from "../parts_component/Button";
 
 
 
@@ -60,46 +63,50 @@ export const PasswordUpdate: FC = () => {
     }
 
     return(
-        <div className="w-96 ml-auto mr-auto">
+        <div className="block rounded-3xl bg-white text-slate-600 p-5">
 
-            <h1 className="w-full border-b-2 text-center text-2xl mt-10 mb-10 font-bold">パスワードの変更</h1>
+            <SettingBreadcrumbs current="パスワードの変更" />
+
+            <Title title="パスワードの変更" />
 
             <form onSubmit={Update}>
 
-                <div>
-                    <p>現在のパスワード</p>
+                <div className="mt-3">
+                    <label htmlFor="">現在のパスワード</label>
                     <input type="password" 
                         name="password_current" 
                         //value={resetPass.email}  
                         onChange={handleInput} 
-                        className="block w-full h-10 border border-gray-600 rounded pl-2"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
                     />
                 </div>
 
-                <div>
-                    <p>新パスワード</p>
+                <div  className="mt-3">
+                    <label htmlFor="">新パスワード</label>
                     <input type="password" 
                         name="password_new" 
                         //value={resetPass.password}  
                         onChange={handleInput} 
-                        className="block w-full h-10 border border-gray-600 rounded pl-2"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
                     />
                 </div>
 
-                <div>
-                    <p>新パスワード(確認でもう一度入力)</p>
+                <div  className="mt-3">
+                    <label htmlFor="">新パスワード(確認でもう一度入力)</label>
                     <input type="password" 
                         name="password_new_conf" 
                         //value={resetPass.password_confirmation}  
                         onChange={handleInput} 
-                        className="block w-full h-10 border border-gray-600 rounded pl-2"
+                        className="w-full p-2 border border-gray-300 rounded-lg" 
                     />
                 </div>
 
 
-                <button type="submit" className="block mt-10 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">
+                {/* <button type="submit" className="block mt-10 bg-gray-800 w-full h-10 text-white ml-auto mr-auto rounded-lg shadow-lg font-medium text-1xl">
                     パスワード再設定
-                </button>
+                </button> */}
+
+                <Button text="パスワード再設定" color="yellow" />
             </form>
         </div>
     );

@@ -91,7 +91,7 @@ export const CreateFlashCard:FC = () =>{
     return(
         <div>
             {/* <h1 className="text-xs">単語帳を作成</h1> */}
-            <form onSubmit={Submit} className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white">
+            <form onSubmit={Submit} className="block w-full ml-auto mr-auto p-5 rounded-3xl bg-white">
                 <Title title={'単語帳を作成'} />
                 <label className="block w-full mt-4 text-sm">単語帳の名前を入力(後からでも名前を変更できます)</label>
                 <input type="text" className="w-full h-10 border border-gray-300 rounded-lg pl-2 /text-2xl" 

@@ -25,7 +25,7 @@ export const DeleteCategory:FC<{id:any,Refresh:any}> = ({id,Refresh}) => {
 
     return(
         <>
-            <button className="w-20" onClick={Delete}>削除</button>
+            <button className="w-20 text-rose-600" onClick={Delete}>削除</button>
         </>
     );
 }

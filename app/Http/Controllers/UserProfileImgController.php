@@ -29,6 +29,9 @@ class UserProfileImgController extends Controller
             $image = $request->file('image');
             if($image != null){
                 $path = $image->store('public/images/profile');
+                //reactからアクセスできるように権限付与
+                $fullPath = Storage::path($path);//storageのフルパスを取得
+                chmod($fullPath, 0755);
                 $me->profile_icon_img = basename($path);
             }elseif($image == null){
                 $me->profile_icon_img = null;
@@ -38,6 +41,9 @@ class UserProfileImgController extends Controller
             Storage::disk('public')->delete('images/profile/' . $me->profile_icon_img);
             $image = $request->file('image');
             $path = $image->store('public/images/profile');
+            //reactからアクセスできるように権限付与
+            $fullPath = Storage::path($path);//storageのフルパスを取得
+            chmod($fullPath, 0755);
             $me->profile_icon_img = basename($path);
             $me->save();
         }
