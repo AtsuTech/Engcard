@@ -30,8 +30,7 @@ class UserProfileImgController extends Controller
             if($image != null){
                 $path = $image->store('public/images/profile');
                 //reactからアクセスできるように権限付与
-                $fullPath = Storage::path($path);//storageのフルパスを取得
-                chmod($fullPath, 0755);
+                system('chmod -R 755 storage');
                 $me->profile_icon_img = basename($path);
             }elseif($image == null){
                 $me->profile_icon_img = null;
@@ -42,8 +41,7 @@ class UserProfileImgController extends Controller
             $image = $request->file('image');
             $path = $image->store('public/images/profile');
             //reactからアクセスできるように権限付与
-            $fullPath = Storage::path($path);//storageのフルパスを取得
-            chmod($fullPath, 0755);
+            system('chmod -R 755 storage');
             $me->profile_icon_img = basename($path);
             $me->save();
         }
