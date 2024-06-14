@@ -39,7 +39,7 @@ export const GuestRoute:FC = () => {
 
 
     //承認ユーザーがアクセスした場合はマイページに移動させる
-    return UnAuthenticated ? <Outlet /> : ( window.location.href = '/dashboard') ;
+    return UnAuthenticated ? <Outlet /> : ( window.location.href = '/home') ;
 
 };
 

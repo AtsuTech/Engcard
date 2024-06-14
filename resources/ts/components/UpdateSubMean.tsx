@@ -75,16 +75,15 @@ export const UpdateSubMean:FC<{id:any,category_id:any,word_mean:any;reload:any}>
 
 
     return(
-        <div className="flex">
-            <div>
-                <SubMeanCategorySelect name="category_id" value={wordMean.category_id} onchange={handleInput}/>
-            </div>
-            <div>
+        <div className="flex h-8 mb-1" >
+            <div className="flex w-full h-8 border border-gray-300 p-1 rounded">
+                <SubMeanCategorySelect name="category_id" category_id={wordMean.category_id} onchange={handleInput}/>
                 <input className="block w-full" type="text" name="word_mean" value={wordMean.word_mean} onChange={handleInput} />
             </div>
+            
             <div className="flex">
-                <button className="bg-amber-400 px-2 text-white" onClick={updateSubmit}>保存</button>
-                <button className="bg-gray-400 px-2 text-white" onClick={deleteSubmit}>削除</button>
+                <button className="block w-12 h-8 ml-1 bg-amber-400 /px-2 text-white rounded" onClick={updateSubmit}>保存</button>
+                <button className="block w-12 h-8 ml-1 bg-gray-400 px-2 text-white rounded" onClick={deleteSubmit}>削除</button>
             </div>
         </div>
     );

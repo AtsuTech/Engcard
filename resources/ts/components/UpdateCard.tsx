@@ -11,6 +11,7 @@ import { CategorySelect } from "./CategorySelect";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 import { PageBack } from "./parts_component/PageBack";
 import { Title } from "./parts_component/Title";
+import { CategoryContext } from "./CategoryContext";
 
 
 export const UpdateCard:FC = () => {
@@ -116,12 +117,25 @@ export const UpdateCard:FC = () => {
     }
 
 
+    //カテゴリデータをapi取得、更新の関数
+    const [reloadCategory,setReloadCategory] = useState<boolean>(false);
+    const SetReloadCategory = () => setReloadCategory(!reloadCategory);
+    const [categories,setCategory] = useState<any>([]);
+    useEffect(()=>{
 
+        //DB通信でデータ取得
+        axios.get('/api/categories').then((response) => { 
+            setCategory(response.data);
+        }).catch((error) => { 
+            console.log(error);
+        });
+    
+    },[reloadCategory]);
     
 
     return (
 
-        <div className="block w-full ml-auto mr-auto mt-10 mb-10 p-5 rounded-3xl bg-white md:w-2/3">
+        <div className="block w-full ml-auto mr-auto p-5 rounded-3xl bg-white md:w-2/3">
 
             <PageBack />
 
@@ -146,14 +160,14 @@ export const UpdateCard:FC = () => {
                 />
 
                 <label htmlFor="word_mean">意味</label>
-                <div className="flex w-full h-10 border border-gray-300 rounded-lg pl-2">
+                <div className="flex w-full h-10 border border-gray-300 rounded-lg p-1 focus-within:border-amber-400">
                     <CategorySelect value={selected} name="category_id" handleInput={setSelected} />
 
 
                     <input type="text" 
                         id="word_mean"
                         name="word_mean" 
-                        className="w-full" 
+                        className="w-full pl-2" 
                         placeholder="訳 ex.)りんご" 
                         value={card.word_mean}
                         onChange={handleInput} 
@@ -162,17 +176,26 @@ export const UpdateCard:FC = () => {
                 </div>
 
                 {/* サブの意味 */}
-                {card.sub_word_mean && card.sub_word_mean.length > 0 && 
-                    card.sub_word_mean.map((sub_mean: any, index: number) => (
-                        <div key={index} className="">
-                            <UpdateSubMean id={sub_mean.id} category_id={sub_mean.category_id} word_mean={sub_mean.word_mean} reload={valueReload} />        
-                        </div>
-                    ))
-                    
-                }
-                {card.sub_word_mean.length < 6 && 
-                    <CreateSubMean card_id={card_id} reload={valueReload} />
-                }
+
+                <label htmlFor="">サブの意味</label>
+                <div className="w-full /h-10 border border-gray-300 p-2 rounded-lg">
+                    <CategoryContext.Provider value={{categories,SetReloadCategory}}>
+                        {card.sub_word_mean && card.sub_word_mean.length > 0 && 
+                            card.sub_word_mean.map((sub_mean: any, index: number) => (
+                                <div key={sub_mean.id} className="">
+                                    <UpdateSubMean id={sub_mean.id} category_id={sub_mean.category_id} word_mean={sub_mean.word_mean} reload={valueReload} />        
+                                </div>
+                            ))
+                            
+                        }
+
+                    </CategoryContext.Provider>
+
+                    {card.sub_word_mean.length < 5 && 
+                        <CreateSubMean card_id={card_id} reload={valueReload} />
+                    } 
+                </div>
+
                 
                 <div className="mt-5 mb-5">
                     <label htmlFor="">画像</label>

@@ -44,9 +44,11 @@ export const CreateSubMean:FC<{card_id:any,reload:any}> = ({card_id,reload}) =>{
 
     return(
         <div className="flex w-100">
-            <CategorySelect  name="category_id" value={category_id} handleInput={setCategory_id} />
-            <input className="w-full" type="text" name="word_mean" value={subWordMean.word_mean} onChange={handleInput} />
-            <button className="border border-amber-400 text-amber-400 px-2" onClick={createSubmit}>追加</button>
+            <div className="flex w-full h-fit p-1 mr-1 border border-gray-300 rounded-lg">
+                <CategorySelect  name="category_id" value={category_id} handleInput={setCategory_id} />
+                <input className="w-full h-6 ml-1" type="text" name="word_mean" value={subWordMean.word_mean} onChange={handleInput} />
+            </div>
+            <button className="block w-12 border border-amber-400 text-amber-400 /px-2 rounded" onClick={createSubmit}>追加</button>
         </div>
     );
 }

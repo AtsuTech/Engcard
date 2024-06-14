@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { useState, useRef} from "react";
+import { useState, useRef, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CategorySelect } from "./CategorySelect";
 import { SubMeanCategorySelect } from "./SubMeanCategorySelect";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
+import { CategoryContext } from "./CategoryContext"; //カテゴリのデータをコンテキストで渡す
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
@@ -25,6 +26,21 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         setCard({...card, [e.target.name]: e.target.value }); 
     }
 
+    //カテゴリデータをapi取得、更新の関数
+    const [reloadCategory,setReloadCategory] = useState<boolean>(false);
+    const SetReloadCategory = () => setReloadCategory(!reloadCategory);
+    const [categories,setCategory] = useState<any>([]);
+    useEffect(()=>{
+
+        //DB通信でデータ取得
+        axios.get('/api/categories').then((response) => { 
+            setCategory(response.data);
+        }).catch((error) => { 
+            console.log(error);
+        });
+    
+    },[reloadCategory]);
+
     // サブの意味を配列で保管
     const [subWordMeans, setSubWordMeans] = useState<any>([
         //５まで登録可能
@@ -43,7 +59,6 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         newSubWordMeans[index][name] = value;
         setSubWordMeans(newSubWordMeans);
     }
-    //console.log(subWordMeans);
 
     const [defaultImg,setDefaultImg] = useState<string|null>();
 
@@ -224,10 +239,13 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                 <div>
                     <h4>サブの意味を追加</h4>
-                     
+
+                    <CategoryContext.Provider value={{categories,SetReloadCategory}}>
                     {subWordMeans.map((dummy:any,index:any) => (
                         <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg mt-2">
-                            <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} value={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
+                            
+                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} category_id={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
+                            
                             <input type="text"
                                 name={`word_mean[${index}][word_mean]`}
                                 value={subWordMeans[index].word_mean}
@@ -238,7 +256,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                             />
                         </div>
                     ))} 
-
+                    </CategoryContext.Provider>
 
                 </div>
 

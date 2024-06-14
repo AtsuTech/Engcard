@@ -107,7 +107,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
                     <div className="">
 
                         <div>
-                            <label htmlFor="img" className="flex w-32 cursor-pointer appearance-none items-center justify-center rounded-full text-amber-400 border border-amber-400 p-2 transition-all">
+                            <label htmlFor="img" className="flex w-32 ml-auto mr-auto cursor-pointer appearance-none items-center justify-center rounded-full text-amber-400 border border-amber-400 p-2 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-amber-300">
                                     <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
                                     </svg>
@@ -115,7 +115,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
                             </label> 
 
                             {img_flg &&
-                                <div className="w-64 h-64 relative mt-2 mb-2">
+                                <div className="w-64 h-32 relative mt-2 mb-2">
                                     <img src={defaultImg} alt="" className="absolute inset-0 w-full h-full object-cover rounded-lg border border-amber-400" />
                                 </div>
                             }
@@ -142,13 +142,13 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
                 <>
                     <div className="relative">
 
-                        <div className="relative w-64 h-64 bg-black bg-opacity-50 border border-amber-400 rounded-lg z-10 flex items-center justify-center">
+                        <div className="relative w-64 h-32 bg-black bg-opacity-50 border border-amber-400 rounded-lg z-10 flex items-center justify-center">
                             <button 
                                 className="w-10 h-10 bg-gray-500 text-white px-2.5 rounded-md mr-3"
                                 onClick={Delete}
                                 >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                                <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
+                                <path fillRule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clipRule="evenodd" />
                                 </svg>
                             </button>
 
@@ -169,7 +169,7 @@ export const UpdateCardImage:FC<{id: any}> = ({id}) =>{
                         </div>
 
 
-                        <img src={defaultImg} alt="Image" className="absolute inset-0 w-64 h-64 object-cover rounded-lg border border-amber-400 " /> 
+                        <img src={defaultImg} alt="Image" className="absolute inset-0 w-64 h-32 object-cover rounded-lg border border-amber-400 " /> 
                         {img_flg && 
                             <ButtonWithOnClick text="画像を変更する" color="yellow" onclick={Edit} />
                         }

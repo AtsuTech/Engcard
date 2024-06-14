@@ -176,7 +176,7 @@ export const UpdateFlashCard:FC = () =>{
                     id="" 
                     className="w-full h-32 border border-gray-300 rounded-lg pl-2 mt-1"
                     onChange={handleInput} 
-                    value={flashcard.description}
+                    value={flashcard.description==null ? "":flashcard.description}
                 >
                 </textarea>
 

@@ -1,10 +1,13 @@
 import { FC } from "react";
-import { useState, useEffect} from "react";
+import { useState, useEffect, useContext} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-
+import { CategoryContext } from "./CategoryContext";//コンテキスト読み込み
 
 
 export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
+
+    //コンテキストから使いたい関数を取得
+    const {SetReloadCategory} = useContext<any>(CategoryContext);
 
 
     const [category,setCategory] = useState<string>('');
@@ -28,7 +31,7 @@ export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
             // 送信成功時の処理
             
             Update();
-            
+            SetReloadCategory();
 
         })
         .catch(function (error) {
