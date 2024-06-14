@@ -4,7 +4,7 @@ import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CategoryContext } from "./CategoryContext";//コンテキスト読み込み
 
 
-export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
+export const CategoryCreate:FC = () => {
 
     //コンテキストから使いたい関数を取得
     const {SetReloadCategory} = useContext<any>(CategoryContext);
@@ -30,7 +30,7 @@ export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
 
             // 送信成功時の処理
             
-            Update();
+            //Update();
             SetReloadCategory();
 
         })
@@ -49,7 +49,7 @@ export const CategoryCreate:FC<{Update:any}> = ({Update}) => {
 
     return(
         <div className="flex p-1">
-                <input type="text" className="w-full h-10 border border-gray-300 rounded pl-1" placeholder="カテゴリを追加" 
+                <input type="text" className="w-full h-10 border border-gray-300 rounded pl-1 text-xs" placeholder="新しいカテゴリ" 
                     name="item"
                     value={category}
                     onChange={handleInput} 

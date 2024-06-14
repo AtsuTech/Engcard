@@ -11,7 +11,7 @@ export const CreateSubMean:FC<{card_id:any,reload:any}> = ({card_id,reload}) =>{
         card_id:card_id,
         word_mean : '',
     });
-    const [category_id,setCategory_id] = useState<any>(1);
+    const [category_id,setCategory_id] = useState<number>(1);
 
     const handleInput =(e:any)=>{
         e.persist();
@@ -45,7 +45,7 @@ export const CreateSubMean:FC<{card_id:any,reload:any}> = ({card_id,reload}) =>{
     return(
         <div className="flex w-100">
             <div className="flex w-full h-fit p-1 mr-1 border border-gray-300 rounded-lg">
-                <CategorySelect  name="category_id" value={category_id} handleInput={setCategory_id} />
+                <CategorySelect  name="category_id" category_id={category_id} handleInput={setCategory_id} />
                 <input className="w-full h-6 ml-1" type="text" name="word_mean" value={subWordMean.word_mean} onChange={handleInput} />
             </div>
             <button className="block w-12 border border-amber-400 text-amber-400 /px-2 rounded" onClick={createSubmit}>追加</button>

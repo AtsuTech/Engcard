@@ -198,7 +198,11 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
 
                     <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg md:ml-1">
-                        <CategorySelect name="category_id" value={category_id} handleInput={setCategory_id} />
+
+                        {/* コンテキストからカテゴリのデータと更新の関数渡す */}
+                        <CategoryContext.Provider value={{categories,SetReloadCategory}}>
+                            <CategorySelect name="category_id" category_id={category_id} handleInput={setCategory_id} />
+                        </CategoryContext.Provider>
 
                         <input type="text" 
                             name="word_mean" 
@@ -240,6 +244,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                 <div>
                     <h4>サブの意味を追加</h4>
 
+                    {/* コンテキストからカテゴリのデータと更新の関数渡す */}
                     <CategoryContext.Provider value={{categories,SetReloadCategory}}>
                     {subWordMeans.map((dummy:any,index:any) => (
                         <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg mt-2">

@@ -161,8 +161,11 @@ export const UpdateCard:FC = () => {
 
                 <label htmlFor="word_mean">意味</label>
                 <div className="flex w-full h-10 border border-gray-300 rounded-lg p-1 focus-within:border-amber-400">
-                    <CategorySelect value={selected} name="category_id" handleInput={setSelected} />
 
+                    {/* カテゴリのデータ、更新関数をコンテキストで渡す */}
+                    <CategoryContext.Provider value={{categories,SetReloadCategory}}>
+                        <CategorySelect category_id={selected} name="category_id" handleInput={setSelected} />
+                    </CategoryContext.Provider>
 
                     <input type="text" 
                         id="word_mean"
@@ -176,9 +179,10 @@ export const UpdateCard:FC = () => {
                 </div>
 
                 {/* サブの意味 */}
-
                 <label htmlFor="">サブの意味</label>
                 <div className="w-full /h-10 border border-gray-300 p-2 rounded-lg">
+
+                    {/* カテゴリのデータ、更新関数をコンテキストで渡す */}
                     <CategoryContext.Provider value={{categories,SetReloadCategory}}>
                         {card.sub_word_mean && card.sub_word_mean.length > 0 && 
                             card.sub_word_mean.map((sub_mean: any, index: number) => (
@@ -189,11 +193,11 @@ export const UpdateCard:FC = () => {
                             
                         }
 
+                        {card.sub_word_mean.length < 5 && 
+                            <CreateSubMean card_id={card_id} reload={valueReload} />
+                        } 
                     </CategoryContext.Provider>
 
-                    {card.sub_word_mean.length < 5 && 
-                        <CreateSubMean card_id={card_id} reload={valueReload} />
-                    } 
                 </div>
 
                 

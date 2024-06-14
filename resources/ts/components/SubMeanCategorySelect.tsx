@@ -9,7 +9,7 @@ export const SubMeanCategorySelect:FC<{name:any, category_id:any, onchange:any }
     const {categories} = useContext<any>(CategoryContext);
 
     //選択中のカテゴリをテキスト表示取得
-    const [selected_itme,setSelectedItme] = useState('設定なし')
+    const [selected_itme,setSelectedItme] = useState('')
 
     useEffect(() => {
         const selected = categories.find((element: any) => element.id === parseInt(category_id));
@@ -20,25 +20,9 @@ export const SubMeanCategorySelect:FC<{name:any, category_id:any, onchange:any }
         }
     }, [category_id,categories]);
     
-    
-    const handleInput = (e:any) =>{
-        onchange(e);
-    }
-
 
     const [view,setView] = useState<boolean>(false);
     const View = () => setView(!view);
-
- 
-    const [update,setUpdate] = useState(false);
-    function Update(){
-        
-        if(update){
-            setUpdate(false);
-        }else if(!update){
-            setUpdate(true);
-        }
-    }
 
 
     return(
@@ -47,9 +31,14 @@ export const SubMeanCategorySelect:FC<{name:any, category_id:any, onchange:any }
 
             {/* セクトボックス部分 */}
             <div 
-                className="block text-center py-1 w-20 h-7 text-sm border border-gray-300 rounded-lg"
+                className="flex justify-center items-center text-center px-1 w-14 md:w-20 text-xs h-full /text-sm border border-gray-300 rounded-md "
                 onClick={View}>
-                {selected_itme} 
+                <p className="w-full truncate">{selected_itme}</p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 w-3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+
             </div>
 
             {view &&
@@ -58,7 +47,7 @@ export const SubMeanCategorySelect:FC<{name:any, category_id:any, onchange:any }
 
                     <div className="top-0 py-2 z-10 bg-white divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700">
 
-                        <button className="absolute right-0" onClick={View}>
+                        <button className="absolute right-3" onClick={View}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
@@ -80,7 +69,7 @@ export const SubMeanCategorySelect:FC<{name:any, category_id:any, onchange:any }
                                 </li>
                             ))} 
 
-                            <li><CategoryCreate Update={Update} /></li>
+                            <li><CategoryCreate /></li>
                             
                         </ul>
 
