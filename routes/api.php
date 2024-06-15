@@ -174,6 +174,9 @@ Route::middleware(['api'])->group(function ($router){
     //クイズで間違えたら暗記完了にする
     Route::post('/card/quiz/memory/false',[CardController::class,'un_memory']);
 
+    //クイズ結果の暗記状態の更新 
+    Route::post('/card/quiz/memory/update',[CardController::class,'memory_update']);
+
     //カードの編集
     Route::post('/card/update',[CardController::class,'update']);
 

@@ -133,7 +133,7 @@ class CardController extends Controller
 
     }
 
-    //(クイズ用)ランダムに3件取得
+    //(クイズ用)ランダムに3件取得(もうこのAPIは不要。しばらく様子見て不要なら削除)
     public function quiz_choices(Request $request){
 
         //ハッシュ化されたuuidをデコード
@@ -182,7 +182,7 @@ class CardController extends Controller
         return response()->json($choices);
     }
 
-    //クイズ正解時に暗記完了にする
+    //クイズ正解時に暗記完了にする(もうこのAPIは不要。しばらく様子見て不要なら削除)
     public function memory(Request $request){
 
         //ハッシュ化されたuuidをデコード
@@ -195,7 +195,7 @@ class CardController extends Controller
     }
 
 
-    //クイズ不正解時に暗記未完了にする
+    //クイズ不正解時に暗記未完了にする(もうこのAPIは不要。しばらく様子見て不要なら削除)
     public function un_memory(Request $request){
 
         //ハッシュ化されたuuidをデコード
@@ -205,6 +205,20 @@ class CardController extends Controller
         $correct = Card::where('flashcard_id',$flashcard_id)->skip($request->card_index)->take(1)->first();
         $correct->memory = false;
         $correct->save();
+    }
+
+    //クイズで正解or不正解の記録を更新
+    public function memory_update(Request $request){
+        
+        $memory_array = json_decode($request->memorys, true);
+
+        // 配列として適切にアクセスできることを確認した後に、ループを実行
+        foreach ($memory_array as $memory) {
+
+            $card = Card::find((int)$memory['id']);
+            $card->memory = $memory['memory'];
+            $card->save();
+        }
     }
 
     //編集
