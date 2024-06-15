@@ -102,39 +102,53 @@ export const Memory:FC =()=>{
 
 
     return(
-        <>
+        <div className="h-screen text-gray-500 /bg-blue-400">
             
-            <header className="flex w-full h-12 border border-b-gray-300">
-                <h1 className="w-full py-2">{flashcard.title}</h1>
-                <div className="w-18">
-                    <FinishMemory />
+            <header className="sticky top-0 w-full h-12 border-b border-b-gray-300 z-50">
+
+                <div className="flex w-full">
+                    <h1 className="w-40 p-3 /text-amber-400 font-bold /text-center">暗記</h1>
+
+                    <div className="w-full p-3">
+                        <div className="w-fit ml-auto mr-auto">
+                            {turn + 1} / {cards.length}      
+                        </div>
+                    </div>
+
+                    <div className="w-40 relative">
+                        <div className="absolute inset-y-0 right-1 flex my-2 ">
+                        <FinishMemory />
+                        </div>
+                    </div>
                 </div>
+
+                <div className="ml-3">
+                    単語帳:{flashcard.title}
+                </div>
+
             </header>
 
-            <div className="text-center">
-                {turn + 1}/{cards.length}
-            </div>
 
-            <div className="flex w-full">
+            <div className="absolute inset-0 flex items-center justify-center w-full">
 
-                <div className="flex items-center justify-center w-20 h-96">
+                <div className="flex items-center justify-center w-20 /bg-pink-600 h-full">
                     <div>
                         {turn > 0 && <PrevSlideButton onClick={Back}/>}
                     </div>
                 </div>
                 
-                <div className="w-full mt-3">
+                <div className="flex items-center justify-center w-full /bg-green-600 h-full">
                     {selected_card.map( (card:any,index:number) => (
 
-                        <div key={index} className="flex flex-col items-center justify-center h-screen">
+                        <div key={index} className="/flex /flex-col /items-center /justify-center /h-screen">
                             
                             <div>
                                 {change ?
-                                    <div className="text-6xl ">
+                                    <div className="text-4xl md:text-6xl">
                                         {card.word_mean}
                                     </div>
                                 :
-                                    <div className="text-6xl">
+                                    <div className="text-4xl md:text-6xl">
                                         {card.word}
                                     </div>
                                 }
@@ -144,19 +158,31 @@ export const Memory:FC =()=>{
                         </div>                          
                         
                     ))}
-                    <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border border-gray-400 hover:bg-amber-300 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
-                    めくる
-                    </button>
+
+
+                    {change ?
+                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border bg-gray-300 border-gray-400 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
+                            単語に戻る
+                        </button>
+                    :
+                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border bg-amber-200 border-gray-400 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
+                            意味を見る
+                        </button>
+                    }
+                    {/* <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border border-gray-400 text-gray-400 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
+                        めくる
+                    </button> */}
 
                 </div>
 
-                <div className="flex items-center justify-center w-20 h-96">
+                <div className="flex items-center justify-center w-20 /bg-pink-600 h-full">
                     <div>
                         {turn < (cards.length - 1) && <NextSlideButton onClick={Next} />}
                     </div>
                 </div>
+
             </div>
 
-        </>
+        </div>
     );
 }
