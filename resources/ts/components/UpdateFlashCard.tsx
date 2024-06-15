@@ -187,13 +187,15 @@ export const UpdateFlashCard:FC = () =>{
             </div>
 
             <div className="mt-5 mb-5">
-                <hr className="border-bottom border-dashed border-2 border-amber-400 ..." />
+                {/* <hr className="border-bottom border-dashed border-2 border-amber-400 ..." /> */}
+                <Title title={'単語カード'} />
+                <hr className="border-bottom border-slate-400 ..." />
             </div>
             
 
-            <Title title={'単語カード'} />
+            
 
-            <div className="block w-full ml-auto mr-auto mt-10 mb-10 rounded-3xl bg-white">
+            <div className="block w-full ml-auto mr-auto">
                 <UpdateCardList id={flashcard_id} />
             </div>
 

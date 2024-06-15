@@ -34,7 +34,7 @@ export const CategorySelect:FC<{name:any, category_id:any ,handleInput: any}> = 
         <div className="relative inline-block">
 
             <div 
-                className="flex justify-center items-center text-center px-1 w-10 md:w-20 text-xs h-full /text-sm border border-gray-300 rounded-md"
+                className="flex justify-center items-center text-center px-1 w-14 md:w-20 text-xs h-full /text-sm border border-gray-300 rounded-md"
                 onClick={View}>
                 <p className="w-full truncate">{selected_itme}</p>
 

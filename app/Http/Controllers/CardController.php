@@ -88,7 +88,7 @@ class CardController extends Controller
             "sentence" => empty($request->sentence) ? "" : $request->sentence,
             "sentence_mean" => empty($request->sentence_mean) ? "" : $request->sentence_mean,
             "memory" => false,
-
+            "link" => empty($request->link) ? "" : $request->link,
             "created_at" =>  \Carbon\Carbon::now(), 
             "updated_at" => \Carbon\Carbon::now(),  
         ]);

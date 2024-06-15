@@ -8,12 +8,26 @@ import { CategoryContext } from "./CategoryContext"; //カテゴリのデータ�
 
 export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
+    const modal = document.getElementById("modal") as any;
+
+    const openModal =() =>{
+        modal.showModal();
+    }
+    const closeModal =() =>{
+        modal.close();
+    }
+
+    //サブに意味入力の表示切り替え
+    const [editSubMeans,setEditSubMeans] = useState(false);
+    const EditSubMeans = () => setEditSubMeans(!editSubMeans);
+
     const initialCardState = {
         img_path: '',
         word: '',
         word_mean: '',
         sentence: '',
         sentence_mean: '',
+        link: '',
     };
 
     const [card,setCard] = useState<any>(initialCardState);
@@ -105,7 +119,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
         params.append('word_mean',card.word_mean);
         params.append('sentence',card.sentence);
         params.append('sentence_mean',card.sentence_mean);
-
+        params.append('link',card.link);
         params.append('sub_means',JSON.stringify(subWordMeans))
         
         //DBにデータ送る
@@ -126,7 +140,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                 { category_id:1, word_mean: '' },
             ]);
             Update();
-            
+            modal.close();
         })
         .catch(function (error:undefined|any) {
 
@@ -140,64 +154,69 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
     return(
         <>
-            
-            <div className="w-full p-2 border border-gray-300 rounded-lg" >
-                <h5 className="pb-3">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 w-6 h-6">
-                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd" />
-                        </svg>
-                    </div>
-                    <div>単語カード作成</div>
-                </h5>
+            <button className="flex w-full p-3 bg-amber-400 text-white rounded-full" onClick={openModal}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 w-6 h-6">
+                <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd" />
+                </svg>
+                <p className="w-full text-center">カードを追加</p>
+            </button>
+
+            <dialog className="md:w-3/5 w-full p-2 border border-gray-300 rounded-lg" id="modal">
+
+                <div className="pb-3">
+                    <div className="text-center font-bold text-slate-700">単語カード作成</div>
+                </div>
 
                 
-                <div className="md:flex">
+                <div className="md:flex mb-1">
 
+                    {/* 英単語+画像 */}
+                    <div className="flex w-full p-1 h-10 border border-gray-300 rounded-lg mr-1 mb-1 md:mb-0">
                     
-                    <input type="text" 
-                        name="word" 
-                        className="w-full h-10 border border-gray-300 rounded-lg pl-2 mr-1" 
-                        placeholder="単語 ex.)Apple" 
-                        value={card.word}
-                        onChange={handleInput} 
-                        required
-                    />
-
-                    <div className="flex w-10 h-10 border border-gray-300 rounded-lg bg-cover bg-center"  style={{ backgroundImage: `url(${defaultImg})` }}>
-
-                        <label htmlFor="example1" className="flex w-16 cursor-pointer appearance-none items-center justify-center rounded-md /bg-amber-400 text-white p-2 transition-all">
-                            {defaultImg == null &&
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gray-300">
-                                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                                </svg>
-                            }
-                        </label>
-                         
-                        {/* この中に余白いる */}
-                        <input id="example1" 
-                            type="file" 
-                            accept="image/*" multiple
-                            onChange={handleInputFile}
-                            ref={fileInputRef}
-                            className="block sr-only text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
+                        <input type="text" 
+                            name="word" 
+                            className="w-full pl-2 mr-1" 
+                            placeholder="単語 ex.)Apple" 
+                            value={card.word}
+                            onChange={handleInput} 
+                            required
                         />
 
+                        <div className="flex w-8 h-full border border-gray-300 rounded-lg bg-cover bg-center"  style={{ backgroundImage: `url(${defaultImg})` }}>
+
+                            <label htmlFor="example1" className="flex w-full cursor-pointer appearance-none items-center justify-center rounded-md /bg-amber-400 text-white /p-2 transition-all">
+                                {defaultImg == null &&
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-gray-300">
+                                    <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
+                                    </svg>
+                                }
+                            </label>
+                            
+                            {/* この中に余白いる */}
+                            <input id="example1" 
+                                type="file" 
+                                accept="image/*" multiple
+                                onChange={handleInputFile}
+                                ref={fileInputRef}
+                                className="block sr-only text-sm file:mr-4 file:rounded-md file:border-0 file:bg-yellow-500 file:py-2.5 file:p-2 file:text-sm file:font-semibold file:text-white hover:file:bg-yellow-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60"
+                            />
+
+                        </div>
+
+                        {defaultImg != null &&
+                        <div>
+                            <button onClick={resetFileInput} className="flex items-center justify-center w-7 h-full bg-gray-300 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="/text-2xl text-white w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        }
+
                     </div>
 
-                    {defaultImg != null &&
-                    <div>
-                        <button onClick={resetFileInput} className="flex items-center justify-center w-10 h-10 bg-gray-300 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="/text-2xl text-white w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    }
-
-
-
-                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg md:ml-1">
+                    {/* 英単語の意味＋カテゴリ */}
+                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg /md:ml-1">
 
                         {/* コンテキストからカテゴリのデータと更新の関数渡す */}
                         <CategoryContext.Provider value={{categories,SetReloadCategory}}>
@@ -206,7 +225,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                         <input type="text" 
                             name="word_mean" 
-                            className="block w-full h-full pl-2" 
+                            className="block w-full h-full pl-2 ml-1" 
                             placeholder="訳 ex.)りんご" 
                             value={card.word_mean}
                             onChange={handleInput} 
@@ -216,16 +235,42 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                 </div> 
 
-                <div>
-                    <a href="" className="text-cyan-500 m-1">例文を追加</a>
-                    <a href="" className="text-cyan-500 m-1">外部リンクを追加</a>
-                </div>
+                {/* サブの意味 */}
+                <button className="flex text-amber-400 py-2" onClick={EditSubMeans}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 w-6 h-6">
+                    <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd" />
+                    </svg>
+                    サブの意味を追加する
+                </button>
+                {editSubMeans&&
+                    <div className="border border-gray-300 rounded-lg px-1 mb-2">
+                        {/* コンテキストからカテゴリのデータと更新の関数渡す */}
+                        <CategoryContext.Provider value={{categories,SetReloadCategory}}>
+                        {subWordMeans.map((dummy:any,index:any) => (
+                            <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg my-1" key={'#' + index}>
+                                
+                                    <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} category_id={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
+                                
+                                <input type="text"
+                                    name={`word_mean[${index}][word_mean]`}
+                                    value={subWordMeans[index].word_mean}
+                                    className="w-full ml-1"
+                                    placeholder="サブの意味"
+                                    onChange={(e) => handleInputSub(index, 'word_mean', e.target.value)}
+                                    required
+                                />
+                            </div>
+                        ))} 
+                        </CategoryContext.Provider>
 
-                <div className="md:flex">
+                    </div>
+                }
+
+                <div className="md:flex md:mb-1">
                     <textarea 
                         name="sentence" 
-                        rows={5} 
-                        className="w-full p-2 border border-gray-300 rounded-lg mr-1" 
+                        rows={3} 
+                        className="w-full p-2 border border-gray-300 rounded-lg md:mr-1" 
                         onChange={handleInput} 
                         value={card.sentence}
                         placeholder="例文:Apple is red and delicious fruits.">
@@ -233,7 +278,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                     <textarea 
                         name="sentence_mean" 
-                        rows={5} 
+                        rows={3} 
                         className="w-full p-2 border border-gray-300 rounded-lg" 
                         onChange={handleInput} 
                         value={card.sentence_mean}
@@ -241,35 +286,27 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     </textarea>
                 </div> 
 
-                <div>
-                    <h4>サブの意味を追加</h4>
+                <input type="text" 
+                        name="link" 
+                        className="w-full h-10 border border-gray-300 rounded-lg pl-2" 
+                        placeholder="サイトのULR ex.)eng-card.com" 
+                        value={card.link}
+                        onChange={handleInput} 
+                        required
+                />
 
-                    {/* コンテキストからカテゴリのデータと更新の関数渡す */}
-                    <CategoryContext.Provider value={{categories,SetReloadCategory}}>
-                    {subWordMeans.map((dummy:any,index:any) => (
-                        <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg mt-2">
-                            
-                                <SubMeanCategorySelect name={`word_mean[${index}][category_id]`} category_id={subWordMeans[index].category_id} onchange={(e:any) => handleInputSub(index, 'category_id', e.target.value)}/>
-                            
-                            <input type="text"
-                                name={`word_mean[${index}][word_mean]`}
-                                value={subWordMeans[index].word_mean}
-                                className="w-full"
-                                placeholder="ワード"
-                                onChange={(e) => handleInputSub(index, 'word_mean', e.target.value)}
-                                required
-                            />
-                        </div>
-                    ))} 
-                    </CategoryContext.Provider>
 
+
+                <div className="flex mt-2">
+                    <div className="w-full mr-1">
+                        <ButtonWithOnClick color={'gray'} text={'キャンセル'} onclick={closeModal} />
+                    </div>
+                    <div className="w-full ml-1">
+                        <ButtonWithOnClick color={'yellow'} text={'カード追加'} onclick={CreateSubmit} />
+                    </div>
                 </div>
 
-                <div className="mt-10">
-                    <ButtonWithOnClick color={'yellow'} text={'カード追加'} onclick={CreateSubmit} />
-                </div>
-
-            </div>
+            </dialog>
             
         </>
     );

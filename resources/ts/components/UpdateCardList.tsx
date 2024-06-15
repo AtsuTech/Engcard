@@ -55,25 +55,6 @@ export const UpdateCardList:FC<{id: any}> = ({id}) => {
                     </div>          
                 </div>
 
-
-                // <div key={card.id} className="flex ">
-                //     <div className="flex w-full h-fit border border-gray-300 mb-3 p-3 rounded-lg">
-                //         <div className="w-full border-r border-gray-300 /text-2xl">{card.word}</div>
-                //         <div className="flex w-full">
-                //             {/* <div className="mr-0 bg-gray-400 w-18 h-8 ml-1 mr-1 p-1 text-white rounded-lg font-medium text-1xl">{card.category}</div> */}
-                //             <span className="block w-fit h-fit bg-gray-400 px-2 text-center text-white text-sm rounded">{card.category}</span>
-                //             <div className="text-sm">{card.word_mean}</div>
-                //         </div>
-                //     </div>
-
-                //     <div className="flex items-center justify-center /border-2 h-12 ml-2 border-amber-400 rounded-lg">
-                //         {/* <UpdateCardLink id={card.uuid} /> */}
-                //         <OperateCardMenu id={card.id} uuid={card.uuid}  />
-                //     </div>
-
-                // </div>
-                
-
             ))}
             <CreateCard id={id} Update={Update} />
         </>
