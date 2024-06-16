@@ -3,6 +3,7 @@ import { useState, useEffect} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FlashcardList } from "./FlashcardList";
+import { Title } from "./parts_component/Title";
 
 document.title = 'ホーム';
 
@@ -24,9 +25,14 @@ export const Home: FC = () => {
 
 
     return (
-        <main className="w-full /mt-5 /mb-10 p-5 rounded-3xl bg-white text-slate-600">
+        <main className="w-full p-5 rounded-3xl bg-white text-slate-600">
 
-            <div>
+            <div className="mb-5">
+                <Title title="Home" />
+            </div>
+            
+
+            {/* <div>
                 <h1 className="text-2xl">Home</h1>
                 <h1>さがす</h1>
                 <div className="flex">
@@ -37,11 +43,11 @@ export const Home: FC = () => {
                         </svg>
                     </button>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="mt-5">
+            {/* <div className="mt-5">
                 <h1>タイムライン</h1>
-            </div>
+            </div> */}
 
             <div className="flex flex-wrap w-full /ml-auto /mr-auto /mt-10 mb-10 /p-5 /rounded-3xl /bg-white /text-slate-600">
                 
@@ -93,7 +99,10 @@ export const Home: FC = () => {
                     
                 ))}
 
+
+
             </div>
+
         </main>
 
     )
