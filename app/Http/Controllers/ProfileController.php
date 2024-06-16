@@ -18,7 +18,11 @@ class ProfileController extends Controller
 
     //ダッシュボードで自身アカウント情報取得
     public function get_me(){
-        $me = User::with('following')->with('followed')->where('id','=',Auth::id())->first();
+        $me = User::with('following')->with('followed')->with('flashcards')->with('cards')->with('flashcard_favorites.flashcards')->with('flashcard_favorites.flashcards.user')->where('id','=',Auth::id())->first();
         return response()->json($me);
     }
+
+    // public function flashcard_favorites(){
+
+    // }
 }

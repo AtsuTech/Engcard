@@ -161,7 +161,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                 <p className="w-full text-center">カードを追加</p>
             </button>
 
-            <dialog className="md:w-3/5 w-full p-2 border border-gray-300 rounded-lg" id="modal">
+            <dialog className="md:w-3/5 w-full /m-0 p-2 border border-gray-300 rounded-lg" id="modal">
 
                 <div className="pb-3">
                     <div className="text-center font-bold text-slate-700">単語カード作成</div>

@@ -22,6 +22,7 @@ import { Home } from './components/Home';
 import { Search } from './components/Search';
 import { Index } from './components/Index';
 import { DashBoard } from './components/DashBoard';
+import { FlashcardFavoriteList } from './components/FlashcardFavoriteList';
 import { Setting } from './components/Setting';
 import { UserUpdate } from './components/auth/UserUpdate';
 import { UserUnscribe } from './components/auth/UserUnscribe';
@@ -86,6 +87,7 @@ root.render(
                     {/* 認証ユーザーのみアクセス可能 */}
                     <Route path='/' element={<AuthRoute />}>
                         <Route path="/dashboard" element={<DashBoard />} />
+                        <Route path="/flashcardfavorite" element={<FlashcardFavoriteList />} />
                         <Route path="/setting" element={<Setting />} />
                         <Route path="/user/update" element={<UserUpdate />} />
                         <Route path="/user/password/update" element={<PasswordUpdate />} />

@@ -18,7 +18,7 @@ export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,cate
                             </div>
                         </div>
 
-                        <p className="pl-2">
+                        <p className="pl-2 truncate">
                             {word}
                         </p>
 
@@ -33,7 +33,7 @@ export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,cate
 
                     {/* right */}
                     <div className="/bg-green-400 w-1/2 h-12 flex items-center">
-                        <p className="ml-2 w-[200px] line-clamp-1">
+                        <p className="ml-2 line-clamp-1 /truncate">
                             {category != null &&
                                 <span className="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-1 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                                     {category}

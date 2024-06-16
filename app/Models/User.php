@@ -76,6 +76,23 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+    //単語帳のリレーション
+    public function flashcards()
+    {
+        return $this->HasMany('App\Models\Flashcard');
+    }
+
+    //単語カードのリレーション
+    public function cards()
+    {
+        return $this->HasMany('App\Models\Card');
+    }
+
+    //単語帳お気に入りのリレーション
+    public function flashcard_favorites()
+    {
+        return $this->HasMany('App\Models\FlashcardFavorite');
+    }
 
 
 }

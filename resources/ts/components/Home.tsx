@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useState, useEffect} from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FlashcardFavorite } from "./FlashcardFavorite";
+import { FlashcardList } from "./FlashcardList";
 
 document.title = 'ホーム';
 
@@ -50,29 +50,45 @@ export const Home: FC = () => {
 
                 {flashcards.map( (flashcard:any) => (
                     
-                    <div key={flashcard.id} className="block w-full md:w-3/6 p-1">
-                        <div className="border border-gray-300 p-2 rounded">
-                        <Link to={`/flashcard/${flashcard.uuid}`} className="block w-full text-2xl">
-                            {flashcard.title}
-                        </Link>
-                        <div className="flex">
-                            <small className="mr-2">{flashcard.updated_at}</small>
-                            <Link to={'/profile/' + flashcard.user.personal_id}>
-                                <div className="mr-2 flex">
+                    // <div key={flashcard.id} className="block w-full md:w-3/6 p-1">
+                    //     <div className="border border-gray-300 p-2 rounded">
+                    //     <Link to={`/flashcard/${flashcard.uuid}`} className="block w-full text-2xl">
+                    //         {flashcard.title}
+                    //     </Link>
+                    //     <div className="flex">
+                    //         <small className="mr-2">{flashcard.updated_at}</small>
+                    //         <Link to={'/profile/' + flashcard.user.personal_id}>
+                    //             <div className="mr-2 flex">
                                     
-                                    <div className="pt-0.5">
-                                        {flashcard.user.profile_icon_img != null && <img src={'/storage/images/profile/' + flashcard.user.profile_icon_img} width={17} height={17} alt="" className="block rounded-full mr-1" />}
-                                        {flashcard.user.profile_icon_img == null && <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width={17} height={17} alt="" className="block rounded-full mr-1" />}
-                                    </div>
-                                    <small>{flashcard.user.name}</small>
+                    //                 <div className="pt-0.5">
+                    //                     {flashcard.user.profile_icon_img != null && <img src={'/storage/images/profile/' + flashcard.user.profile_icon_img} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                    //                     {flashcard.user.profile_icon_img == null && <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                    //                 </div>
+                    //                 <small>{flashcard.user.name}</small>
                                     
-                                </div>
-                            </Link>
-                            <small>カード枚数:{flashcard.cards.length}</small>
-                            {/* {typeof flashcard.id} */}
-                            {/* <FlashcardFavorite id={flashcard.id} /> */}
-                        </div>
-                        </div>
+                    //             </div>
+                    //         </Link>
+                    //         <small>カード枚数:{flashcard.cards.length}</small>
+                    //         {/* {typeof flashcard.id} */}
+                    //         {/* <FlashcardFavorite id={flashcard.id} /> */}
+                    //     </div>
+                    //     </div>
+                    // </div>
+
+                    <div key={flashcard.id} className="block w-full md:w-3/6 p-0.5">
+                        <FlashcardList
+                            id= ""
+                            uuid= {flashcard.uuid}
+                            title= {flashcard.title}
+                            description = {flashcard.description}
+                            date = {flashcard.updated_at}
+                            length = {flashcard.cardlength}
+                            favorite = {flashcard.favorite}
+                            user_id= ""
+                            user_name= {flashcard.user.name}
+                            user_img = {flashcard.user.profile_icon_img}
+
+                        />                        
                     </div>
                     
                 ))}

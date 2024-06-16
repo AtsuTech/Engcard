@@ -23,14 +23,6 @@ export const DashBoard: FC = () => {
         // トークンでアクセスしてユーザー名を取得
         axios.get('/api/account/me').then((response:AxiosResponse|any) => { 
             console.log(response.data);
-            
-            // setMe({
-            //     name:response.data.name,
-            //     email:response.data.email,
-            //     password:response.data.password,
-            //     created_at:response.data.created_at,  
-            //     personal_id:response.data.personal_id,           
-            // });
 
             setMe(response.data);
 
@@ -47,47 +39,83 @@ export const DashBoard: FC = () => {
             <Title title="ダッシュボード" />
 
             <ul className="w-full mt-5 /text-sm font-medium bg-white border border-gray-300 rounded-lg">
-                <li className="w-full px-4 py-4 h-fit border-b border-gray-300 rounded-t-lg">
+                <li className="relative w-full px-4 py-4 h-fit border-b border-gray-300 rounded-t-lg">
                     <div className="flex">
-                        <ProfileImage width={80} height={80} />
+
+                        <div>
+                            <ProfileImage width={80} height={80} />
+                        </div>
+                        
                         <div className="w-full ml-3">
                             <span  className="text-2xl">
                                 {me.name}
                             </span>
                             <br />
-                            <span className="text-sm text-gray-300">
+                            <span className="text-xs text-gray-300">
                                 @{me.personal_id}
-                            </span>             
+                            </span>
+
+                            <div className="flex w-full text-xs md:text-base">
+                                <div className="w-fit pr-4">
+                                    フォロー  <span className="font-bold">{me.following ? me.following.length : 0}</span>人
+                                </div>
+                                <div className="w-fit pr-4">
+                                    フォロワー <span className="font-bold">{me.followed ? me.followed.length : 0}</span>人
+                                </div>
+                            </div> 
+                                  
                         </div>
+
+                    </div>
+                    <div className="mt-2 text-sm md:text-base">
+                        {me.comment}
+                    </div>
+
+                    <div className="absolute top-3 right-3">
                         <Link to="/user/update">
                             <button className="w-16 p-1 bg-amber-400 text-white rounded-full">編集</button>
                         </Link>
                     </div>
                 </li>
-                <li className="w-full px-4 py-4 border-b border-gray-300 rounded-t-lg">
+                <li className="w-full px-4 py-4 text-sm md:text-base border-b border-gray-300 rounded-t-lg">
                     メールアドレス : {me.email}
                 </li>
-                <li className="w-full px-4 py-4 border-b border-gray-300">
+                <li className="w-full px-4 py-4 text-sm md:text-base rounded-b-lg">
                     登録日 : {me.created_at}
-                </li>
-                <li className="w-full px-4 py-4 border-b border-gray-300">
-                    フォロー : {me.following ? me.following.length : 0}
-                </li>
-                <li className="w-full px-4 py-4 rounded-b-lg">
-                    フォロワー : {me.followed ? me.followed.length : 0}
                 </li>
             </ul>
 
-            <div className="flex mt-3 border border-gray-200 rounded-lg">
-                <button className="block w-full h-12 text-center border-r border-gray-200">
-                    単語帳
-                </button>
-                <button className="block w-full h-12 text-center border-r border-gray-200">
-                    単語カード
-                </button>
-                <button className="block w-full h-12 text-center">
-                    お気に入り
-                </button>
+            <div className="flex mt-3">
+
+                <div className="w-1/3 border border-gray-300 rounded-lg mr-1">
+                    <div className="text-center py-2">
+                        単語帳
+                    </div>
+                    <div className="text-center text-amber-400 font-bold text-4xl py-2">
+                        {me.flashcards ? me.flashcards.length : 0 }
+                    </div>
+                </div>
+
+                <div className="w-1/3 border border-gray-300 rounded-lg mx-1">
+                    <div className="text-center py-2">
+                        単語カード
+                    </div>
+                    <div className="text-center text-amber-400 font-bold text-4xl py-2">
+                        {me.cards ? me.cards.length : 0 }
+                    </div>
+                </div>
+
+                <div className="w-1/3 border border-gray-300 rounded-lg ml-1">
+                    <Link to="/flashcardfavorite">
+                        <div className="text-center py-2">
+                            お気に入り
+                        </div>
+                        <div className="text-center text-amber-400 font-bold text-4xl py-2">
+                            {me.flashcard_favorites ? me.flashcard_favorites.length : 0 }
+                        </div>
+                    </Link>
+                </div>
+
             </div>
 
 
