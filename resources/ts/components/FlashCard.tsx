@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BageDark } from "./parts_component/BageDark";
 import { PageBack } from "./parts_component/PageBack";
+import { FlashcardBreadcrumbs } from "./FlashcardBreadcrumbs";
 import { FlashcardFavorite } from "./FlashcardFavorite";
 import { CardList } from "./CardList";
 
@@ -83,34 +84,47 @@ export const FlashCard:FC = () =>{
     return(
         <>         
             <div>
-               
-                {/* <div>単語帳:{flashcard.title}</div> */}
-                
+                               
                 <div className="w-full h-fit /border /border-gray-300 rounded-lg p-3 bg-white">
 
-                    <PageBack />
+                    <div className="flex">
+                        <div className="mr-3">
+                            <PageBack />
+                        </div>
+                        <FlashcardBreadcrumbs current={flashcard.title} user={flashcard.user_id} />
+                    </div>
 
-                    <div className="flex text-right text-xs mb-2">
-                        <small className="flex">
-                            投稿:
-                            <div className="pt-1">
-                            {flashcard.profile_icon_img != null && <img src={'/storage/images/profile/' + flashcard.profile_icon_img} width={10} height={10} alt="" className="rounded-full mr-1" />}
-                            {flashcard.profile_icon_img == null && <img src={'/storage/images/profile/'} width={17} height={17} alt="" className="block rounded-full mr-1" />}
+                    <div className="relative h-10 px-2 text-xs">
+                        <div className="absolute flex right-2 mt-1">
+
+                            <div className="w-32 py-2 text-center /bg-blue-500 text-xs">
+                                編集:{flashcard.created_at}
                             </div>
-                            {flashcard.user_name}
-                        </small>
-                        <small className="ml-2">{flashcard.created_at}</small>
+
+                            <div className="flex w-fit /bg-rose-500">
+                                <div className="py-2">
+                                    <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + flashcard.profile_icon_img} 
+                                        className="block w-4 rounded-full border border-gray-400" 
+                                    />                            
+                                </div>
+                                <div className="pl-0.5 py-2 truncate">{flashcard.user_name}</div>
+                            </div>                        
+                        </div>
                     </div>
 
                     <div className="w-full h-fit border-2 border-yellow-400 mb-5 rounded-lg">
 
-                        <div className="w-full h-10 pl-2 pt-1 bg-yellow-400 text-sm">
+                        <div className="relative flex w-full h-10 pl-2 pt-1 bg-yellow-400 text-sm">
 
-                            <div className="flex w-20 h-hit py-1 items-center justify-center rounded-full bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <div className="flex w-20 h-6 mt-1 text-xs items-center justify-center rounded-full bg-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                                 </svg>
                                 単語帳
+                            </div>
+
+                            <div className="absolute top-1.5 right-2">
+                                <FlashcardFavorite id={flashcard_id} />
                             </div>
 
                         </div>
@@ -122,36 +136,46 @@ export const FlashCard:FC = () =>{
                     </div>
 
 
-                    <div className="text-xs">この単語帳の説明</div>
-                    <p className="w-full h-32 p-2 text-xs border border-gray-300 rounded-lg">
-                        {flashcard.description}
-                    </p>
+                    {flashcard.description &&
+                        <div className="w-full  p-2 text-xs border bg-gray-200 rounded-lg">
+                            <div className="text-sm font-bold">概要</div>
+                            {flashcard.description}
+                        </div>
+                    }
 
-                    <FlashcardFavorite id={flashcard_id} />
+                    
 
-                    <div className="flex">
+                    <div className="flex mt-5">
                         
-                        <button className="w-full h-fit m-1 p-4 bg-yellow-400 rounded-full">
+                        <button className="w-full h-fit mr-1 p-4 bg-yellow-400 rounded-full">
                             <Link to={`/memory/${flashcard_id}`} className="block w-full h-fit">
                             暗記する
                             </Link>
                         </button>
                         
+                        {cards.length > 10 ?
+                            <button className="w-full h-fit ml-1 p-4 bg-yellow-400 rounded-full">
+                                <Link to={`/quiz/${flashcard_id}`} className="block w-full h-fit">
+                                クイズ
+                                </Link>
+                            </button>
+                        :
+                            <button className="w-full h-fit ml-1 p-4 bg-gray-300 rounded-full">
+                                <div>クイズ</div>
+                            </button>
+                        }
 
-                        <button className="w-full h-fit m-1 p-4 bg-yellow-400 rounded-full">
-                            <Link to={`/quiz/${flashcard_id}`} className="block w-full h-fit">
-                            クイズ
-                            </Link>
-                        </button>
+                        
+
                     </div>
+                    {cards.length < 10 && <p className="text-xs text-center py-3">10枚以上カードを作るとクイズを利用できます</p> }
 
 
 
-
-                    <div className="mt-5 mb-5 text-center text-1xl border-b-2 border-b-yellow-400">
-                        単語カードリスト
-                        <div className="flex w-fit h-hit px-2 py-1 ml-auto mr-auto items-center justify-center text-xs rounded-full bg-gray-100">カード数:{cards.length}枚</div>
-                        <div className="text-center text-xs mt-1">リストをクリックすると詳細な情報を見ることができます</div>
+                    <div className="flex py-3 mt-5 mb-5 items-center justify-center /text-center text-1xl border-b-2 border-b-yellow-400">
+                        <div className="/bg-green-300">単語カード</div>
+                        <div className="flex w-fit px-2 py-1 text-xs rounded-full bg-gray-200">{cards.length}</div>
+                        {/* <div className="text-center text-xs mt-1">リストをクリックすると詳細な情報を見ることができます</div> */}
                     </div>
                     
                     {cards.length == 0 && 

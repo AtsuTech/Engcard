@@ -4,6 +4,7 @@ import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { UpdateCardList } from "./UpdateCardList";
 import { PageBack } from "./parts_component/PageBack";
+import { FlashcardBreadcrumbs } from "./FlashcardBreadcrumbs";
 import { Title } from "./parts_component/Title";
 import { ButtonWithOnClick } from "./parts_component/ButtonWithOnClick";
 
@@ -119,16 +120,16 @@ export const UpdateFlashCard:FC = () =>{
     }
 
     return(
-        <div className="block w-full /ml-auto /mr-auto /mt-10 /mb-10 p-1 md:p-5 rounded-3xl bg-white">
-
-            <div className="mb-1">
-                <PageBack />
-            </div>
-            
-
-            <h1 className="text-xs">単語帳を作成/カードの追加</h1>
+        <div className="block w-full p-1 md:p-5 rounded-3xl bg-white">
 
             <div className="flex">
+                <div className="mr-3">
+                    <PageBack />
+                </div>
+                <FlashcardBreadcrumbs current="単語帳の編集" user={flashcard.user_id} />
+            </div>
+            
+            <div className="flex py-2">
                 <div className="w-full">
                     <Title title={'単語帳の編集'} />
                 </div>

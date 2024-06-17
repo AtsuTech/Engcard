@@ -8,25 +8,24 @@ import { Link } from 'react-router-dom';
 export const FlashcardList:FC<{id:any,uuid:any,title:any,description:any,date:any,length:any,favorite:any,user_id:any,user_name:any,user_img:any}> = 
     ({id,uuid,title,description,date,length,favorite,user_id,user_name,user_img}) =>{
     return(
-        <Link to={`/flashcard/${uuid}`} className="block w-full drop-shadow-md" >
-            <div className="block w-full h-fit border border-gray-300 rounded-lg ">
+        <Link to={`/flashcard/${uuid}`} className="block w-full /drop-shadow-md /overflow-hidden hover:drop-shadow-md" >
+            <div className="block w-full h-fit border border-gray-300 rounded-lg /overflow-hidden">
 
                 <div className="p-2">
                     <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
                 </div>
             
-                <div className="px-4 h-16">
-                    <h5 className="w-full text-xl font-bold">{title}</h5>
-                    {description &&
-                        <div className="w-full line-clamp-1 mt-1 text-xs">
-                            {/* <div>
-                                <div className="w-fit px-2 bg-slate-300 rounded-full font-bold">概要</div>
-                            </div> */}
-                            <p>
-                                {description}
-                            </p>
-                        </div>
-                    }
+                <div className="px-4 h-12 flex items-center">
+                    <div>
+                        <h5 className="w-full text-xl font-bold">{title}</h5>
+                        {description &&
+                            <div className="w-full line-clamp-1 mt-1 text-xs">
+                                <p>
+                                    {description}
+                                </p>
+                            </div>
+                        }
+                    </div>
                 </div>
                     
                 <div className="relative h-10 px-2 text-xs">
