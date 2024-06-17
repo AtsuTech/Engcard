@@ -3,24 +3,16 @@ import { useState, useEffect} from "react";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { CreateCard } from "./CreateCard";
 import { UpdateCardLink } from "./UpdateCardLink";
-import { DeleteCard } from "./DeleteCard";
+//import { DeleteCard } from "./DeleteCard";
 import { CardList } from "./CardList";
 import { OperateCardMenu } from "./OperateCardMenu";
 
 export const UpdateCardList:FC<{id: any}> = ({id}) => {
 
     const [cards,setCards] = useState<any>([]);
-    //const [part_of_speeches,setPart_of_speeches] = useState<any>([]);
     
     const [update,setUpdate] = useState(false);
-    function Update(){
-        
-        if(update){
-            setUpdate(false);
-        }else if(!update){
-            setUpdate(true);
-        }
-    }
+    const Update = () => setUpdate(!update);
 
     //DBより編集対象データ取得し値をセット
     useEffect(()=>{
@@ -51,7 +43,7 @@ export const UpdateCardList:FC<{id: any}> = ({id}) => {
                         img_path ={card.img_path}
                     />   
                     <div className="ml-1">
-                       <OperateCardMenu id={card.id} uuid={card.uuid}  />
+                       <OperateCardMenu id={card.id} uuid={card.uuid} reload={Update} />
                     </div>          
                 </div>
 

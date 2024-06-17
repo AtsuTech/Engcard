@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { UpdateCardLink } from "./UpdateCardLink";
 import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 
-export const OperateCardMenu:FC<{id:any,uuid:any}> = ({id,uuid}) => {
+export const OperateCardMenu:FC<{id:any,uuid:any,reload:any}> = ({id,uuid,reload}) => {
 
     const [toggle,setToggle] = useState(false);
 
@@ -18,6 +18,7 @@ export const OperateCardMenu:FC<{id:any,uuid:any}> = ({id,uuid}) => {
         if (confirm) {
             axios.post('/api/card/delete',{card_id: id}).then((response:AxiosResponse) => { 
                 alert("削除しました。");
+                reload();
                 //setUpdate(true);
             }).catch((error) => { 
                 alert("失敗しました。");

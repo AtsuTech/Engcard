@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
+import { Bage } from "./parts_component/Bage";
 
 
 export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,category:any,user_id:any,flashcard_id:any,img_path:any}
@@ -35,9 +36,7 @@ export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,cate
                     <div className="/bg-green-400 w-1/2 h-12 flex items-center">
                         <p className="ml-2 line-clamp-1 /truncate">
                             {category != null &&
-                                <span className="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-1 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
-                                    {category}
-                                </span>
+                                <Bage value={category} />
                             }
                             {word_mean}
                         </p>
