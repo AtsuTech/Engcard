@@ -69,7 +69,7 @@ export const NavBar: FC = () => {
                             </div>
 
                             {account_menue &&
-                                <div className="absolute right-0  mt-2 p-2 w-40 h-fit bg-white rounded-lg shadow-lg text-gray-500">
+                                <div className="absolute right-0  mt-2 p-2 w-40 h-fit bg-white rounded-lg shadow-lg text-gray-500 z-50">
                                     <div className="flex items-cente">
                                         <div>
                                             <ProfileImage width={25} height={25}/>

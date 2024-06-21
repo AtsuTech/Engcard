@@ -125,8 +125,9 @@ class CardController extends Controller
         $card = Card::with(['flashcard'])->with('wordmeans')->findOrFail($id);
 
         $access = $card->flashcard->access->type;
+        //return response()->json($card);
         if($access == 0){
-            return response()->json(['message' => '非公開のカードです']);
+            return response()->json(['restriction' => true]);
         }elseif($access == 1){
             return response()->json($card);
         }
