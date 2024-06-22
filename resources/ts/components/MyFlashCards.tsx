@@ -120,7 +120,7 @@ export const MyFlashCards:FC =() =>{
                             <Link to={`/flashcard/${myflashcard.uuid}`} className="block w-full">
 
                                 <div className="p-2">
-                                    <h5 className="/font-semibold text-xl pb-2">{myflashcard.title}</h5>
+                                    <h5 className="text-xl pb-2 break-all">{myflashcard.title}</h5>
                                     {myflashcard.description != null &&
                                         <div className="wfull p-2 bg-gray-200 rounded-lg text-xs">
                                             <div>

@@ -130,8 +130,12 @@ export const FlashCard:FC = () =>{
                         </div>
 
                         <div className="p-2">
-                            <h5 className="text-2xl mb-2">{flashcard.title}</h5>
+                            {/* <h5 className="text-2xl h-fit /mb-2 text-wrap bg-purple-600">{flashcard.title}</h5> */}
+                            <h5 className="text-2xl h-fit text-wrap break-all">
+                                {flashcard.title}
+                            </h5>                            
                         </div>
+
 
                     </div>
 

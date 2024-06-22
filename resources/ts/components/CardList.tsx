@@ -14,20 +14,23 @@ export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,cate
                     {/* left */}
                     <div className="relative flex items-center w-1/2 border-r border-gray-300">
 
-                        <div className="flex w-5 h-full items-center justify-center border-r border-gray-300">
+                        <div className="w-4 h-full">
+                        <div className="flex w-4 h-full items-center justify-center border-r border-gray-300">
                             <div className={`w-2 h-2  rounded-full ${memory ? 'bg-amber-400' : 'bg-gray-400'}`}>
                             </div>
+                        </div>                            
                         </div>
 
-                        <p className="pl-2 truncate">
+
+                        <p className="w-full pl-2 truncate">
                             {word}
                         </p>
 
                         {img_path &&
-                            <div className="absolute right-1">
-                                <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ user_id + '/' + flashcard_id + '/' + img_path} alt="" className="block w-10 h-10 rounded-lg" />   
+                            <div className="w-16 mr-1">
+                                <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ user_id + '/' + flashcard_id + '/' + img_path} alt="" className="block w-full h-10 rounded-lg" />   
                             </div>
-                        }
+                        }   
 
 
                     </div>

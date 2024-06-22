@@ -42,7 +42,7 @@ export const FlashcardFavorite:FC<{id:any}> = ({id}) =>{
         // パラメータ(暗号化されたid)付きでアクセスし、該当データをDBより取得
         axios.post('/api/flashcard/favorite/add',{flashcard_id:id}).then((response) => { 
         
-            alert('liked!');
+            alert('いいねしました');
             setMyFavorite(true);
 
         }).catch((error) => { 
@@ -57,7 +57,7 @@ export const FlashcardFavorite:FC<{id:any}> = ({id}) =>{
         // パラメータ(暗号化されたid)付きでアクセスし、該当データをDBより取得
         axios.post('/api/flashcard/favorite/delete',{flashcard_id:id}).then((response) => { 
         
-            alert('unliked!');
+            alert('通信に失敗しました');
             setMyFavorite(false);
 
         }).catch((error) => { 

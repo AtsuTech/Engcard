@@ -62,7 +62,7 @@ export const UpdateCard:FC = () => {
                 memory : response.data.memory,
                 link : response.data.link,
                 flashcard_title:response.data.flashcard.title,
-                flashcard_id:response.data.flashcard.id_encrypt,
+                flashcard_id:response.data.flashcard.uuid,
             });
 
             //品詞のselectチェックの初期値を設定
@@ -137,29 +137,27 @@ export const UpdateCard:FC = () => {
 
         <div className="block w-full ml-auto mr-auto p-5 rounded-3xl bg-white md:w-2/3">
 
-            <PageBack />
-
-            <Title title={'カード編集'} />
-
-            <div>
-                <Link to={`/flashcard/${card.flashcard_id}`}><span>単語帳:{card.flashcard_title}</span></Link>/
-                <Link to=""><span>単語:{card.word}</span></Link>
+            <div className="flex items-center">
+                <PageBack />
+                <Link to={`/flashcard/${card.flashcard_id}`} className="ml-3 truncate">{card.flashcard_title}</Link>
             </div>
+            
+            <Title title={'カード編集'} />
 
             <form>
 
-                <label htmlFor="word">単語</label>
+                <label className="block mt-3" htmlFor="word">単語</label>
                 <input type="text" 
                     id="word"
                     name="word" 
-                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg" 
+                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg outline-amber-400" 
                     placeholder="単語 ex.)Apple" 
                     value={card.word}
                     onChange={handleInput} 
                     required
                 />
 
-                <label htmlFor="word_mean">意味</label>
+                <label className="block mt-3" htmlFor="word_mean">意味</label>
                 <div className="flex w-full h-10 border border-gray-300 rounded-lg p-1 focus-within:border-amber-400">
 
                     {/* カテゴリのデータ、更新関数をコンテキストで渡す */}
@@ -170,7 +168,7 @@ export const UpdateCard:FC = () => {
                     <input type="text" 
                         id="word_mean"
                         name="word_mean" 
-                        className="w-full pl-2" 
+                        className="w-full pl-2 outline-transparent" 
                         placeholder="訳 ex.)りんご" 
                         value={card.word_mean}
                         onChange={handleInput} 
@@ -179,7 +177,7 @@ export const UpdateCard:FC = () => {
                 </div>
 
                 {/* サブの意味 */}
-                <label htmlFor="">サブの意味</label>
+                <label className="block mt-3" htmlFor="">サブの意味</label>
                 <div className="w-full /h-10 border border-gray-300 p-2 rounded-lg">
 
                     {/* カテゴリのデータ、更新関数をコンテキストで渡す */}
@@ -211,38 +209,39 @@ export const UpdateCard:FC = () => {
                     id="sentence"
                     name="sentence" 
                     rows={5} 
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                    // defaultValue={card.sentence}
+                    className="w-full p-2 border border-gray-300 rounded-lg outline-amber-400" 
                     value={card.sentence==null ? "": card.sentence}
                     onChange={handleInput} 
                     placeholder="例文:Apple is red and delicious fruits."
                     >
                 </textarea>
 
-                <label htmlFor="sentence_mean">例文の訳</label>
+                <label className="block mt-3" htmlFor="sentence_mean">例文の訳</label>
                 <textarea 
                     id="sentence_mean"
                     name="sentence_mean" 
                     rows={5} 
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                    //defaultValue={card.sentence_mean}
+                    className="w-full p-2 border border-gray-300 rounded-lg outline-amber-400" 
                     value={card.sentence_mean==null ? "": card.sentence_mean}
                     onChange={handleInput} 
                     placeholder="例文(訳):りんごは赤くて美味しい果物です。"
                     >
                 </textarea>
 
-                <label htmlFor="link">関連リンク</label>
+                <label className="block mt-3" htmlFor="link">関連リンク</label>
                 <input type="text" 
                     id="link"
                     name="link" 
-                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg" 
+                    className="w-full h-10 border border-gray-300 pl-2 rounded-lg outline-amber-400" 
                     placeholder="ex.)Gazotan.com" 
                     value={card.link==null ? "": card.link}
                     onChange={handleInput} 
                 />
 
-                <ButtonWithOnClick text="更新" color="yellow" onclick={UpdateSubmit} />
+                <div className="mt-5">
+                    <ButtonWithOnClick text="更新" color="yellow" onclick={UpdateSubmit} />
+                </div>
+                
             </form>
         </div>
     );

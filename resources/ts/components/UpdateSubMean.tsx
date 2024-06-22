@@ -76,9 +76,9 @@ export const UpdateSubMean:FC<{id:any,category_id:any,word_mean:any;reload:any}>
 
     return(
         <div className="flex h-8 mb-1" >
-            <div className="flex w-full h-8 border border-gray-300 p-1 rounded">
+            <div className="flex w-full h-8 border border-gray-300 p-1 rounded focus-within:border-amber-400">
                 <SubMeanCategorySelect name="category_id" category_id={wordMean.category_id} onchange={handleInput}/>
-                <input className="block w-full" type="text" name="word_mean" value={wordMean.word_mean} onChange={handleInput} />
+                <input className="block w-full outline-transparent" type="text" name="word_mean" value={wordMean.word_mean} onChange={handleInput} />
             </div>
             
             <div className="flex">

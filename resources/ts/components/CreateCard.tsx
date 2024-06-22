@@ -163,19 +163,25 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
             <dialog className="md:w-3/5 w-full /m-0 p-2 border border-gray-300 rounded-lg" id="modal">
 
-                <div className="pb-3">
+                <div className="relative py-4">
                     <div className="text-center font-bold text-slate-700">単語カード作成</div>
+
+                    <button className="absolute top-1 right-1" onClick={closeModal}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-gray-600">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
 
                 
                 <div className="md:flex mb-1">
 
                     {/* 英単語+画像 */}
-                    <div className="flex w-full p-1 h-10 border border-gray-300 rounded-lg mr-1 mb-1 md:mb-0">
+                    <div className="flex w-full p-1 h-10 border border-gray-300 rounded-lg mr-1 mb-1 md:mb-0 focus-within:border-amber-400">
                     
                         <input type="text" 
                             name="word" 
-                            className="w-full pl-2 mr-1" 
+                            className="w-full pl-2 mr-1 outline-transparent" 
                             placeholder="単語 ex.)Apple" 
                             value={card.word}
                             onChange={handleInput} 
@@ -216,7 +222,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
                     </div>
 
                     {/* 英単語の意味＋カテゴリ */}
-                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg /md:ml-1">
+                    <div className="flex w-full h-10 p-1 border border-gray-300 rounded-lg focus-within:border-amber-400">
 
                         {/* コンテキストからカテゴリのデータと更新の関数渡す */}
                         <CategoryContext.Provider value={{categories,SetReloadCategory}}>
@@ -225,7 +231,7 @@ export const CreateCard:FC<{id: any,Update: any}> = ({id,Update}) => {
 
                         <input type="text" 
                             name="word_mean" 
-                            className="block w-full h-full pl-2 ml-1" 
+                            className="block w-full h-full pl-2 ml-1 outline-transparent" 
                             placeholder="訳 ex.)りんご" 
                             value={card.word_mean}
                             onChange={handleInput} 

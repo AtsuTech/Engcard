@@ -31,7 +31,7 @@ export const CategorySelect:FC<{name:any, category_id:any ,handleInput: any}> = 
 
     return(
 
-        <div className="relative inline-block">
+        <div className="relative inline-block text-gray-500">
 
             <div 
                 className="flex justify-center items-center text-center px-1 w-14 md:w-20 text-xs h-full /text-sm border border-gray-300 rounded-md"
@@ -47,14 +47,14 @@ export const CategorySelect:FC<{name:any, category_id:any ,handleInput: any}> = 
                 
                 <div className="absolute top-full left-0 mt-2 z-50">
 
-                    <div className="relative top-0 py-2 /right-28 z-10 bg-white /divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700">
+                    <div className="relative top-0 py-2 z-10 bg-white divide-gray-100 rounded-lg shadow-lg w-60 dark:bg-gray-700">
 
                         <button className="absolute right-3" onClick={View}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <ul className="w-full mt-10 h-80 overflow-auto">
+                        <ul className="w-full mt-10 h-48 overflow-auto">
 
                             {categories.map( (category:any) => (
                                 <li key={category.id}>

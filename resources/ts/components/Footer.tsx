@@ -11,7 +11,7 @@ export const Footer: FC = () => {
 
         <footer className="w-full text-white">
 
-            <div className="fixed w-full bottom-0 bg-slate-700/90 md:hidden">
+            <div className="fixed w-full bottom-0 bg-slate-700/90 md:hidden z-50">
                 <ul className="flex">
                     <li className="w-full">
                         <Link to="/home" className="block h-12 mt-2 mb-2 p-1 ml-2 text-center text-white">
