@@ -38,6 +38,8 @@ import { CategorySetting } from './components/CategorySetting';
 import { Memory } from './components/Memory';
 //import { Quiz } from './components/Quiz-xxx';
 import { Quiz } from './components/Quiz';
+import { TermsOfService } from './components/TermsOfService';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
 
 
 const container = document.getElementById('app');
@@ -119,6 +121,9 @@ root.render(
                     <Route path="/profile" element={<Profile />}>
                         <Route path=":user_id" element={<Profile />} />
                     </Route>
+
+                    <Route path="/termsofservice" element={<TermsOfService />} />
+                    <Route path="/privacypolicy" element={<PrivacyPolicy />} />
 
                 </Route>
 
