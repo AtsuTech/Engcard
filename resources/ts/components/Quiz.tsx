@@ -399,11 +399,10 @@ export const Quiz:FC =()=>{
                             {change ?
                                 <div>
                                     
-                                    <button className="block w-fit ml-auto mr-auto px-3 bg-slate-400 rounded-full text-white" onClick={Change}>もどる</button>
-                                    <div className="flex w-full h-48 md:h-96 text-6xl items-center justify-center">
+                                    <div className="flex w-full h-48 md:h-96 items-center justify-center">
                                         <div>
-                                            <h5 className="text-center text-sm mb-5">正解</h5>
-                                            {card.word_mean}
+                                            <button className="block w-fit ml-auto mr-auto my-3 px-3 bg-slate-400 rounded-full text-white" onClick={Change}>もどる</button>
+                                            <div className="text-6xl">{card.word_mean}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -419,7 +418,7 @@ export const Quiz:FC =()=>{
                                         {choice.map( (choice:any,index:number) => (
                                             <ul key={index}>
                                             {choice.id == card.id?
-                                                <CorrectAnswer choice={choice.word_mean +'/' + choice.id} selected_answer={selected_answer} action={Correct} />
+                                                <CorrectAnswer choice={choice.word_mean} selected_answer={selected_answer} action={Correct} />
                                                 :
                                                 <InCorrectAnswer choice={choice.word_mean} selected_answer={selected_answer} action={Incorrect} />
                                             }

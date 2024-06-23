@@ -144,11 +144,11 @@ export const Memory:FC =()=>{
                             
                             <div>
                                 {change ?
-                                    <div className="text-4xl md:text-6xl">
+                                    <div className="text-4xl md:text-6xl text-center">
                                         {card.word_mean}
                                     </div>
                                 :
-                                    <div className="text-4xl md:text-6xl">
+                                    <div className="text-4xl md:text-6xl text-center">
                                         {card.word}
                                     </div>
                                 }
@@ -161,17 +161,14 @@ export const Memory:FC =()=>{
 
 
                     {change ?
-                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border bg-gray-300 border-gray-400 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
+                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 /border bg-gray-400 /border-gray-400 text-white font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
                             単語に戻る
                         </button>
                     :
-                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border bg-amber-200 border-gray-400 text-gray-500 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
+                        <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 /border bg-amber-400 /border-gray-400 text-white font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
                             意味を見る
                         </button>
                     }
-                    {/* <button className="fixed bottom-20 transform -translate-x-1/2 left-1/2 border border-gray-400 text-gray-400 font-bold py-2 px-4 rounded-full w-1/2" onClick={Change}>
-                        めくる
-                    </button> */}
 
                 </div>
 

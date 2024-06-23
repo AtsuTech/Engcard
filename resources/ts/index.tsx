@@ -32,7 +32,7 @@ import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
 import { UpdateFlashCard } from './components/UpdateFlashCard';
 import { FlashCard } from './components/FlashCard';
-import { Card } from './components/Card';
+import { CardDetail } from './components/CardDetail';
 import { UpdateCard } from './components/UpdateCard';
 import { CategorySetting } from './components/CategorySetting';
 import { Memory } from './components/Memory';
@@ -116,8 +116,8 @@ root.render(
                         <Route path=":flashcard_id" element={<FlashCard />} />
                     </Route>
 
-                    <Route path="/card" element={<Card />}>
-                        <Route path=":card_id" element={<Card />} />
+                    <Route path="/card" element={<CardDetail />}>
+                        <Route path=":card_id" element={<CardDetail />} />
                     </Route>
 
 

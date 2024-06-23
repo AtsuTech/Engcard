@@ -27,7 +27,7 @@ export const CardList:FC<{id:any,uuid:any,memory:any,word:any,word_mean:any,cate
                         </p>
 
                         {img_path &&
-                            <div className="w-16 mr-1">
+                            <div className="w-16 md:w-12 mr-1">
                                 <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ user_id + '/' + flashcard_id + '/' + img_path} alt="" className="block w-full h-10 rounded-lg" />   
                             </div>
                         }   
