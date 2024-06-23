@@ -20,16 +20,14 @@ export const ProfileImage:FC<{width:number,height:number,}> = ({width,height}) =
 
     return(
         <>
-            {my_image != "" ?
-                <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + my_image} width={width} height={height} alt={my_image} className="block rounded-full border border-gray-400" />
-                :
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width={width} height={height} className="block rounded-full" />
-            }
+            <div className="w-fit border border-gray-300 rounded-full">
+                {my_image != "" ?
+                    <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + my_image} width={width} height={height} alt={my_image} className="block rounded-full border border-gray-400" />
+                    :
+                    <img src={location.protocol + '//' + window.location.host + "/material/images/icon-no-img.png"} width={width} height={height} className="block rounded-full" />
+                }                
+            </div>
 
-            {/* {my_image == null &&            
-                
-            } */}
-            
         </>
     );
 }

@@ -40,6 +40,7 @@ import { Memory } from './components/Memory';
 import { Quiz } from './components/Quiz';
 import { TermsOfService } from './components/TermsOfService';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { PageNotFound } from './components/PageNotFound';
 
 
 const container = document.getElementById('app');
@@ -50,7 +51,7 @@ root.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="*" element={<div>404　ページが見つかりません。</div>} />
+                
 
                 {/* 権限ユーザーのみアクセス可能 */}
                 <Route path='/' element={<AdminRouter />}>
@@ -104,6 +105,8 @@ root.render(
                         </Route>
                         <Route path="/category/setting" element={<CategorySetting />} />
                     </Route>
+
+                    <Route path="*" element={<PageNotFound />} />
 
                     <Route path="/home" element={<Home />} />
                     <Route path="/search" element={<Search />}/>

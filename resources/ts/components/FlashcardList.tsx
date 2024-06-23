@@ -47,13 +47,13 @@ export const FlashcardList:FC<{id:any,uuid:any,title:any,description:any,date:an
                             <div className="flex w-fit px-2 /py-1 text-xs rounded-full bg-gray-200">{length}枚</div>
                         </div>
 
-                        {/*  */}
-
                         <div className="flex w-fit /bg-rose-500">
                             <div className="py-2">
-                                <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + user_img} 
-                                    className="block w-4 rounded-full border border-gray-400" 
-                                />                            
+                                {user_img ?
+                                    <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + user_img} className="w-4 block rounded-full" />
+                                :
+                                    <img src={location.protocol + '//' + window.location.host + "/material/images/icon-no-img.png" } className="w-4 block rounded-full" />
+                                }                           
                             </div>
                             <div className="pl-0.5 py-2 truncate">{user_name}</div>
                         </div>                        

@@ -30,6 +30,7 @@ export const FlashCard:FC = () =>{
         updated_at:any,
         user_name:any,
         user_id:any,
+        personal_id:string,
         profile_icon_img:any,
     }
 
@@ -41,6 +42,7 @@ export const FlashCard:FC = () =>{
         updated_at:'',
         user_name:'',
         user_id:'',
+        personal_id:'',
         profile_icon_img:'',
     });
 
@@ -64,6 +66,7 @@ export const FlashCard:FC = () =>{
                 updated_at:response.data.updated_at,
                 user_name:response.data.user.name,
                 user_id:response.data.user.id,
+                personal_id:response.data.user.personal_id,
                 profile_icon_img:response.data.user.profile_icon_img,
             });
 
@@ -100,15 +103,24 @@ export const FlashCard:FC = () =>{
                             <div className="w-32 py-2 text-center /bg-blue-500 text-xs">
                                 編集:{flashcard.created_at}
                             </div>
-
-                            <div className="flex w-fit /bg-rose-500">
-                                <div className="py-2">
-                                    <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + flashcard.profile_icon_img} 
-                                        className="block w-4 rounded-full border border-gray-400" 
-                                    />                            
-                                </div>
-                                <div className="pl-0.5 py-2 truncate">{flashcard.user_name}</div>
-                            </div>                        
+                            <Link to={`/profile/${flashcard.personal_id}`}>
+                                <div className="flex w-fit /bg-rose-500">
+                                    
+                                    <div className="py-2">
+                                        {/* <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + flashcard.profile_icon_img} 
+                                            className="block w-4 rounded-full border border-gray-400" 
+                                        />  */}
+                                        {flashcard.profile_icon_img ?
+                                            <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + flashcard.profile_icon_img} className="w-4 block rounded-full" />
+                                        :
+                                            <img src={location.protocol + '//' + window.location.host + "/material/images/icon-no-img.png" } className="w-4 block rounded-full" />
+                                        }                                    
+                                    </div>
+                                    
+                                    <div className="pl-0.5 py-2 truncate">{flashcard.user_name}</div>
+                                    
+                                </div>    
+                            </Link>                    
                         </div>
                     </div>
 
@@ -200,39 +212,7 @@ export const FlashCard:FC = () =>{
                             flashcard_id ={card.flashcard_id}
                             img_path ={card.img_path}
                         /> 
-                        // <Link to={`/card/${card.uuid}`} key={card.id}>
-                        //     <div key={card.id} className="flex h-fit border bg-white border-gray-300 mb-3 /px-2 rounded">
 
-                        //         {/* left */}
-                        //         <div className="flex w-full border-r border-gray-300">
-
-                        //             <div className="flex w-5 items-center justify-center border-r border-gray-300">
-                        //                 <div className={`w-2 h-2  rounded-full ${card.memory ? 'bg-amber-400' : 'bg-gray-400'}`}>
-                        //                 </div>
-                        //             </div>
-
-                        //             <div className="w-full pt-2.5 pl-2">
-                        //                 {card.word}
-                        //             </div>
-
-                        //             <div className="w-16 h-hit p-1">
-                        //                 <img src={location.protocol + '//' + window.location.host + '/storage/images/card/'+ flashcard.user_id + '/' + flashcard.id + '/' + card.img_path} alt="" className="block w-10 h-10 rounded-full" />
-                        //             </div>
-
-                        //         </div>
-
-                        //         {/* right */}
-                        //         <div className="flex w-full">
-                                    
-                        //             <div className="mt-2.5 ml-2">
-                        //                 <span className="w-fit h-fit bg-gray-400 p-1 text-center text-white text-xs rounded mr-1">{card.category}</span>
-                        //                 {card.word_mean}
-                        //             </div>
-
-                        //         </div>
-
-                        //     </div>
-                        // </Link>
                     ))}
 
                 </div>

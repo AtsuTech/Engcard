@@ -5,7 +5,9 @@ import { Cookies, useCookies } from "react-cookie";
 import { useState, useEffect, useContext } from "react";
 import { ProfileImage } from "./ProfileImage";
 import { Title } from "./parts_component/Title";
-import { RegisterEmailVerify } from "./auth/RegisterEmailVerify";
+//import { RegisterEmailVerify } from "./auth/RegisterEmailVerify";
+import { FollowingUser } from "./FollowingUser";
+import { FollowedUser } from "./FollowedUser";
 
 
 
@@ -57,10 +59,11 @@ export const DashBoard: FC = () => {
 
                             <div className="flex w-full text-xs md:text-base">
                                 <div className="w-fit pr-4">
-                                    フォロー  <span className="font-bold">{me.following ? me.following.length : 0}</span>人
+                                    {me.following && <FollowingUser users={me.following} /> }
+                                    
                                 </div>
                                 <div className="w-fit pr-4">
-                                    フォロワー <span className="font-bold">{me.followed ? me.followed.length : 0}</span>人
+                                    {me.following && <FollowedUser users={me.followed} /> }
                                 </div>
                             </div> 
                                   
