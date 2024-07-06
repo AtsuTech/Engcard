@@ -27,6 +27,8 @@ import { Setting } from './components/Setting';
 import { UserUpdate } from './components/auth/UserUpdate';
 import { UserUnscribe } from './components/auth/UserUnscribe';
 import { Profile } from './components/Profile';
+import { FollowedUser } from './components/FollowedUser';
+import { FollowingUser } from './components/FollowingUser';
 import { PasswordUpdate } from './components/auth/PasswordUpdate';
 import { MyFlashCards } from './components/MyFlashCards';
 import { CreateFlashCard } from './components/CreateFlashCard';
@@ -123,6 +125,14 @@ root.render(
 
                     <Route path="/profile" element={<Profile />}>
                         <Route path=":user_id" element={<Profile />} />
+                    </Route>
+
+                    <Route path="/following" element={<FollowingUser />}>
+                        <Route path=":user_id" element={<FollowingUser />} />
+                    </Route>
+
+                    <Route path="/followed" element={<FollowedUser />}>
+                        <Route path=":user_id" element={<FollowedUser />} />
                     </Route>
 
                     <Route path="/termsofservice" element={<TermsOfService />} />

@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import { ProfileImage } from "./ProfileImage";
 import { Title } from "./parts_component/Title";
 //import { RegisterEmailVerify } from "./auth/RegisterEmailVerify";
-import { FollowingUser } from "./FollowingUser";
+//import { FollowingUser } from "./FollowingUser";
 import { FollowedUser } from "./FollowedUser";
 
 
@@ -59,11 +59,18 @@ export const DashBoard: FC = () => {
 
                             <div className="flex w-full text-xs md:text-base">
                                 <div className="w-fit pr-4">
-                                    {me.following && <FollowingUser users={me.following} /> }
-                                    
+                                    {me.following && 
+                                        <Link to={`/following/${me.personal_id}`}>
+                                            <b>{me.following.length}</b> フォロー
+                                        </Link>  
+                                    }
                                 </div>
                                 <div className="w-fit pr-4">
-                                    {me.following && <FollowedUser users={me.followed} /> }
+                                    {me.followed && 
+                                        <Link to={`/followed/${me.personal_id}`}>
+                                            <b>{me.followed.length}</b> フォロー
+                                        </Link>  
+                                    }
                                 </div>
                             </div> 
                                   

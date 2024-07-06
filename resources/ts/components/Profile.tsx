@@ -5,10 +5,8 @@ import { useState, useEffect, useContext } from "react";
 import { Following } from "./Following";
 import { PageBack } from "./parts_component/PageBack";
 import { Title } from "./parts_component/Title";
-//import { FollowingUser } from "./FollowingUser";
-import { FollowingUser } from "./FollowingUser";
-import { FollowedUser } from "./FollowedUser";
 import { FlashcardList } from "./FlashcardList";
+import { Link } from 'react-router-dom';
 
 
 export const Profile:FC =()=>{
@@ -93,10 +91,14 @@ export const Profile:FC =()=>{
 
                             <div className="flex py-2">
                                 <div className="p-1">
-                                    <FollowingUser users={user.following} />
+                                    <Link to={`/following/${user.personal_id}`}>
+                                        <b>{user.following.length}</b> フォロー
+                                    </Link>
                                 </div>
                                 <div className="p-1">
-                                    <FollowedUser users={user.followed} />
+                                    <Link to={`/followed/${user.personal_id}`}>
+                                        <b>{user.followed.length}</b> フォロワー
+                                    </Link>
                                 </div>
                             </div>
                         

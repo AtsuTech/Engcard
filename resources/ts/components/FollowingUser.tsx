@@ -1,45 +1,75 @@
-import { FC } from "react";
+import { FC,useRef } from "react";
 import { UserList } from "./UserList";
+import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from "react";
+import axios,{AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import { Title } from "./parts_component/Title";
+import { PageBack } from "./parts_component/PageBack";
 
 
-export const FollowingUser:FC<{users:any}> = ({users}) =>{
+export const FollowingUser:FC = () =>{
 
-    const modal = document.getElementById("following_modal") as any;
+    document.title = "フォロー";
 
-    const openFollowingModal =() =>{
-        modal.showModal();
-    }
-    const closeFollowingModal =() =>{
-        modal.close();
-    }
+    const { user_id } = useParams();
+
+    const [user,setUser] = useState<any>();
+    const [flashcards,setFlashcards] = useState<any>();
+    const [update,setUpdate] = useState<boolean>(false);
+
+
+    useEffect(()=>{
+
+        const getUser = async () => {
+            axios.get('/api/profile/' + user_id).then((response:any) => { 
+
+                setUser(response.data);
+                setFlashcards(response.data.flashcards);
+                console.log(response.data);
+    
+            }).catch((error) => { 
+                console.log('通信エラーが発生しました');
+            });
+        }
+
+        getUser();
+    },[]);
+
 
     return(
-        <>
-            <button onClick={openFollowingModal}>
-                <b>{users.length}</b> フォロー
-            </button>
+        <div className="w-full p-5 rounded-3xl bg-white text-slate-600">
 
-            <dialog id="following_modal" className="w-full md:w-96 p-3 rounded-lg h-screen overflow-auto">
-
-                <div className="relative w-full">
-                    <div className="text-center py-2">フォロー</div>
-                    <button className="absolute top-1 right-1" onClick={closeFollowingModal}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-gray-600">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                {users.length == 0 && <div className="flex items-center justify-center h-full">まだフォローしていません</div>}
+            {user &&
                 
-                {users.map( (user:any) => (
-                    
-                    <div onClick={closeFollowingModal}>
-                        <UserList img={user.profile_icon_img} name={user.name} id={user.personal_id} />     
+                <>
+                    <div className="flex items-center">
+                        <PageBack />
+                        <div className="ml-2">
+                            <Title title="フォロー" />
+                        </div>
                     </div>
-                                   
-                ))}                   
-            </dialog>
-        </>
+
+                    <div className="flex items-center w-fit /bg-rose-500">
+                        <div className="py-2">
+                            {user.profile_icon_img ?
+                                <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + user.profile_icon_img} className="w-4 block rounded-full" />
+                            :
+                                <img src={location.protocol + '//' + window.location.host + "/material/images/icon-no-img.png" } className="w-4 block rounded-full" />
+                            }                           
+                        </div>
+                        <div className="pl-0.5 py-2 truncate">{user.name}さんがフォロー</div>
+                    </div>               
+
+                    <p className="text-center py-2">全 {user.following.length} 人</p>
+                    {user.following.map( (user:any) => (
+                        
+                        <UserList img={user.profile_icon_img} name={user.name} id={user.personal_id} />     
+                                    
+                    ))}   
+                </>
+
+            }
+            
+        </div>
     );
 }
