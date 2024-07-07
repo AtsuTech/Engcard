@@ -31,7 +31,7 @@ export const PasswordForgot: FC = () => {
 
         
       
-        axios.post('http://127.0.0.1:8000/api/password/forgot', params).then(function (response) {
+        axios.post('/api/password/forgot', params).then(function (response) {
             // 送信成功時の処理
             setLoading(false);
             alert('メール送信成功');
