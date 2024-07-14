@@ -24,8 +24,11 @@ export const AdminDashBoard:FC =()=>{
         <>
             
             <div className="flex text-gray-700">
-                <div className="w-96 h-screen p-2 bg-gray-800">
-                    <h5 className="text-white text-3xl">DashBoard</h5>
+                <aside className="w-64 h-screen /p-2 bg-gray-800">
+                    <div className="w-full flex items-center h-20 border-b border-b-slate-50">
+                        <h5 className="w-full text-white text-3xl text-center /h-20 ">DashBoard</h5>
+                    </div>
+
                     <img src="/storage/material_img/gazotan.png" alt="" width={100} className="mt-3 rounded-lg" />
                     <ul className="text-white">
                         <li className="p-4">
@@ -35,17 +38,18 @@ export const AdminDashBoard:FC =()=>{
                             <Link to="/admin/user/list">Users</Link>
                         </li>
                     </ul>
-                </div>
+                </aside>
                 <main className="w-full bg-gray-200">
 
-                    <div className="w-full h-20 p-2 bg-gray-300 flex">
+                    {/* Nabbar */}
+                    <div className="w-full h-20 p-2 bg-gray-300 flex items-center">
                         <Link to="/home">
                             <button className="bg-gray-500 hover:bg-gray-600 text-white p-5 rounded-full">
                                 Go to User Page
                             </button>
                         </Link>
 
-                        <div>
+                        <div className="ml-auto">
                             <ProfileImage width={50} height={50} />
                         </div>
 

@@ -42,8 +42,14 @@ export const UserList:FC =()=>{
                     <tr key={user.name}>
                         <td className="border border-slate-300 text-center">{user.id}</td>
                         <td className="border border-slate-300 text-center">
-                            {user.profile_image && <img src={'/storage/images/profile/' + user.profile_image.img_path} width={28} className="rounded-full inline-block" alt="" />}
-                            {user.profile_image ==null  && <span>NoImg</span>}
+                            {/* {user.profile_icon_img && <img src={'/storage/images/profile/' + user.profile_icon_img} width={28} className="rounded-full inline-block" alt="" />}
+                            {user.profile_icon_img ==null  && <span>NoImg</span>} */}
+
+                            {user.profile_icon_img != null ?
+                                <img src={location.protocol + '//' + window.location.host +'/storage/images/profile/' + user.profile_icon_img} width={28} className="block ml-auto mr-auto rounded-full border border-gray-400" />
+                                :
+                                <img src={location.protocol + '//' + window.location.host + "/material/images/icon-no-img.png"} width={28} className="block ml-auto mr-auto rounded-full" alt="ss" />
+                            }    
                         </td>
                         <td className="border border-slate-300">
                            {user.name}

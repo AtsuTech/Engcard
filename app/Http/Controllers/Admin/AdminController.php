@@ -17,7 +17,7 @@ class AdminController extends Controller
     }
 
     public function user_list(){
-        $users = User::with('profileImage')->get();
+        $users = User::all();
         return response()->json($users);
     }
 }
