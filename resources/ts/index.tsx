@@ -37,8 +37,8 @@ import { FlashCard } from './components/FlashCard';
 import { CardDetail } from './components/CardDetail';
 import { UpdateCard } from './components/UpdateCard';
 import { CategorySetting } from './components/CategorySetting';
+import { Read } from './components/Read';
 import { Memory } from './components/Memory';
-//import { Quiz } from './components/Quiz-xxx';
 import { Quiz } from './components/Quiz';
 import { TermsOfService } from './components/TermsOfService';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
@@ -75,7 +75,9 @@ root.render(
                 <Route path="/password/forgot" element={<PasswordForgot />} />
                 <Route path="/password/reset" element={<PasswordReset />} />
 
-
+                <Route path="/read" element={<Read />}>
+                    <Route path=":flashcard_id" element={<Read />} />
+                </Route>
 
                 <Route path="/memory" element={<Memory />}>
                     <Route path=":flashcard_id" element={<Memory />} />

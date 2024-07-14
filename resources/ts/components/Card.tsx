@@ -39,20 +39,21 @@ export const Card:FC<{date:any,memory:any,imgflag:any,img_path:any,word:any,word
                         <div>
                             <div style={{ backgroundImage: `url(${img_path})` }} className="bg-cover bg-center w-full h-36 md:h-64 /rounded-lg">
                             </div>     
-                            <h2 className="flex p-1 text-3xl items-center justify-center">
+                            <h2 className="flex p-1 text-2xl md:text-3xl items-center justify-center">
                                 <div className="flex"> 
                                     <div className="flex items-center justify-center pr-1">
                                         <SoundAction value={word} />
                                     </div>
-                                    <div className="w-full /ml-2 /bg-green-400">
+                                    <div className="w-full text-wrap">
                                         {word}
                                     </div>                                
                                 </div> 
                             </h2>                           
                         </div>
 
+
                     :
-                        <h2 className="flex p-1 h-36 md:h-64 text-3xl items-center justify-center">
+                        <h2 className="flex p-1 h-36 md:h-64 text-2xl md:text-3xl items-center justify-center">
                              <div className="flex"> 
                                 <div className="flex items-center justify-center pr-1">
                                     <SoundAction value={word} />

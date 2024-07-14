@@ -163,10 +163,16 @@ export const FlashCard:FC = () =>{
                     
 
                     <div className="flex mt-5">
+
+                        <button className="w-full h-fit mr-1 p-4 bg-yellow-400 rounded-full">
+                            <Link to={`/read/${flashcard_id}`} className="block w-full h-fit">
+                            読む
+                            </Link>
+                        </button>
                         
                         <button className="w-full h-fit mr-1 p-4 bg-yellow-400 rounded-full">
                             <Link to={`/memory/${flashcard_id}`} className="block w-full h-fit">
-                            暗記する
+                            暗記
                             </Link>
                         </button>
                         
