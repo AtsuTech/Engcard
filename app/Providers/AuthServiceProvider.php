@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;//コメントアウトされてたのを解
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\User;//追加
 use Illuminate\Auth\Notifications\ResetPassword;//追加
+use Illuminate\Support\Facades\Request;// 現在のドメイン部分を取得するためRequestヘルパーを使用
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,9 @@ class AuthServiceProvider extends ServiceProvider
         //パスワードリセットフォームへの移動するためのメールのリンクを独自に設定
         $this->registerPolicies();
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-                return 'http://127.0.0.1:8000/password/reset?token=' . $token . '&email=' .  $user->email;        
+            //return 'http://127.0.0.1:8000/password/reset?token=' . $token . '&email=' .  $user->email;     
+            $currentUrl = Request::root(); // 現在のドメイン部分を取得
+            return $currentUrl . '/password/reset?token=' . $token . '&email=' . $user->email;   
         });
 
 

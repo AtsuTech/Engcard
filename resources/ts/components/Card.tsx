@@ -13,8 +13,8 @@ export const Card:FC<{date:any,memory:any,imgflag:any,img_path:any,word:any,word
     date,memory,imgflag,img_path,word,word_mean,category,sub_word_mean,sentence,sentence_mean,link}) => {
     return(
         <>
-            <div className="w-full md:w-96 ml-auto mr-auto text-right text-xs">編集:{date}</div>
-            <div className="w-full md:w-96 ml-auto mr-auto border /border-gray-300 rounded-lg bg-white shadow-2xl overflow-hidden">
+            {/* <div className="w-full md:w-96 ml-auto mr-auto text-right text-xs">編集:{date}</div> */}
+            <div className="w-full md:w-96 ml-auto mr-auto border /border-gray-300 rounded-lg bg-white /shadow-2xl overflow-hidden">
 
                 <div className="relative">
 
@@ -37,7 +37,7 @@ export const Card:FC<{date:any,memory:any,imgflag:any,img_path:any,word:any,word
                     {imgflag ?
     
                         <div>
-                            <div style={{ backgroundImage: `url(${img_path})` }} className="/bg-gray-500 bg-cover bg-center w-full h-64 /rounded-lg">
+                            <div style={{ backgroundImage: `url(${img_path})` }} className="bg-cover bg-center w-full h-36 md:h-64 /rounded-lg">
                             </div>     
                             <h2 className="flex p-1 text-3xl items-center justify-center">
                                 <div className="flex"> 
@@ -52,7 +52,7 @@ export const Card:FC<{date:any,memory:any,imgflag:any,img_path:any,word:any,word
                         </div>
 
                     :
-                        <h2 className="flex p-1 h-64 text-3xl items-center justify-center">
+                        <h2 className="flex p-1 h-36 md:h-64 text-3xl items-center justify-center">
                              <div className="flex"> 
                                 <div className="flex items-center justify-center pr-1">
                                     <SoundAction value={word} />

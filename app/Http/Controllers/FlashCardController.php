@@ -19,7 +19,7 @@ class FlashCardController extends Controller
         $id = $hashids->decode($id)[0];//※配列で帰ってくる
         
         //デコードしたidで検索
-        $flashcard = Flashcard::with(['user'])->with(['cards'])->findOrFail($id);
+        $flashcard = Flashcard::with(['user'])->with(['cards.wordmeans'])->findOrFail($id);
         return response()->json($flashcard);
 
     }

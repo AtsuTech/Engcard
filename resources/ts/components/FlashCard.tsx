@@ -73,6 +73,7 @@ export const FlashCard:FC = () =>{
             
 
             setCards(response.data.cards);
+            console.log(response.data.cards);
 
         }).catch((error) => { 
             console.log(error);
@@ -208,6 +209,10 @@ export const FlashCard:FC = () =>{
                             word ={card.word}
                             word_mean ={card.word_mean}
                             category ={card.category}
+                            sub_word_mean={card.wordmeans}
+                            sentence={card.sentence}
+                            sentence_mean={card.sentence_mean}
+                            link={card.link}
                             user_id ={card.user_id}
                             flashcard_id ={card.flashcard_id}
                             img_path ={card.img_path}

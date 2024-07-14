@@ -196,7 +196,7 @@ export const UpdateFlashCard:FC = () =>{
 
             
 
-            <div className="block w-full ml-auto mr-auto">
+            <div className="block w-full /ml-auto /mr-auto">
                 <UpdateCardList id={flashcard_id} />
             </div>
 

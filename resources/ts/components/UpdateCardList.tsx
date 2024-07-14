@@ -31,17 +31,24 @@ export const UpdateCardList:FC<{id: any}> = ({id}) => {
         <>
             {cards.map( (card:any) => (
                 <div className="flex">
-                    <CardList 
-                        id ={card.id}
-                        uuid ={card.uuid}
-                        memory ={card.memory}
-                        word ={card.word}
-                        word_mean ={card.word_mean}
-                        category ={card.category}
-                        user_id ={card.user_id}
-                        flashcard_id ={card.flashcard_id}
-                        img_path ={card.img_path}
-                    />   
+                    <div className="w-[calc(100%_-_2rem)]">
+                        <CardList 
+                            id ={card.id}
+                            uuid ={card.uuid}
+                            memory ={card.memory}
+                            word ={card.word}
+                            word_mean ={card.word_mean}
+                            category ={card.category}
+                            sub_word_mean={card.wordmeans}
+                            sentence={card.sentence}
+                            sentence_mean={card.sentence_mean}
+                            link={card.link}
+                            user_id ={card.user_id}
+                            flashcard_id ={card.flashcard_id}
+                            img_path ={card.img_path}
+                        />                          
+                    </div>
+ 
                     <div className="ml-1">
                        <OperateCardMenu id={card.id} uuid={card.uuid} reload={Update} />
                     </div>          
