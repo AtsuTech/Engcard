@@ -9,6 +9,7 @@ import { AdminRouter } from './components/admin/AdminRouter';
 import { AdminDashBoard } from './components/admin/AdminDashBoard';
 import { AdminHome } from './components/admin/AdminHome';
 import { UserList } from './components/admin/UserList';
+import { Advertisements } from './components/admin/Advertisements';
 
 import { Layout } from './components/Layout';
 import { Login } from './components/auth/Login';
@@ -60,6 +61,7 @@ root.render(
                     <Route path="/" element={<AdminDashBoard />}>
                         <Route path="/admin" element={<AdminHome />} />
                         <Route path="/admin/user/list" element={<UserList />} />
+                        <Route path="/admin/advertisements" element={<Advertisements />} />
                     </Route>
                 </Route>
 

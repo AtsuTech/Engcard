@@ -150,7 +150,7 @@ export const PasswordReset: FC = (props) => {
                 <InputWithValidation  
                     label="新パスワード(確認でもう一度入力)"  
                     type="password" 
-                    value={resetPass.password} 
+                    value={resetPass.password_confirmation} 
                     name="password_confirmation" 
                     func={handleInput} 
                     placeholder="新パスワード(確認用)" 

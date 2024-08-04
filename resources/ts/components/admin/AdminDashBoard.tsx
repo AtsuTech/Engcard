@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 //Outletをインポート
 import { Outlet } from 'react-router-dom';
 import { ProfileImage } from "../ProfileImage";
+import { SideMenu } from "./SideMenu";
 
 export const AdminDashBoard:FC =()=>{
 
@@ -24,21 +25,9 @@ export const AdminDashBoard:FC =()=>{
         <>
             
             <div className="flex text-gray-700">
-                <aside className="w-64 h-screen /p-2 bg-gray-800">
-                    <div className="w-full flex items-center h-20 border-b border-b-slate-50">
-                        <h5 className="w-full text-white text-3xl text-center /h-20 ">DashBoard</h5>
-                    </div>
 
-                    <img src="/storage/material_img/gazotan.png" alt="" width={100} className="mt-3 rounded-lg" />
-                    <ul className="text-white">
-                        <li className="p-4">
-                            <Link to="/admin">Home</Link>
-                        </li>
-                        <li className="p-4">
-                            <Link to="/admin/user/list">Users</Link>
-                        </li>
-                    </ul>
-                </aside>
+                <SideMenu />
+
                 <main className="w-full bg-gray-200">
 
                     {/* Nabbar */}

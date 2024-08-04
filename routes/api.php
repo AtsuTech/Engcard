@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RgisterEmailVerifyController;
 use App\Http\Controllers\LoginController;
@@ -43,6 +44,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
 	Route::get('/admin',[AdminController::class,'index']);
     Route::get('/admin/user/list',[AdminController::class,'user_list']);
+
+    //広告一覧
+    Route::get('/advertisement/index',[AdvertisementController::class,'index']);
+
+    //広告追加
+    Route::post('/advertisement/create',[AdvertisementController::class,'create']);
+
+    //広告編集
+    Route::post('/advertisement/update',[AdvertisementController::class,'update']);
+    
 });
 
 Route::middleware(['api'])->group(function ($router){
